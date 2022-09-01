@@ -26,15 +26,29 @@ public:
 	float TurnRateGamepad;
 
 	/* Value that can be fed into a SprintSpeed function to modify SprintSpeed based on progression*/
-	UPROPERTY(EditableAnywhere, Category = Character Movement: Walking)
+	UPROPERTY(EditAnywhere, Category = "Character Movement: Walking")
 	float SprintModifier;
 
-	UPROPERTY(EditableAnywhere, Category = Character Movement: Walking)
+	UPROPERTY(EditAnywhere, Category = "Character Movement: Walking")
 	float SprintSpeed;
 
 	/* Value that can be used to clamp max speed. */
-	UPROPERTY(EditableAnywhere, Category = Character Movement: Walking)
+	UPROPERTY(EditAnywhere, Category = "Character Movement: Walking")
 	float MaxSprintSpeed;
+
+	UPROPERTY(EditAnywhere, Category = "Character Movement: Walking")
+	float Stamina = 100.0f;
+
+	UPROPERTY(EditAnywhere, Category = "Character Movement: Walking")
+	float StaminaModifier = 0.0f;
+
+	UPROPERTY(EditAnywhere, Category = "Character Movement: Walking")
+	float MinStamina = 0.0f;
+
+	UPROPERTY(EditAnywhere, Category = "Character Movement: Walking")
+	float MaxStamina = 100.0f + StaminaModifier;
+
+	bool bIsSprinting = false;
 
 protected:
 
@@ -66,12 +80,13 @@ protected:
 	*/
 
 	void RequestSprintStart();
-
 	void RequestSprintStop();
 
 	void RequestCrouchStart();
-
 	void RequestCrouchStop();
+
+	void DrainStamina();
+	void RegenStamina();
 
 protected:
 	// APawn interface

@@ -7,6 +7,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Math/UnrealMathUtility.h"
 
 //////////////////////////////////////////////////////////////////////////
 // ADeadOfTheKnightTPCharacter
@@ -132,22 +133,46 @@ void ADeadOfTheKnightTPCharacter::MoveRight(float Value)
 	}
 }
 
+// ** CHARACTER MOVEMENT ** //
+
 void ADeadOfTheKnightTPCharacter::RequestSprintStart()
 {
-
+	if (Stamina != 0)
+	{
+		GetCharacterMovement()->MaxWalkSpeed += SprintSpeed;
+		bIsSprinting = true;
+	}
 }
 
 void ADeadOfTheKnightTPCharacter::RequestSprintStop()
 {
-
+	GetCharacterMovement()->MaxWalkSpeed -= SprintSpeed;
+	bIsSprinting = false;
 }
 
 void ADeadOfTheKnightTPCharacter::RequestCrouchStart()
 {
-
+	Crouch();
 }
 
 void ADeadOfTheKnightTPCharacter::RequestCrouchStop()
 {
+	UnCrouch();
+}
+
+// ** STAMINA ** //
+
+void ADeadOfTheKnightTPCharacter::DrainStamina()
+{
+	if (bIsSprinting)
+	{
+
+	}
+}
+
+void ADeadOfTheKnightTPCharacter::RegenStamina()
+{
 
 }
+
+
