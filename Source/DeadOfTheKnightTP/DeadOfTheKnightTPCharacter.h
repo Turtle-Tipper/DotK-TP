@@ -25,29 +25,52 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Input)
 	float TurnRateGamepad;
 
-	/* Value that can be fed into a SprintSpeed function to modify SprintSpeed based on progression*/
+	/* Additive value that can be used to modify sprint speed.*/
 	UPROPERTY(EditAnywhere, Category = "Character Movement: Walking")
-	float SprintModifier;
+	float SprintModifier = 0.0f;
 
+	/* Additive value to base movement speed. */
 	UPROPERTY(EditAnywhere, Category = "Character Movement: Walking")
-	float SprintSpeed;
+	float SprintSpeed = 200.0f;
 
-	/* Value that can be used to clamp max speed. */
+	/* Value that determines the max speed a player can sprint. */
 	UPROPERTY(EditAnywhere, Category = "Character Movement: Walking")
-	float MaxSprintSpeed;
+	float MaxSprintSpeed = 1500.0f;
 
-	UPROPERTY(EditAnywhere, Category = "Character Movement: Walking")
+	// ** STAMINA ** //
+	
+	/* The current amount of stamina the character has. */
+	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
 	float Stamina = 100.0f;
 
-	UPROPERTY(EditAnywhere, Category = "Character Movement: Walking")
-	float StaminaModifier = 0.0f;
+	/* The increment at which stamina is drained. */
+	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
+	float StaminaDrain = 5.0f;
 
-	UPROPERTY(EditAnywhere, Category = "Character Movement: Walking")
+	/* Additive value that can be used to modify stamina drain.*/
+	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
+	float StaminaDrainModifier;
+
+	/* The increment at which stamina is regenerated. */
+	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
+	float StaminaRegen = 8.0f;
+
+	/* The lowest a players stamina will drain to. */
+	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
 	float MinStamina = 0.0f;
 
-	UPROPERTY(EditAnywhere, Category = "Character Movement: Walking")
+	/* Additive value that modifies the max stamina a character can have. */
+	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
+	float StaminaModifier = 0.0f;
+
+	/* The highest value a character's stamina regens to. */
+	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
 	float MaxStamina = 100.0f + StaminaModifier;
 
+	
+	/*
+		Management of types of stamina drain might be better with Data Table.
+	*/
 	bool bIsSprinting = false;
 
 protected:
@@ -76,17 +99,16 @@ protected:
 	/** Handler for when a touch input stops. */
 	void TouchStopped(ETouchIndex::Type FingerIndex, FVector Location);
 
-	/* Sprint
-	*/
-
+	// ** CHARACTER MOVEMENT ** //
 	void RequestSprintStart();
 	void RequestSprintStop();
-
+	//bool CanSprint(float Speed);
 	void RequestCrouchStart();
 	void RequestCrouchStop();
 
-	void DrainStamina();
-	void RegenStamina();
+	// ** STAMINA ** //
+	float DrainStamina(float StaminaDrainModifier);
+	float RegenStamina(float StaminaRegenModifier);
 
 protected:
 	// APawn interface
@@ -98,5 +120,7 @@ public:
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+
+	float GetSprintSpeed();
 };
 

@@ -139,40 +139,64 @@ void ADeadOfTheKnightTPCharacter::RequestSprintStart()
 {
 	if (Stamina != 0)
 	{
-		GetCharacterMovement()->MaxWalkSpeed += SprintSpeed;
+		GetCharacterMovement()->MaxWalkSpeed += GetSprintSpeed();
 		bIsSprinting = true;
 	}
 }
 
 void ADeadOfTheKnightTPCharacter::RequestSprintStop()
 {
-	GetCharacterMovement()->MaxWalkSpeed -= SprintSpeed;
+	GetCharacterMovement()->MaxWalkSpeed -= GetSprintSpeed();
 	bIsSprinting = false;
 }
+
+float ADeadOfTheKnightTPCharacter::GetSprintSpeed()
+{
+	return SprintSpeed + SprintModifier;
+}
+	
+
+
+/*
+bool CanSprint(float Speed)
+{
+	if (Speed > 0)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+*/
 
 void ADeadOfTheKnightTPCharacter::RequestCrouchStart()
 {
 	Crouch();
+	bIsCrouched = true;
 }
 
 void ADeadOfTheKnightTPCharacter::RequestCrouchStop()
 {
 	UnCrouch();
+	bIsCrouched = false;
 }
 
 // ** STAMINA ** //
 
-void ADeadOfTheKnightTPCharacter::DrainStamina()
+float ADeadOfTheKnightTPCharacter::DrainStamina(float DrainModifier)
 {
-	if (bIsSprinting)
-	{
-
-	}
+	
+	
+	return StaminaDrain + DrainModifier;
 }
 
-void ADeadOfTheKnightTPCharacter::RegenStamina()
+float ADeadOfTheKnightTPCharacter::RegenStamina(float RegenModifier)
 {
-
+	
+	
+	return StaminaRegen + RegenModifier;
 }
 
 
