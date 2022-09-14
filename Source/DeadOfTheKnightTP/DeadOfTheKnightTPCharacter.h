@@ -119,27 +119,27 @@ public:
 	// ** LEVELING ** //
 
 	/* Experience value that must be reached in order to level up. */
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, Category = "Character: Leveling")
 	float MaxExperience;
 
 	/* Variable that keeps track of current XP value. */
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, Category = "Character: Leveling")
 	float CurrentExperience = 0.0f;
 
 	/* Experience to be rewarded for different activities. */
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, Category = "Character: Leveling")
 	float ExperienceIncrease;
 
 	/* Multiplicative value to modify Experience gain. */
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, Category = "Character: Leveling")
 	float ExperienceModifier = 1.0f;
 
 	/* Variable that keeps track of current level. */
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, Category = "Character: Leveling")
 	int CurrentLevel = 1;
 
 	/* Variable that keeps track of currently available skill points. */
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, Category = "Character: Leveling")
 	int AvailableSkillPoints = 1;
 
 protected:
