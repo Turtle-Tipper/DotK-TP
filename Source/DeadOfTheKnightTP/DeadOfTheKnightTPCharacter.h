@@ -29,7 +29,7 @@ class ADeadOfTheKnightTPCharacter : public ACharacter
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Health, meta = (AllowPrivateAccess = "true"))
 	class UDotK_HealthComponent* HealthComponent;
 
-	/* Damage Manager Component */
+	/* Damage Handler Component */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Health, meta = (AllowPrivateAccess = "true"))
 	class UDotK_DamageHandlerComponent* DamageHandlerComponent;
 
@@ -145,7 +145,15 @@ public:
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
-
+	/** Returns HealthComponent subobject **/
+	FORCEINLINE class UDotK_HealthComponent* GetHealthComponent() const { return HealthComponent; }
+	/** Returns DamageHandler subobject **/
+	FORCEINLINE class UDotK_DamageHandlerComponent* GetDamageHandler() const { return DamageHandlerComponent; }
+	/** Returns Attribute subobject **/
+	FORCEINLINE class UDotK_CharacterAttributeComponent* GetAttributeComponent() const { return AttributeComponent; }
+	/** Returns LevelHandler subobject **/
+	FORCEINLINE class UDOTK_LevelHandlerComponent* GetLevelHandler() const { return LevelHandlerComponent; }
+	
 	float GetSprintSpeed();
 };
 
