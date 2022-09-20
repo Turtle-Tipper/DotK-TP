@@ -215,25 +215,3 @@ void ADeadOfTheKnightTPCharacter::IncreaseSkillPoints()
 {
 
 }
-
-// ** STATS ** //
-
-void ADeadOfTheKnightTPCharacter::UpdateStats(ECharacterStat StatType, int StatValue)
-{
-
-}
-
-void ADeadOfTheKnightTPCharacter::IncreaseStat(ECharacterStat StatType, int StatValue)
-{
-
-}
-
-void ADeadOfTheKnightTPCharacter::BuffStat(ECharacterStat StatType, int StatValue)
-{
-
-}
-
-void ADeadOfTheKnightTPCharacter::DebuffStat(ECharacterStat StatType, int StatValue)
-{
-
-}

@@ -6,15 +6,7 @@
 #include "GameFramework/Character.h"
 #include "DeadOfTheKnightTPCharacter.generated.h"
 
-UENUM(BlueprintType)
-enum class ECharacterStat : uint8
-{
-	None			UMETA(DisplayName = "None"),
-	Constitution	UMETA(DisplayName = "Constitution"),
-	Strength		UMETA(DisplayName = "Strength"),
-	Agility			UMETA(DisplayName = "Agility"),
-	Intellect		UMETA(DisplayName = "Intellect"),
-};
+
 
 UCLASS(config=Game)
 class ADeadOfTheKnightTPCharacter : public ACharacter
@@ -85,37 +77,6 @@ public:
 		Management of types of Stamina drain might be better with Data Table than with an ENUM.
 	*/
 
-	// ** STATS ** //
-
-	
-	/* The max amount of HP the character has. */
-	UPROPERTY(EditAnywhere, Category = "Character: Stats")
-	int MaxHP;
-
-	/* The current amount of HP the character has. */
-	UPROPERTY(EditAnywhere, Category = "Character: Stats")
-	int HP;
-
-	/* The current amount of Constitution the character has. */
-	UPROPERTY(EditAnywhere, Category = "Character: Stats")
-	int Constitution;
-	
-	/* The current amount of Strength the character has. */
-	UPROPERTY(EditAnywhere, Category = "Character: Stats")
-	int Strength;
-
-	/* The current amount of Agility the character has. */
-	UPROPERTY(EditAnywhere, Category = "Character: Stats")
-	int Agility;
-
-	/* The current amount of Intellect the character has. */
-	UPROPERTY(EditAnywhere, Category = "Character: Stats")
-	int Intellect;
-
-	/* Additive value that determines how much a stat with be increased/decreased. */
-	UPROPERTY(EditAnywhere, Category = "Character: Stats")
-	int StatModifier;
-
 	// ** LEVELING ** //
 
 	/* Experience value that must be reached in order to level up. */
@@ -183,20 +144,6 @@ protected:
 	void IncreaseExperience(float XP, float XPModifier);
 	void IncreaseLevel();
 	void IncreaseSkillPoints();
-
-	// ** STATS FUNCTIONS ** //
-
-	/* Called to permanently increase a stat. On level up or other progression points. */
-	void IncreaseStat(ECharacterStat StatType, int StatValue);
-
-	/* Called to temporarily increase a stat. */
-	void BuffStat(ECharacterStat StatType, int StatValue);
-
-	/* Called to temporarily debuff a stat. */
-	void DebuffStat(ECharacterStat StatType, int StatValue);
-
-	/* Called to update stats. */
-	void UpdateStats(ECharacterStat StatType, int StatValue);
 
 protected:
 	// APawn interface
