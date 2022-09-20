@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "DotK_CharacterAttributeComponent.h"
+#include "DOTK_LevelHandlerComponent.h"
 #include "DotK_HealthComponent.h"
 #include "DotK_DamageHandlerComponent.h"
 #include "DeadOfTheKnightTPCharacter.generated.h"
@@ -35,6 +36,10 @@ class ADeadOfTheKnightTPCharacter : public ACharacter
 	/* Attribute Component */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
 	class UDotK_CharacterAttributeComponent* AttributeComponent;
+
+	/* Level Handler Component */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Level, meta = (AllowPrivateAccess = "true"))
+	class UDOTK_LevelHandlerComponent* LevelHandlerComponent;
 
 public:
 	ADeadOfTheKnightTPCharacter();
@@ -93,32 +98,6 @@ public:
 		Management of types of Stamina drain might be better with Data Table than with an ENUM.
 	*/
 
-	// ** LEVELING ** //
-
-	/* Experience value that must be reached in order to level up. */
-	UPROPERTY(EditAnywhere, Category = "Character: Leveling")
-	float MaxExperience;
-
-	/* Variable that keeps track of current XP value. */
-	UPROPERTY(EditAnywhere, Category = "Character: Leveling")
-	float CurrentExperience = 0.0f;
-
-	/* Experience to be rewarded for different activities. */
-	UPROPERTY(EditAnywhere, Category = "Character: Leveling")
-	float ExperienceIncrease;
-
-	/* Multiplicative value to modify Experience gain. */
-	UPROPERTY(EditAnywhere, Category = "Character: Leveling")
-	float ExperienceModifier = 1.0f;
-
-	/* Variable that keeps track of current level. */
-	UPROPERTY(EditAnywhere, Category = "Character: Leveling")
-	int CurrentLevel = 1;
-
-	/* Variable that keeps track of currently available skill points. */
-	UPROPERTY(EditAnywhere, Category = "Character: Leveling")
-	int AvailableSkillPoints = 1;
-
 protected:
 
 	/** 
@@ -155,11 +134,6 @@ protected:
 	// ** STAMINA FUNCTIONS ** //
 	float DrainStamina(float StaminaDrainModifier);
 	float RegenStamina(float StaminaRegenModifier);
-
-	// ** LEVELING FUNCTIONS ** //
-	void IncreaseExperience(float XP, float XPModifier);
-	void IncreaseLevel();
-	void IncreaseSkillPoints();
 
 protected:
 	// APawn interface

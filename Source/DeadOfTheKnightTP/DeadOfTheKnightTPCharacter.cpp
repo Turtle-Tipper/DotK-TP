@@ -59,6 +59,9 @@ ADeadOfTheKnightTPCharacter::ADeadOfTheKnightTPCharacter()
 	// Create an attribute component
 	AttributeComponent = CreateDefaultSubobject<UDotK_CharacterAttributeComponent>(TEXT("AttributeComponent"));
 
+	// Create a level handler component
+	LevelHandlerComponent = CreateDefaultSubobject<UDOTK_LevelHandlerComponent>(TEXT("LevelHandlerComponent"));
+
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
 }
@@ -208,21 +211,4 @@ float ADeadOfTheKnightTPCharacter::RegenStamina(float RegenModifier)
 	
 	
 	return StaminaRegen + RegenModifier;
-}
-
-// ** LEVELING ** //
-
-void ADeadOfTheKnightTPCharacter::IncreaseExperience(float XP, float XPModifier)
-{
-
-}
-
-void ADeadOfTheKnightTPCharacter::IncreaseLevel()
-{
-	
-}
-
-void ADeadOfTheKnightTPCharacter::IncreaseSkillPoints()
-{
-
 }
