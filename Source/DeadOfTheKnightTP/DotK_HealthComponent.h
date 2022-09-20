@@ -40,9 +40,12 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+	UFUNCTION(BlueprintCallable)
 	void StartRegenHealth();
 
+	UFUNCTION(BlueprintCallable)
 	void EndRegenHealth();
 
+	UFUNCTION(BlueprintCallable)
 	void RequestIncreaseMaxHealth();
 };

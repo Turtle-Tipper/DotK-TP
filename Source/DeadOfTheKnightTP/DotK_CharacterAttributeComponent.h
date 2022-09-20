@@ -70,15 +70,19 @@ public:
 	// ** STATS FUNCTIONS ** //
 
 	/* Called to permanently increase a stat. On level up or other progression points. */
+	UFUNCTION(BlueprintCallable)
 	void IncreaseStat();
 
 	/* Called to temporarily increase a stat. */
+	UFUNCTION(BlueprintCallable)
 	void BuffStat();
 
 	/* Called to temporarily debuff a stat. */
+	UFUNCTION(BlueprintCallable)
 	void DebuffStat();
 
 	/* Called to update stats. */
+	UFUNCTION(BlueprintCallable)
 	void UpdateStats();
 		
 };
