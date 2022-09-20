@@ -4,6 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "DotK_CharacterAttributeComponent.h"
+#include "DotK_HealthComponent.h"
+#include "DotK_DamageHandlerComponent.h"
 #include "DeadOfTheKnightTPCharacter.generated.h"
 
 
@@ -20,6 +23,19 @@ class ADeadOfTheKnightTPCharacter : public ACharacter
 	/** Follow camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* FollowCamera;
+
+	/* Health Component */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Health, meta = (AllowPrivateAccess = "true"))
+	class UDotK_HealthComponent* HealthComponent;
+
+	/* Damage Manager Component */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Health, meta = (AllowPrivateAccess = "true"))
+	class UDotK_DamageHandlerComponent* DamageHandlerComponent;
+
+	/* Attribute Component */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
+	class UDotK_CharacterAttributeComponent* AttributeComponent;
+
 public:
 	ADeadOfTheKnightTPCharacter();
 
