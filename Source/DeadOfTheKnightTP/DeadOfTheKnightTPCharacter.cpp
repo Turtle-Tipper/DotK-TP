@@ -201,7 +201,7 @@ void ADeadOfTheKnightTPCharacter::RequestCrouchStop()
 
 void ADeadOfTheKnightTPCharacter::DrainStamina(float DrainModifier)
 {
-
+	
 }
 
 void ADeadOfTheKnightTPCharacter::RegenStaminaStart()

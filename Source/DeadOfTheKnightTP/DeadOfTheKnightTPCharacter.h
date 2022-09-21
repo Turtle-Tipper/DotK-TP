@@ -8,6 +8,7 @@
 #include "DOTK_LevelHandlerComponent.h"
 #include "DotK_HealthComponent.h"
 #include "DotK_DamageHandlerComponent.h"
+#include "Math/UnrealMathUtility.h"
 #include "DeadOfTheKnightTPCharacter.generated.h"
 
 
@@ -70,9 +71,13 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
 	float Stamina = 100.0f;
 
-	/* The increment at which Stamina is drained. */
+	/* The value of stamina to be drained. */
 	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
 	float StaminaDrain = 5.0f;
+
+	/* Interval at which Stamina is drained in looped functions. */
+	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
+	float DrainInterval = 1.0f;
 
 	/* Multiplicative value that can be used to modify Stamina drain.*/
 	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
@@ -82,9 +87,9 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
 	float StaminaRegen = 8.0f;
 
-	/* The lowest a players Stamina will drain to. */
+	/* Interval at which Stamina is regenerated. */
 	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
-	float MinStamina = 0.0f;
+	float RegenInterval = 1.0f;
 
 	/* Additive value that modifies the max Stamina a character can have. */
 	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
@@ -135,7 +140,7 @@ protected:
 	
 	/* Called to drain stamina. */
 	UFUNCTION(BlueprintCallable)
-	void DrainStamina(float StaminaDrainModifier);
+	void DrainStamina(float DrainModifier);
 	
 	/* Called to start regenerating stamina. */
 	UFUNCTION(BlueprintCallable)
