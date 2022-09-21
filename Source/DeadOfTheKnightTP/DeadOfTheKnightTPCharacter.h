@@ -75,7 +75,7 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
 	float StaminaDrain = 5.0f;
 
-	/* Interval at which Stamina is drained in looped functions. */
+	/* Interval in seconds at which Stamina is drained. */
 	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
 	float DrainInterval = 1.0f;
 
@@ -87,7 +87,7 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
 	float StaminaRegen = 8.0f;
 
-	/* Interval at which Stamina is regenerated. */
+	/* Interval in seconds at which Stamina is regenerated. */
 	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
 	float RegenInterval = 1.0f;
 
