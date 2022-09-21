@@ -199,16 +199,12 @@ void ADeadOfTheKnightTPCharacter::RequestCrouchStop()
 
 // ** STAMINA ** //
 
-float ADeadOfTheKnightTPCharacter::DrainStamina(float DrainModifier)
+void ADeadOfTheKnightTPCharacter::DrainStamina(float DrainModifier)
 {
-	
-	
-	return StaminaDrain + DrainModifier;
+
 }
 
-float ADeadOfTheKnightTPCharacter::RegenStamina(float RegenModifier)
+void ADeadOfTheKnightTPCharacter::RegenStamina(float RegenModifier)
 {
 	
-	
-	return StaminaRegen + RegenModifier;
 }

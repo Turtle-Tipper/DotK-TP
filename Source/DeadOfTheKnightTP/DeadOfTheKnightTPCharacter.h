@@ -132,9 +132,15 @@ protected:
 	void MoveRight(float Value);
 
 	// ** STAMINA FUNCTIONS ** //
-	float DrainStamina(float StaminaDrainModifier);
-	float RegenStamina(float StaminaRegenModifier);
-
+	
+	/* Called to start a loop of stamina draining. (Running) */
+	UFUNCTION(BlueprintCallable)
+	void DrainStamina(float StaminaDrainModifier);
+	
+	/* Called to start a loop of regenerating stamina. */
+	UFUNCTION(BlueprintCallable)
+	void RegenStamina(float StaminaRegenModifier);
+	
 protected:
 	// APawn interface
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
