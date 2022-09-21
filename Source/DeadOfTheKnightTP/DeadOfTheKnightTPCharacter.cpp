@@ -204,7 +204,19 @@ void ADeadOfTheKnightTPCharacter::DrainStamina(float DrainModifier)
 
 }
 
-void ADeadOfTheKnightTPCharacter::RegenStamina(float RegenModifier)
+void ADeadOfTheKnightTPCharacter::RegenStaminaStart()
+{
+
+}
+
+void ADeadOfTheKnightTPCharacter::RegenStaminaStop(float MaxStam, float CurrentStam)
 {
 	
+}
+
+// ** GETTER FUNCTIONS ** //
+
+float ADeadOfTheKnightTPCharacter::GetMaxStamina()
+{
+	return MaxStamina;
 }

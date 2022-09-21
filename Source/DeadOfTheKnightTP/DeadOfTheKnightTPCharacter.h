@@ -133,13 +133,17 @@ protected:
 
 	// ** STAMINA FUNCTIONS ** //
 	
-	/* Called to start a loop of stamina draining. (Running) */
+	/* Called to drain stamina. */
 	UFUNCTION(BlueprintCallable)
 	void DrainStamina(float StaminaDrainModifier);
 	
-	/* Called to start a loop of regenerating stamina. */
+	/* Called to start regenerating stamina. */
 	UFUNCTION(BlueprintCallable)
-	void RegenStamina(float StaminaRegenModifier);
+	void RegenStaminaStart();
+
+	/* Called to stop regenerating stamina. */
+	UFUNCTION(BlueprintCallable)
+	void RegenStaminaStop(float MaxStam, float CurrentStam);
 	
 protected:
 	// APawn interface
@@ -161,5 +165,7 @@ public:
 	FORCEINLINE class UDOTK_LevelHandlerComponent* GetLevelHandler() const { return LevelHandlerComponent; }
 	
 	float GetSprintSpeed();
+
+	float GetMaxStamina();
 };
 
