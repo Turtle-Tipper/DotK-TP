@@ -18,11 +18,11 @@ public:
 
 	/* Maximum health of entity. Applicable for creatures and breakable objects. */
 	UPROPERTY(EditAnywhere, Category = "Health")
-	int MaxHP = 100;
+	float MaxHP = 100;
 
 	/* Current health of entity. Applicable for creatures and breakable objects. */
 	UPROPERTY(EditAnywhere, Category = "Health")
-	int HP = MaxHP;
+	float CurrentHP = MaxHP;
 
 	/* Additive value that increases the health gained from each regen tick. */
 	UPROPERTY(EditAnywhere, Category = "Regen")
@@ -32,20 +32,37 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Regen")
 	float HealthRegenInterval = 3.0f;
 
+	/* Keeps track of life status. */
+	UPROPERTY(EditAnywhere, Category = "Health")
+	bool bIsAlive = true;
+
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
-public:	
-	// Called every frame
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-
 	UFUNCTION(BlueprintCallable)
 	void StartRegenHealth();
+
+	UFUNCTION(BlueprintCallable)
+	void Heal(float HealAmount);
+
+	UFUNCTION(BlueprintCallable)
+	void TakeDamage(float DamageAmount);
 
 	UFUNCTION(BlueprintCallable)
 	void EndRegenHealth();
 
 	UFUNCTION(BlueprintCallable)
 	void RequestIncreaseMaxHealth();
+
+public:	
+	// Called every frame
+	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+
+	// ** GETTER FUNCTIONS ** //
+
+	float GetCurrentHP() { return CurrentHP; }
+
+	float GetMaxHP() { return MaxHP; }
+
 };

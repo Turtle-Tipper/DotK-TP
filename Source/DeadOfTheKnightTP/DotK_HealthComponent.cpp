@@ -37,6 +37,33 @@ void UDotK_HealthComponent::StartRegenHealth()
 
 }
 
+void UDotK_HealthComponent::TakeDamage(float DamageAmount)
+{
+	if (bIsAlive)
+	{
+		CurrentHP -= DamageAmount;
+		
+		if (CurrentHP <= 0.0f)
+		{
+			CurrentHP = 0.0f;
+			bIsAlive = false;
+		}
+	}
+}
+
+void UDotK_HealthComponent::Heal(float HealAmount)
+{
+	if (bIsAlive)
+	{
+		CurrentHP += HealAmount;
+
+		if (CurrentHP > MaxHP)
+		{
+			CurrentHP = MaxHP;
+		}
+	}
+}
+
 void UDotK_HealthComponent::EndRegenHealth()
 {
 
