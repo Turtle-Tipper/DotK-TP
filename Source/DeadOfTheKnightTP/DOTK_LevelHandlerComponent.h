@@ -38,9 +38,7 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Leveling")
 		int CurrentLevel = 1;
 
-	/* Variable that keeps track of currently available skill points. */
-	UPROPERTY(EditAnywhere, Category = "Leveling")
-		int AvailableSkillPoints = 1;
+
 
 protected:
 	// Called when the game starts

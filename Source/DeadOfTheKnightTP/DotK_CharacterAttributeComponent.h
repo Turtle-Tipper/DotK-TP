@@ -9,13 +9,13 @@
 UENUM(BlueprintType)
 enum class ECharacterStat : uint8
 {
-	None			UMETA(DisplayName = "None"),
-	Constitution	UMETA(DisplayName = "Constitution"),
-	Strength		UMETA(DisplayName = "Strength"),
-	Agility			UMETA(DisplayName = "Agility"),
-	Intellect		UMETA(DisplayName = "Intellect"),
+	None				UMETA(DisplayName = "None"),
+	Constitution = 1	UMETA(DisplayName = "Constitution"),
+	Strength = 1		UMETA(DisplayName = "Strength"),
+	Agility	= 1			UMETA(DisplayName = "Agility"),
+	Intellect = 1		UMETA(DisplayName = "Intellect"),
+	Wisdom = 1			UMETA(DisplayName = "Wisdom"),
 };
-
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class DEADOFTHEKNIGHTTP_API UDotK_CharacterAttributeComponent : public UActorComponent
@@ -26,7 +26,15 @@ public:
 	// Sets default values for this component's properties
 	UDotK_CharacterAttributeComponent();
 
+	/* Variable that keeps track of currently available skill points. */
+	UPROPERTY(EditAnywhere, Category = "Leveling")
+	int AvailableSkillPoints = 1;
+
 	// ** PRIMARY STATS ** //
+
+	EPrimaryStat PrimaryStats;
+
+	TArray<uint8> PrimaryStatArray;
 
 	/* Armor reduces damage taken. */
 	UPROPERTY(EditAnywhere, Category = "Primary Stats")
@@ -40,7 +48,7 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Primary Stats")
 	int Strength;
 
-	/* Agility modifies dodge chance, and critical strike chance. */
+	/* Agility modifies attack speed and critical strike chance. */
 	UPROPERTY(EditAnywhere, Category = "Primary Stats")
 	int Agility;
 
@@ -71,7 +79,7 @@ public:
 
 	/* Called to permanently increase a stat. On level up or other progression points. */
 	UFUNCTION(BlueprintCallable)
-	void IncreaseStat();
+	void IncreaseStat(ECharacterStat StatToIncrease);
 
 	/* Called to temporarily increase a stat. */
 	UFUNCTION(BlueprintCallable)
@@ -83,6 +91,6 @@ public:
 
 	/* Called to update stats. */
 	UFUNCTION(BlueprintCallable)
-	void UpdateStats();
+	void UpdateStats(int NewStatValue);
 		
 };

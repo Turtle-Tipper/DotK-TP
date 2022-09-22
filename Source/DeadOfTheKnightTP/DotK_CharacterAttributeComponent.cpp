@@ -34,14 +34,18 @@ void UDotK_CharacterAttributeComponent::TickComponent(float DeltaTime, ELevelTic
 
 // ** STATS ** //
 
-void UDotK_CharacterAttributeComponent::UpdateStats()
+void UDotK_CharacterAttributeComponent::UpdateStats(int NewStatValue)
 {
 
 }
 
-void UDotK_CharacterAttributeComponent::IncreaseStat()
+void UDotK_CharacterAttributeComponent::IncreaseStat(ECharacterStat StatToIncrease)
 {
-
+	if (AvailableSkillPoints > 0)
+	{
+		StatToIncrease += 1;
+		--AvailableSkillPoints;
+	}
 }
 
 void UDotK_CharacterAttributeComponent::BuffStat()
