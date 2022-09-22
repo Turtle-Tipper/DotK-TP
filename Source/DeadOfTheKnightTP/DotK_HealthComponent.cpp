@@ -34,7 +34,10 @@ void UDotK_HealthComponent::TickComponent(float DeltaTime, ELevelTick TickType, 
 
 void UDotK_HealthComponent::StartRegenHealth()
 {
-
+	if (CurrentHP < MaxRegenHP)
+	{
+		Heal(HealthRegenAmount);
+	}
 }
 
 void UDotK_HealthComponent::TakeDamage(float DamageAmount)
@@ -62,11 +65,6 @@ void UDotK_HealthComponent::Heal(float HealAmount)
 			CurrentHP = MaxHP;
 		}
 	}
-}
-
-void UDotK_HealthComponent::EndRegenHealth()
-{
-
 }
 
 void UDotK_HealthComponent::RequestIncreaseMaxHealth()

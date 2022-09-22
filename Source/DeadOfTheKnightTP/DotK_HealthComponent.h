@@ -24,9 +24,13 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Health")
 	float CurrentHP = MaxHP;
 
-	/* Additive value that increases the health gained from each regen tick. */
+	/* Maximum amount of health the player can naturally regenerate to. */
 	UPROPERTY(EditAnywhere, Category = "Regen")
-	float HealthRegenModifier = 1.0f;
+	float MaxRegenHP = 70.0f;
+
+	/* Amount of health regenerated for each regen interval. */
+	UPROPERTY(EditAnywhere, Category = "Regen")
+	float HealthRegenAmount = 2.0f;
 
 	/* Time in seconds between each health regeneration. */
 	UPROPERTY(EditAnywhere, Category = "Regen")
@@ -42,9 +46,6 @@ protected:
 
 	UFUNCTION(BlueprintCallable)
 	void StartRegenHealth();
-
-	UFUNCTION(BlueprintCallable)
-	void EndRegenHealth();
 
 	UFUNCTION(BlueprintCallable)
 	void RequestIncreaseMaxHealth();
