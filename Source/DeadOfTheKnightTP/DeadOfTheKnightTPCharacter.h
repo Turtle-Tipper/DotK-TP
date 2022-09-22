@@ -103,6 +103,14 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
 	float MaxStamina = 100.0f + MaxStaminaModifier;
 
+	/* Damage amount applied by pressing K. For testing purposes. */
+	UPROPERTY(EditAnywhere, Category = "Debug")
+	float TestingDamageAmount = 5.0f;
+
+	/* Heal amount applied by pressing H. For testing purposes. */
+	UPROPERTY(EditAnywhere, Category = "Debug")
+	float TestingHealAmount = 5.0f;
+
 	/*
 		Management of types of Stamina drain might be better with Data Table than with an ENUM.
 	*/
@@ -153,6 +161,12 @@ protected:
 	/* Called to stop regenerating stamina. */
 	UFUNCTION(BlueprintCallable)
 	void RegenStaminaStop(float MaxStam, float CurrentStam);
+
+	UFUNCTION(BlueprintCallable)
+	void RequestTakeDamage();
+
+	UFUNCTION(BlueprintCallable)
+	void RequestHeal();
 	
 protected:
 	// APawn interface

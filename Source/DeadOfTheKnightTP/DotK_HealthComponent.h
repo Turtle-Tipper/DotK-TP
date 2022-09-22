@@ -44,12 +44,6 @@ protected:
 	void StartRegenHealth();
 
 	UFUNCTION(BlueprintCallable)
-	void Heal(float HealAmount);
-
-	UFUNCTION(BlueprintCallable)
-	void TakeDamage(float DamageAmount);
-
-	UFUNCTION(BlueprintCallable)
 	void EndRegenHealth();
 
 	UFUNCTION(BlueprintCallable)
@@ -59,10 +53,21 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+	UFUNCTION(BlueprintCallable)
+	void TakeDamage(float DamageAmount);
+
+	UFUNCTION(BlueprintCallable)
+	void Heal(float HealAmount);
+
 	// ** GETTER FUNCTIONS ** //
 
+	UFUNCTION(BlueprintPure)
 	float GetCurrentHP() { return CurrentHP; }
 
+	UFUNCTION(BlueprintPure)
 	float GetMaxHP() { return MaxHP; }
+
+	UFUNCTION(BlueprintPure)
+	float GetHPPercentage() { return CurrentHP / MaxHP; }
 
 };

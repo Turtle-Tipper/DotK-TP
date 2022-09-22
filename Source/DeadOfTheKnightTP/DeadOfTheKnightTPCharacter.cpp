@@ -96,6 +96,11 @@ void ADeadOfTheKnightTPCharacter::SetupPlayerInputComponent(class UInputComponen
 	// handle touch devices
 	PlayerInputComponent->BindTouch(IE_Pressed, this, &ADeadOfTheKnightTPCharacter::TouchStarted);
 	PlayerInputComponent->BindTouch(IE_Released, this, &ADeadOfTheKnightTPCharacter::TouchStopped);
+
+	// ** DEBUG ** //
+
+	PlayerInputComponent->BindAction("Take Damage", IE_Pressed, this, &ADeadOfTheKnightTPCharacter::RequestTakeDamage);
+	PlayerInputComponent->BindAction("Heal", IE_Pressed, this, &ADeadOfTheKnightTPCharacter::RequestHeal);
 }
 
 void ADeadOfTheKnightTPCharacter::TouchStarted(ETouchIndex::Type FingerIndex, FVector Location)
@@ -207,4 +212,17 @@ void ADeadOfTheKnightTPCharacter::RegenStaminaStart()
 void ADeadOfTheKnightTPCharacter::RegenStaminaStop(float MaxStam, float CurrentStam)
 {
 	
+}
+
+
+// ** HEALTH ** //
+
+void ADeadOfTheKnightTPCharacter::RequestTakeDamage()
+{
+	GetHealthComponent()->TakeDamage(TestingDamageAmount);
+}
+
+void ADeadOfTheKnightTPCharacter::RequestHeal()
+{
+	GetHealthComponent()->Heal(TestingHealAmount);
 }
