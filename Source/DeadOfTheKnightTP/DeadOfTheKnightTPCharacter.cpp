@@ -75,8 +75,10 @@ void ADeadOfTheKnightTPCharacter::SetupPlayerInputComponent(class UInputComponen
 	check(PlayerInputComponent);
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
 	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
+
 	PlayerInputComponent->BindAction("Sprint", IE_Pressed, this, &ADeadOfTheKnightTPCharacter::RequestSprintStart);
 	PlayerInputComponent->BindAction("Sprint", IE_Released, this, &ADeadOfTheKnightTPCharacter::RequestSprintStop);
+
 	PlayerInputComponent->BindAction("Crouch", IE_Pressed, this, &ADeadOfTheKnightTPCharacter::RequestCrouchStart);
 	PlayerInputComponent->BindAction("Crouch", IE_Released, this, &ADeadOfTheKnightTPCharacter::RequestCrouchStop);
 
@@ -153,23 +155,16 @@ void ADeadOfTheKnightTPCharacter::RequestSprintStart()
 {
 	if (Stamina != 0)
 	{
-		GetCharacterMovement()->MaxWalkSpeed += GetSprintSpeed();
+		GetCharacterMovement()->MaxWalkSpeed = GetSprintSpeed();
 		bIsSprinting = true;
 	}
 }
 
 void ADeadOfTheKnightTPCharacter::RequestSprintStop()
 {
-	GetCharacterMovement()->MaxWalkSpeed -= GetSprintSpeed();
+	GetCharacterMovement()->MaxWalkSpeed = GetWalkSpeed();
 	bIsSprinting = false;
 }
-
-float ADeadOfTheKnightTPCharacter::GetSprintSpeed()
-{
-	return SprintSpeed + SprintModifier;
-}
-	
-
 
 /*
 bool CanSprint(float Speed)
@@ -212,11 +207,4 @@ void ADeadOfTheKnightTPCharacter::RegenStaminaStart()
 void ADeadOfTheKnightTPCharacter::RegenStaminaStop(float MaxStam, float CurrentStam)
 {
 	
-}
-
-// ** GETTER FUNCTIONS ** //
-
-float ADeadOfTheKnightTPCharacter::GetMaxStamina()
-{
-	return MaxStamina;
 }

@@ -57,9 +57,13 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Character Movement: Walking")
 	float SprintModifier = 0.0f;
 
-	/* Additive value to base movement speed. */
+	/* Walking movement speed. */
 	UPROPERTY(EditAnywhere, Category = "Character Movement: Walking")
-	float SprintSpeed = 200.0f;
+	float WalkSpeed = 450.0f;
+
+	/* Sprint movement speed. */
+	UPROPERTY(EditAnywhere, Category = "Character Movement: Walking")
+	float SprintSpeed = 650.0f;
 
 	/* Value that determines the max speed a player can sprint. */
 	UPROPERTY(EditAnywhere, Category = "Character Movement: Walking")
@@ -156,6 +160,9 @@ protected:
 	// End of APawn interface
 
 public:
+
+	// ** GETTER FUNCTIONS ** //
+
 	/** Returns CameraBoom subobject **/
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	/** Returns FollowCamera subobject **/
@@ -169,8 +176,10 @@ public:
 	/** Returns LevelHandler subobject **/
 	FORCEINLINE class UDOTK_LevelHandlerComponent* GetLevelHandler() const { return LevelHandlerComponent; }
 	
-	float GetSprintSpeed();
+	float GetSprintSpeed() { return SprintSpeed; }
 
-	float GetMaxStamina();
+	float GetWalkSpeed() { return WalkSpeed; }
+
+	float GetMaxStamina() { return MaxStamina; }
 };
 
