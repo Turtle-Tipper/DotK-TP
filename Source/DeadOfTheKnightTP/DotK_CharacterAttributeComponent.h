@@ -9,12 +9,12 @@
 UENUM(BlueprintType)
 enum class ECharacterStat : uint8
 {
-	None				UMETA(DisplayName = "None"),
+	None			UMETA(DisplayName = "None"),
 	Constitution	UMETA(DisplayName = "Constitution"),
 	Strength		UMETA(DisplayName = "Strength"),
-	Agility		UMETA(DisplayName = "Agility"),
-	Intellect	UMETA(DisplayName = "Intellect"),
-	Wisdom		UMETA(DisplayName = "Wisdom"),
+	Agility			UMETA(DisplayName = "Agility"),
+	Intellect		UMETA(DisplayName = "Intellect"),
+	Wisdom			UMETA(DisplayName = "Wisdom"),
 };
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -38,33 +38,33 @@ public:
 
 	/* Armor reduces damage taken. */
 	UPROPERTY(EditAnywhere, Category = "Primary Stats")
-	int Armor;
+	int ArmorValue;
 
 	/* Constitution modifies HP and block value. */
 	UPROPERTY(EditAnywhere, Category = "Primary Stats")
-	int Constitution;
+	int ConstitutionValue;
 
 	/* Strength modifies physical damage. */
 	UPROPERTY(EditAnywhere, Category = "Primary Stats")
-	int Strength;
+	int StrengthValue;
 
 	/* Agility modifies attack speed and critical strike chance. */
 	UPROPERTY(EditAnywhere, Category = "Primary Stats")
-	int Agility;
+	int AgilityValue;
 
 	/* Intellect modifies spell damage. */
 	UPROPERTY(EditAnywhere, Category = "Primary Stats")
-	int Intellect;
+	int IntellectValue;
 
 	/* Wisdom modifies maximum mana and mana regen. */
 	UPROPERTY(EditAnywhere, Category = "Primary Stats")
-	int Wisdom;
+	int WisdomValue;
 
 	// ** SECONDARY STATS ** //
 
 	/* Haste modifies casting speed. */
 	UPROPERTY(EditAnywhere, Category = "Secondary Stats")
-	float Haste;
+	float HasteValue;
 
 protected:
 	// Called when the game starts
@@ -92,5 +92,13 @@ public:
 	/* Called to update stats. */
 	UFUNCTION(BlueprintCallable)
 	void UpdateStats(int NewStatValue);
+
+	/* GETTER FUNCTIONS */
+
+	UFUNCTION(BlueprintPure)
+	int GetAvailableSkillPoints() { return AvailableSkillPoints; }
+
+	UFUNCTION(BlueprintPure)
+	int GetStatValue(ECharacterStat StatToRetrieve);
 		
 };

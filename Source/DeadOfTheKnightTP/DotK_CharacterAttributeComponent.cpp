@@ -43,8 +43,38 @@ void UDotK_CharacterAttributeComponent::IncreaseStat(ECharacterStat StatToIncrea
 {
 	if (AvailableSkillPoints > 0)
 	{
-		//StatToIncrease += 1;
-		--AvailableSkillPoints;
+		switch (StatToIncrease)
+		{
+		case ECharacterStat::Agility:
+		{
+			AgilityValue += IncreaseValue;
+			break;
+		}
+		case ECharacterStat::Constitution:
+		{
+			ConstitutionValue += IncreaseValue;
+			break;
+		}
+		case ECharacterStat::Intellect:
+		{
+			IntellectValue += IncreaseValue;
+			break;
+		}
+		case ECharacterStat::Strength:
+		{
+			StrengthValue += IncreaseValue;
+			break;
+		}
+		case ECharacterStat::Wisdom:
+		{
+			WisdomValue += IncreaseValue;
+			break;
+		}
+		default:
+		{
+			break;
+		}
+		}
 	}
 }
 
@@ -56,4 +86,35 @@ void UDotK_CharacterAttributeComponent::BuffStat()
 void UDotK_CharacterAttributeComponent::DebuffStat()
 {
 
+}
+
+int UDotK_CharacterAttributeComponent::GetStatValue(ECharacterStat StatToRetrieve)
+{
+	switch (StatToRetrieve)
+	{
+	case ECharacterStat::Agility:
+	{
+		return AgilityValue;
+	}
+	case ECharacterStat::Constitution:
+	{
+		return ConstitutionValue;
+	}
+	case ECharacterStat::Intellect:
+	{
+		return IntellectValue;
+	}
+	case ECharacterStat::Strength:
+	{
+		return StrengthValue;
+	}
+	case ECharacterStat::Wisdom:
+	{
+		return WisdomValue;
+	}
+	default:
+	{
+		return NULL;
+	}
+	}
 }
