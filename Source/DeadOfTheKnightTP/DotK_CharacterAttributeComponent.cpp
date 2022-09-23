@@ -39,11 +39,11 @@ void UDotK_CharacterAttributeComponent::UpdateStats(int NewStatValue)
 
 }
 
-void UDotK_CharacterAttributeComponent::IncreaseStat(ECharacterStat StatToIncrease)
+void UDotK_CharacterAttributeComponent::IncreaseStat(ECharacterStat StatToIncrease, int IncreaseValue)
 {
 	if (AvailableSkillPoints > 0)
 	{
-		StatToIncrease += 1;
+		//StatToIncrease += 1;
 		--AvailableSkillPoints;
 	}
 }

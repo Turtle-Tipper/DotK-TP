@@ -103,6 +103,7 @@ void ADeadOfTheKnightTPCharacter::SetupPlayerInputComponent(class UInputComponen
 	PlayerInputComponent->BindAction("Heal", IE_Pressed, this, &ADeadOfTheKnightTPCharacter::RequestHeal);
 }
 
+
 void ADeadOfTheKnightTPCharacter::TouchStarted(ETouchIndex::Type FingerIndex, FVector Location)
 {
 	Jump();
@@ -184,6 +185,8 @@ bool CanSprint(float Speed)
 	}
 }
 */
+
+// TO DO: Crouch not fully implemented. No animations.
 
 void ADeadOfTheKnightTPCharacter::RequestCrouchStart()
 {

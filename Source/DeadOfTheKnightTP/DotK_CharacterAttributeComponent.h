@@ -10,11 +10,11 @@ UENUM(BlueprintType)
 enum class ECharacterStat : uint8
 {
 	None				UMETA(DisplayName = "None"),
-	Constitution = 1	UMETA(DisplayName = "Constitution"),
-	Strength = 1		UMETA(DisplayName = "Strength"),
-	Agility	= 1			UMETA(DisplayName = "Agility"),
-	Intellect = 1		UMETA(DisplayName = "Intellect"),
-	Wisdom = 1			UMETA(DisplayName = "Wisdom"),
+	Constitution	UMETA(DisplayName = "Constitution"),
+	Strength		UMETA(DisplayName = "Strength"),
+	Agility		UMETA(DisplayName = "Agility"),
+	Intellect	UMETA(DisplayName = "Intellect"),
+	Wisdom		UMETA(DisplayName = "Wisdom"),
 };
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -32,7 +32,7 @@ public:
 
 	// ** PRIMARY STATS ** //
 
-	EPrimaryStat PrimaryStats;
+	//EPrimaryStat PrimaryStats;
 
 	TArray<uint8> PrimaryStatArray;
 
@@ -79,7 +79,7 @@ public:
 
 	/* Called to permanently increase a stat. On level up or other progression points. */
 	UFUNCTION(BlueprintCallable)
-	void IncreaseStat(ECharacterStat StatToIncrease);
+	void IncreaseStat(ECharacterStat StatToIncrease, int IncreaseValue);
 
 	/* Called to temporarily increase a stat. */
 	UFUNCTION(BlueprintCallable)

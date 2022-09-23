@@ -34,6 +34,7 @@ void UDotK_HealthComponent::TickComponent(float DeltaTime, ELevelTick TickType, 
 
 void UDotK_HealthComponent::StartRegenHealth()
 {
+	// TO DO: Check if the character has taken damage within a certain time before starting to regen
 	if (CurrentHP < MaxRegenHP)
 	{
 		Heal(HealthRegenAmount);
