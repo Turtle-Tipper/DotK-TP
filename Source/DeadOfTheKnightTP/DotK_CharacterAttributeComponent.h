@@ -89,16 +89,24 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void DebuffStat();
 
-	/* Called to update stats. */
-	UFUNCTION(BlueprintCallable)
-	void UpdateStats(int NewStatValue);
-
 	/* GETTER FUNCTIONS */
 
 	UFUNCTION(BlueprintPure)
 	int GetAvailableSkillPoints() { return AvailableSkillPoints; }
 
+	/* STATS */
+
 	UFUNCTION(BlueprintPure)
-	int GetStatValue(ECharacterStat StatToRetrieve);
+	int GetConstitutionValue() { return ConstitutionValue; }
+	UFUNCTION(BlueprintPure)
+	int GetStrengthValue() { return StrengthValue; }
+	UFUNCTION(BlueprintPure)
+	int GetAgilityValue() { return AgilityValue; }
+	UFUNCTION(BlueprintPure)
+	int GetIntellectValue() { return IntellectValue; }
+	UFUNCTION(BlueprintPure)
+	int GetWisdomValue() { return WisdomValue; }
+	UFUNCTION(BlueprintPure)
+	int GetHasteValue() { return HasteValue; }
 		
 };

@@ -34,11 +34,6 @@ void UDotK_CharacterAttributeComponent::TickComponent(float DeltaTime, ELevelTic
 
 // ** STATS ** //
 
-void UDotK_CharacterAttributeComponent::UpdateStats(int NewStatValue)
-{
-
-}
-
 void UDotK_CharacterAttributeComponent::IncreaseStat(ECharacterStat StatToIncrease, int IncreaseValue)
 {
 	if (AvailableSkillPoints > 0)
@@ -86,35 +81,4 @@ void UDotK_CharacterAttributeComponent::BuffStat()
 void UDotK_CharacterAttributeComponent::DebuffStat()
 {
 
-}
-
-int UDotK_CharacterAttributeComponent::GetStatValue(ECharacterStat StatToRetrieve)
-{
-	switch (StatToRetrieve)
-	{
-	case ECharacterStat::Agility:
-	{
-		return AgilityValue;
-	}
-	case ECharacterStat::Constitution:
-	{
-		return ConstitutionValue;
-	}
-	case ECharacterStat::Intellect:
-	{
-		return IntellectValue;
-	}
-	case ECharacterStat::Strength:
-	{
-		return StrengthValue;
-	}
-	case ECharacterStat::Wisdom:
-	{
-		return WisdomValue;
-	}
-	default:
-	{
-		return NULL;
-	}
-	}
 }
