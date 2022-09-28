@@ -31,7 +31,10 @@ void UDotK_HealthComponent::TickComponent(float DeltaTime, ELevelTick TickType, 
 
 	if (bCanRegenHealth)
 	{
-		CurrentHP = FMath::FInterpConstantTo(CurrentHP, MaxHP, DeltaTime, HealthRegenAmount);
+		if (CurrentHP < MaxRegenHP)
+		{
+			CurrentHP = FMath::FInterpConstantTo(CurrentHP, MaxRegenHP, DeltaTime, HealthRegenAmount);
+		}
 	}
 }
 

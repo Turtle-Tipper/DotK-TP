@@ -56,7 +56,7 @@ protected:
 
 	/* Time in seconds after taking damage before health regen can start. */
 	UPROPERTY(EditAnywhere, Category = "Regen")
-	float HealthRegenDelay = 3.0f;
+	float HealthRegenDelay = 8.0f;
 
 	FTimerHandle HealthRegenTimerHandle;
 
