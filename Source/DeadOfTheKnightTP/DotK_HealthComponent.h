@@ -16,6 +16,24 @@ public:
 	// Sets default values for this component's properties
 	UDotK_HealthComponent();
 
+protected:
+	// Called when the game starts
+	virtual void BeginPlay() override;
+
+	UFUNCTION(BlueprintCallable)
+	void EnableHealthRegen();
+
+	UFUNCTION(BlueprintCallable)
+	void RequestIncreaseMaxHealth();
+
+	/* Keeps track of life status. */
+	UPROPERTY(EditAnywhere, Category = "Health")
+	bool bIsAlive = true;
+
+	/* Keeps track of whether entity can regen health. */
+	UPROPERTY(EditAnywhere, Category = "Regen")
+	bool bCanRegenHealth;
+
 	/* Maximum health of entity. Applicable for creatures and breakable objects. */
 	UPROPERTY(EditAnywhere, Category = "Health")
 	float MaxHP = 100;
@@ -30,25 +48,17 @@ public:
 
 	/* Amount of health regenerated for each regen interval. */
 	UPROPERTY(EditAnywhere, Category = "Regen")
-	float HealthRegenAmount = 2.0f;
+	float HealthRegenAmount = 1.0f;
 
 	/* Time in seconds between each health regeneration. */
 	UPROPERTY(EditAnywhere, Category = "Regen")
 	float HealthRegenInterval = 3.0f;
 
-	/* Keeps track of life status. */
-	UPROPERTY(EditAnywhere, Category = "Health")
-	bool bIsAlive = true;
+	/* Time in seconds after taking damage before health regen can start. */
+	UPROPERTY(EditAnywhere, Category = "Regen")
+	float HealthRegenDelay = 3.0f;
 
-protected:
-	// Called when the game starts
-	virtual void BeginPlay() override;
-
-	UFUNCTION(BlueprintCallable)
-	void StartRegenHealth();
-
-	UFUNCTION(BlueprintCallable)
-	void RequestIncreaseMaxHealth();
+	FTimerHandle HealthRegenTimerHandle;
 
 public:	
 	// Called every frame

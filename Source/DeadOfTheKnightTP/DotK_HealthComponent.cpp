@@ -29,16 +29,15 @@ void UDotK_HealthComponent::TickComponent(float DeltaTime, ELevelTick TickType, 
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	// ...
+	if (bCanRegenHealth)
+	{
+		CurrentHP = FMath::FInterpConstantTo(CurrentHP, MaxHP, DeltaTime, HealthRegenAmount);
+	}
 }
 
-void UDotK_HealthComponent::StartRegenHealth()
+void UDotK_HealthComponent::EnableHealthRegen()
 {
-	// TO DO: Check if the character has taken damage within a certain time before starting to regen
-	if (CurrentHP < MaxRegenHP)
-	{
-		Heal(HealthRegenAmount);
-	}
+	bCanRegenHealth = true;
 }
 
 void UDotK_HealthComponent::TakeDamage(float DamageAmount)
@@ -46,6 +45,10 @@ void UDotK_HealthComponent::TakeDamage(float DamageAmount)
 	if (bIsAlive)
 	{
 		CurrentHP -= DamageAmount;
+		bCanRegenHealth = false;
+
+		// Start timer before character can regen health
+		GetWorld()->GetTimerManager().SetTimer(HealthRegenTimerHandle, this, &UDotK_HealthComponent::EnableHealthRegen, HealthRegenDelay, false);
 		
 		if (CurrentHP <= 0.0f)
 		{
