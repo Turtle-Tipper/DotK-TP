@@ -159,7 +159,7 @@ void ADeadOfTheKnightTPCharacter::MoveRight(float Value)
 
 void ADeadOfTheKnightTPCharacter::RequestSprintStart()
 {
-	if (Stamina != 0)
+	if (CurrentStamina != 0)
 	{
 		GetCharacterMovement()->MaxWalkSpeed = GetSprintSpeed();
 		bIsSprinting = true;
@@ -202,7 +202,7 @@ void ADeadOfTheKnightTPCharacter::RequestCrouchStop()
 
 // ** STAMINA ** //
 
-void ADeadOfTheKnightTPCharacter::DrainStamina(float DrainModifier)
+void ADeadOfTheKnightTPCharacter::DrainStamina()
 {
 	
 }
@@ -212,11 +212,10 @@ void ADeadOfTheKnightTPCharacter::RegenStaminaStart()
 
 }
 
-void ADeadOfTheKnightTPCharacter::RegenStaminaStop(float MaxStam, float CurrentStam)
+void ADeadOfTheKnightTPCharacter::RegenStaminaStop()
 {
 	
 }
-
 
 // ** HEALTH ** //
 
@@ -228,4 +227,20 @@ void ADeadOfTheKnightTPCharacter::RequestTakeDamage()
 void ADeadOfTheKnightTPCharacter::RequestHeal()
 {
 	GetHealthComponent()->Heal(TestingHealAmount);
+}
+
+//Called every frame.
+void ADeadOfTheKnightTPCharacter::Tick(float DeltaTime)
+{
+	if (bIsSprinting)
+	{
+		CurrentStamina = FMath::FInterpConstantTo(CurrentStamina, 0.0f, DeltaTime, SprintStaminaDrain);
+	}
+	else
+	{
+		if (CurrentStamina < MaxStamina)
+		{
+			CurrentStamina = FMath::FInterpConstantTo(CurrentStamina, MaxStamina, DeltaTime, StaminaRegen);
+		}
+	}
 }
