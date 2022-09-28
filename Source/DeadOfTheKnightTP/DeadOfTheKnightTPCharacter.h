@@ -49,67 +49,7 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Input)
 	float TurnRateGamepad;
 
-	// ** SPRINT ** //
-
-	bool bIsSprinting = false;
-
-	/* Additive value that can be used to modify sprint speed.*/
-	UPROPERTY(EditAnywhere, Category = "Character Movement: Walking")
-	float SprintModifier = 0.0f;
-
-	/* Walking movement speed. */
-	UPROPERTY(EditAnywhere, Category = "Character Movement: Walking")
-	float WalkSpeed = 450.0f;
-
-	/* Sprint movement speed. */
-	UPROPERTY(EditAnywhere, Category = "Character Movement: Walking")
-	float SprintSpeed = 650.0f;
-
-	/* Value that determines the max speed a player can sprint. */
-	UPROPERTY(EditAnywhere, Category = "Character Movement: Walking")
-	float MaxSprintSpeed = 1500.0f;
-
-	// ** STAMINA ** //
 	
-	/* The current amount of Stamina the character has. */
-	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
-	float Stamina = 100.0f;
-
-	/* The value of stamina to be drained. */
-	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
-	float StaminaDrain = 5.0f;
-
-	/* Interval in seconds at which Stamina is drained. */
-	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
-	float DrainInterval = 1.0f;
-
-	/* Multiplicative value that can be used to modify Stamina drain.*/
-	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
-	float StaminaDrainModifier;
-
-	/* The increment at which Stamina is regenerated. */
-	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
-	float StaminaRegen = 8.0f;
-
-	/* Interval in seconds at which Stamina is regenerated. */
-	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
-	float RegenInterval = 1.0f;
-
-	/* Additive value that modifies the max Stamina a character can have. */
-	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
-	float MaxStaminaModifier = 0.0f;
-
-	/* The highest value a character's Stamina regens to. */
-	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
-	float MaxStamina = 100.0f + MaxStaminaModifier;
-
-	/* Damage amount applied by pressing K. For testing purposes. */
-	UPROPERTY(EditAnywhere, Category = "Debug")
-	float TestingDamageAmount = 5.0f;
-
-	/* Heal amount applied by pressing H. For testing purposes. */
-	UPROPERTY(EditAnywhere, Category = "Debug")
-	float TestingHealAmount = 5.0f;
 
 	/*
 		Management of types of Stamina drain might be better with Data Table than with an ENUM.
@@ -167,11 +107,76 @@ protected:
 
 	UFUNCTION(BlueprintCallable)
 	void RequestHeal();
+
+	// ** SPRINT ** //
+
+	UPROPERTY(EditAnywhere, Category = "Character Movement")
+	bool bIsSprinting = false;
+
+	/* Additive value that can be used to modify sprint speed.*/
+	UPROPERTY(EditAnywhere, Category = "Character Movement")
+	float SprintModifier = 0.0f;
+
+	/* Walking movement speed. */
+	UPROPERTY(EditAnywhere, Category = "Character Movement")
+	float WalkSpeed = 450.0f;
+
+	/* Sprint movement speed. */
+	UPROPERTY(EditAnywhere, Category = "Character Movement")
+	float SprintSpeed = 650.0f;
+
+	/* Value that determines the max speed a player can sprint. */
+	UPROPERTY(EditAnywhere, Category = "Character Movement")
+	float MaxSprintSpeed = 1500.0f;
+
+	// ** STAMINA ** //
+
+	/* The current amount of Stamina the character has. */
+	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
+	float Stamina = 100.0f;
+
+	/* The value of stamina to be drained. */
+	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
+	float StaminaDrain = 5.0f;
+
+	/* Interval in seconds at which Stamina is drained. */
+	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
+	float DrainInterval = 1.0f;
+
+	/* Multiplicative value that can be used to modify Stamina drain.*/
+	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
+	float StaminaDrainModifier;
+
+	/* The increment at which Stamina is regenerated. */
+	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
+	float StaminaRegen = 8.0f;
+
+	/* Interval in seconds at which Stamina is regenerated. */
+	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
+	float RegenInterval = 1.0f;
+
+	/* Additive value that modifies the max Stamina a character can have. */
+	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
+	float MaxStaminaModifier = 0.0f;
+
+	/* The highest value a character's Stamina regens to. */
+	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
+	float MaxStamina = 100.0f + MaxStaminaModifier;
+
+	/* Damage amount applied by pressing K. For testing purposes. */
+	UPROPERTY(EditAnywhere, Category = "Debug")
+	float TestingDamageAmount = 5.0f;
+
+	/* Heal amount applied by pressing H. For testing purposes. */
+	UPROPERTY(EditAnywhere, Category = "Debug")
+	float TestingHealAmount = 5.0f;
 	
 protected:
 	// APawn interface
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	// End of APawn interface
+
+
 
 public:
 
