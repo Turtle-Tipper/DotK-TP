@@ -91,13 +91,13 @@ protected:
 	UFUNCTION(BlueprintCallable)
 	void DrainStamina();
 	
-	/* Called to start regenerating stamina. */
+	/* Called to rest stamina regen logic. */
 	UFUNCTION(BlueprintCallable)
-	void RegenStaminaStart();
+	void EnableStaminaRegen();
 
-	/* Called to stop regenerating stamina. */
+	/* Called to perform actions to character once stamina is fully depleted (stun them, have regen delay, etc). */
 	UFUNCTION(BlueprintCallable)
-	void RegenStaminaStop();
+	void DepletedAllStamina();
 
 	UFUNCTION(BlueprintCallable)
 	void RequestTakeDamage();
@@ -128,6 +128,10 @@ protected:
 
 	// ** STAMINA ** //
 
+	/* Keeps track of whether character Stamina can currently regen. */
+	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
+	bool bCanRegenStamina;
+
 	/* The current amount of Stamina the character has. */
 	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
 	float CurrentStamina = 100.0f;
@@ -152,6 +156,10 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
 	float RegenInterval = 1.0f;
 
+	/* The time after using Stamina before it begins to regenerate. */
+	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
+	float StaminaRegenDelay = 1.5f;
+
 	// ** DEBUG ** //
 
 	/* Damage amount applied by pressing K. For testing purposes. */
@@ -161,6 +169,9 @@ protected:
 	/* Heal amount applied by pressing H. For testing purposes. */
 	UPROPERTY(EditAnywhere, Category = "Debug")
 	float TestingHealAmount = 5.0f;
+
+	/* Stamina regen timer handle. */
+	FTimerHandle StaminaRegenTimerHandle;
 	
 protected:
 	// APawn interface

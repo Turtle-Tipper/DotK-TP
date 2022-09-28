@@ -159,32 +159,28 @@ void ADeadOfTheKnightTPCharacter::MoveRight(float Value)
 
 void ADeadOfTheKnightTPCharacter::RequestSprintStart()
 {
-	if (CurrentStamina != 0)
+	if (CurrentStamina > 0)
 	{
 		GetCharacterMovement()->MaxWalkSpeed = GetSprintSpeed();
 		bIsSprinting = true;
+
+		// Stop Stamina regen for a short period
+		bCanRegenStamina = false;
+		GetWorld()->GetTimerManager().ClearTimer(StaminaRegenTimerHandle);
 	}
 }
 
 void ADeadOfTheKnightTPCharacter::RequestSprintStop()
 {
-	GetCharacterMovement()->MaxWalkSpeed = GetWalkSpeed();
-	bIsSprinting = false;
-}
+	if (bIsSprinting)
+	{
+		GetCharacterMovement()->MaxWalkSpeed = GetWalkSpeed();
+		bIsSprinting = false;
 
-/*
-bool CanSprint(float Speed)
-{
-	if (Speed > 0)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
+		// Start timer to regen stamina when character has stopped sprinting
+		GetWorld()->GetTimerManager().SetTimer(StaminaRegenTimerHandle, this, &ADeadOfTheKnightTPCharacter::EnableStaminaRegen, StaminaRegenDelay, false);
 	}
 }
-*/
 
 // TO DO: Crouch not fully implemented. No animations.
 
@@ -207,14 +203,14 @@ void ADeadOfTheKnightTPCharacter::DrainStamina()
 	
 }
 
-void ADeadOfTheKnightTPCharacter::RegenStaminaStart()
+void ADeadOfTheKnightTPCharacter::EnableStaminaRegen()
 {
-
+	bCanRegenStamina = true;
 }
 
-void ADeadOfTheKnightTPCharacter::RegenStaminaStop()
+void ADeadOfTheKnightTPCharacter::DepletedAllStamina()
 {
-	
+	RequestSprintStop();
 }
 
 // ** HEALTH ** //
@@ -235,12 +231,20 @@ void ADeadOfTheKnightTPCharacter::Tick(float DeltaTime)
 	if (bIsSprinting)
 	{
 		CurrentStamina = FMath::FInterpConstantTo(CurrentStamina, 0.0f, DeltaTime, SprintStaminaDrain);
+
+		if (CurrentStamina <= 0.0f)
+		{
+			DepletedAllStamina();
+		}
 	}
 	else
 	{
 		if (CurrentStamina < MaxStamina)
 		{
-			CurrentStamina = FMath::FInterpConstantTo(CurrentStamina, MaxStamina, DeltaTime, StaminaRegen);
+			if (bCanRegenStamina)
+			{
+				CurrentStamina = FMath::FInterpConstantTo(CurrentStamina, MaxStamina, DeltaTime, StaminaRegen);
+			}
 		}
 	}
 }
