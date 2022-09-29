@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include "DotK_HealthComponent.h"
 #include "DOTK_HungerThirstComponent.generated.h"
 
 
