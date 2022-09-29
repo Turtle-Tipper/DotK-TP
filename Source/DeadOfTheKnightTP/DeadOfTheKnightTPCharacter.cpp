@@ -104,6 +104,9 @@ void ADeadOfTheKnightTPCharacter::SetupPlayerInputComponent(class UInputComponen
 
 	PlayerInputComponent->BindAction("Take Damage", IE_Pressed, this, &ADeadOfTheKnightTPCharacter::RequestTakeDamage);
 	PlayerInputComponent->BindAction("Heal", IE_Pressed, this, &ADeadOfTheKnightTPCharacter::RequestHeal);
+	PlayerInputComponent->BindAction("Eat", IE_Pressed, this, &ADeadOfTheKnightTPCharacter::RequestEat);
+	PlayerInputComponent->BindAction("Drink", IE_Pressed, this, &ADeadOfTheKnightTPCharacter::RequestDrink);
+	PlayerInputComponent->BindAction("Empty Hunger and Thirst", IE_Pressed, this, &ADeadOfTheKnightTPCharacter::RequestEmptyHungerThirst);
 }
 
 
@@ -226,6 +229,25 @@ void ADeadOfTheKnightTPCharacter::RequestTakeDamage()
 void ADeadOfTheKnightTPCharacter::RequestHeal()
 {
 	GetHealthComponent()->Heal(TestingHealAmount);
+}
+
+// ** HUNGER AND THIRST ** //
+
+void ADeadOfTheKnightTPCharacter::RequestEat()
+{
+	GetHungerThirstComponent()->Eat(TestingEatAmount, TestingSaturationAmount);
+}
+
+void ADeadOfTheKnightTPCharacter::RequestDrink()
+{
+	GetHungerThirstComponent()->Drink(TestingDrinkAmount);
+}
+
+void ADeadOfTheKnightTPCharacter::RequestEmptyHungerThirst()
+{
+	GetHungerThirstComponent()->SetCurrentSaturation(0.0f);
+	GetHungerThirstComponent()->SetCurrentHunger(0.0f);
+	GetHungerThirstComponent()->SetCurrentThirst(0.0f);
 }
 
 //Called every frame.

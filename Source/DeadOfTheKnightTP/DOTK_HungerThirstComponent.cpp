@@ -69,37 +69,48 @@ void UDOTK_HungerThirstComponent::TickComponent(float DeltaTime, ELevelTick Tick
 	// ...
 
 	// Hunger Drain logic
-	if (bCanDrainHunger)
+	if (!bIsStarving)
 	{
-		if (CurrentHunger > 0.0f)
-		{
-			if (CurrentSaturation > 0.0f)
-			{
-				CurrentSaturation = FMath::FInterpConstantTo(CurrentSaturation, 0.0f, DeltaTime, HungerDrain);
-			}
-			else if (CurrentSaturation == 0)
-			{
-				CurrentHunger = FMath::FInterpConstantTo(CurrentHunger, 0.0f, DeltaTime, HungerDrain);
-			}
-		}
-		else if (CurrentHunger <= 0.0f)
+		if (CurrentHunger <= 0.0f)
 		{
 			EnableStarvation();
+			return;
+		}
+		else if (bCanDrainHunger)
+		{
+			if (CurrentHunger > 0.0f)
+			{
+				if (CurrentSaturation > 0.0f)
+				{
+					CurrentSaturation = FMath::FInterpConstantTo(CurrentSaturation, 0.0f, DeltaTime, HungerDrain);
+				}
+				else if (CurrentSaturation == 0)
+				{
+					CurrentHunger = FMath::FInterpConstantTo(CurrentHunger, 0.0f, DeltaTime, HungerDrain);
+				}
+			}
 		}
 	}
 
+
 	// Thirst Drain logic
-	if (bCanDrainThirst)
+	if (!bIsDehydrated)
 	{
-		if (CurrentThirst > 0.0f)
-		{
-			CurrentThirst = FMath::FInterpConstantTo(CurrentThirst, 0.0f, DeltaTime, ThirstDrain);
-		}
-		else if (CurrentThirst <= 0.0f)
+		if (CurrentThirst <= 0.0f)
 		{
 			EnableDehydration();
+			return;
+		}
+		else if (bCanDrainThirst)
+		{
+			if (CurrentThirst > 0.0f)
+			{
+				CurrentThirst = FMath::FInterpConstantTo(CurrentThirst, 0.0f, DeltaTime, ThirstDrain);
+			}
 		}
 	}
+
+
 }
 
 void UDOTK_HungerThirstComponent::Eat(float HungerValue, float SaturationValue)

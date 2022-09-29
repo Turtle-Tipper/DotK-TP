@@ -108,6 +108,17 @@ public:
 	UFUNCTION(BlueprintPure, Category = "Hunger")
 	float GetSaturationPercentage() { return CurrentSaturation / MaxSaturation; }
 
-	UFUNCTION(BlueprintPure, Category = "Hunger")
+	UFUNCTION(BlueprintPure, Category = "Thirst")
 	float GetThirstPercentage() { return CurrentThirst / MaxThirst; }
+
+	// ** SETTERS ** //
+
+	UFUNCTION(BlueprintCallable, Category = "Hunger")
+	void SetCurrentHunger(int HungerAmount) { CurrentHunger = HungerAmount; }
+
+	UFUNCTION(BlueprintCallable, Category = "Hunger")
+	void SetCurrentSaturation(int SaturationAmount) { CurrentSaturation = SaturationAmount; }
+	
+	UFUNCTION(BlueprintCallable, Category = "Thirst")
+	void SetCurrentThirst(int ThirstAmount) { CurrentThirst = ThirstAmount; }
 };
