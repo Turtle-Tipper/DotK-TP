@@ -29,7 +29,7 @@ void UDotK_HealthComponent::TickComponent(float DeltaTime, ELevelTick TickType, 
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	if (bCanRegenHealth)
+	if (bCanRegenHealth && bIsAlive)
 	{
 		if (CurrentHP < MaxRegenHP)
 		{
