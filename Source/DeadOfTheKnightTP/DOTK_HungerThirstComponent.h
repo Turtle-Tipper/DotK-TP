@@ -42,7 +42,7 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Hunger")
 	float MaxHunger = 100.0f;
 
-	/* Current Hunger value for a character. */
+	/* Current Hunger value for a character. Clamped between 0 and MaxHunger. */
 	UPROPERTY(EditAnywhere, Category = "Hunger")
 	float CurrentHunger = MaxHunger / 2;
 
@@ -54,7 +54,7 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Hunger")
 	float MaxSaturation = 100.0f;
 
-	/* Current Saturation value for a character. */
+	/* Current Saturation value for a character. Clamped between 0 and MaxSaturation. */
 	UPROPERTY(EditAnywhere, Category = "Hunger")
 	float CurrentSaturation = MaxSaturation / 2;
 
@@ -73,16 +73,12 @@ protected:
 	/* Keeps track of whether the player is dehydrated. */
 	UPROPERTY(EditAnywhere, Category = "Thirst")
 	bool bIsDehydrated = false;
-	
-	/* Keeps track of whether or not the character can sprint. */
-	UPROPERTY(EditAnywhere, Category = "Character Movement")
-	bool bCanSprint = true;
 
 	/* Max Thirst value for a character. */
 	UPROPERTY(EditAnywhere, Category = "Thirst")
 	float MaxThirst = 100.0f;
 
-	/* Current Thirst value for a character. */
+	/* Current Thirst value for a character. Clamped between 0 and MaxThirst. */
 	UPROPERTY(EditAnywhere, Category = "Thirst")
 	float CurrentThirst = MaxThirst / 2;
 
@@ -116,7 +112,7 @@ public:
 	float GetThirstPercentage() { return CurrentThirst / MaxThirst; }
 
 	UFUNCTION(BlueprintPure, Category = "Thirst")
-	bool GetCanSprint() { return bCanSprint; }
+	bool GetIsDehydrated() { return bIsDehydrated; }
 
 	// ** SETTERS ** //
 

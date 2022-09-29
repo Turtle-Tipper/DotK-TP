@@ -165,7 +165,7 @@ void ADeadOfTheKnightTPCharacter::MoveRight(float Value)
 
 void ADeadOfTheKnightTPCharacter::RequestSprintStart()
 {
-	if (GetHungerThirstComponent()->GetCanSprint() == true)
+	if (GetHungerThirstComponent()->GetIsDehydrated() == false)
 	{
 		if (CurrentStamina > 0)
 		{
@@ -260,7 +260,7 @@ void ADeadOfTheKnightTPCharacter::Tick(float DeltaTime)
 	{
 		CurrentStamina = FMath::FInterpConstantTo(CurrentStamina, 0.0f, DeltaTime, SprintStaminaDrain);
 
-		if (GetHungerThirstComponent()->GetCanSprint() == false)
+		if (GetHungerThirstComponent()->GetIsDehydrated() == true)
 		{
 			RequestSprintStop();
 		}

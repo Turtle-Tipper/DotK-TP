@@ -131,7 +131,6 @@ void UDOTK_HungerThirstComponent::Drink(float ThirstValue)
 	{
 		CurrentThirst += ThirstValue;
 		bIsDehydrated = false;
-		bCanSprint = true;
 		
 		bCanDrainThirst = false;
 		// Constant timer after drinking before thirst can start to drain
@@ -149,7 +148,6 @@ void UDOTK_HungerThirstComponent::EnableHungerDrain()
 void UDOTK_HungerThirstComponent::EnableStarvation()
 {
 	bIsStarving = true;
-	bCanSprint = false;
 }
 
 void UDOTK_HungerThirstComponent::EnableThirstDrain()
