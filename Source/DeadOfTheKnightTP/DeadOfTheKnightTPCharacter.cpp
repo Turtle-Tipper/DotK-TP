@@ -165,14 +165,17 @@ void ADeadOfTheKnightTPCharacter::MoveRight(float Value)
 
 void ADeadOfTheKnightTPCharacter::RequestSprintStart()
 {
-	if (CurrentStamina > 0)
+	if (GetHungerThirstComponent()->GetCanSprint() == true)
 	{
-		GetCharacterMovement()->MaxWalkSpeed = GetSprintSpeed();
-		bIsSprinting = true;
+		if (CurrentStamina > 0)
+		{
+			GetCharacterMovement()->MaxWalkSpeed = GetSprintSpeed();
+			bIsSprinting = true;
 
-		// Stop Stamina regen for a short period
-		bCanRegenStamina = false;
-		GetWorld()->GetTimerManager().ClearTimer(StaminaRegenTimerHandle);
+			// Stop Stamina regen for a short period
+			bCanRegenStamina = false;
+			GetWorld()->GetTimerManager().ClearTimer(StaminaRegenTimerHandle);
+		}
 	}
 }
 
@@ -257,6 +260,10 @@ void ADeadOfTheKnightTPCharacter::Tick(float DeltaTime)
 	{
 		CurrentStamina = FMath::FInterpConstantTo(CurrentStamina, 0.0f, DeltaTime, SprintStaminaDrain);
 
+		if (GetHungerThirstComponent()->GetCanSprint() == false)
+		{
+			RequestSprintStop();
+		}
 		if (CurrentStamina <= 0.0f)
 		{
 			DepletedAllStamina();
@@ -272,4 +279,6 @@ void ADeadOfTheKnightTPCharacter::Tick(float DeltaTime)
 			}
 		}
 	}
+
+
 }

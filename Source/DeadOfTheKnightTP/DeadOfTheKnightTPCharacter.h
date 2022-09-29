@@ -123,6 +123,7 @@ protected:
 
 	// ** SPRINT ** //
 
+	/* Keeps track of whether or not the character is sprinting. */
 	UPROPERTY(EditAnywhere, Category = "Character Movement")
 	bool bIsSprinting = false;
 
@@ -233,5 +234,8 @@ public:
 	float GetWalkSpeed() { return WalkSpeed; }
 
 	float GetMaxStamina() { return MaxStamina; }
+
+	// ** SETTERS ** //
+
 };
 

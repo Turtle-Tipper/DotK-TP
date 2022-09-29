@@ -73,6 +73,10 @@ protected:
 	/* Keeps track of whether the player is dehydrated. */
 	UPROPERTY(EditAnywhere, Category = "Thirst")
 	bool bIsDehydrated = false;
+	
+	/* Keeps track of whether or not the character can sprint. */
+	UPROPERTY(EditAnywhere, Category = "Character Movement")
+	bool bCanSprint = true;
 
 	/* Max Thirst value for a character. */
 	UPROPERTY(EditAnywhere, Category = "Thirst")
@@ -110,6 +114,9 @@ public:
 
 	UFUNCTION(BlueprintPure, Category = "Thirst")
 	float GetThirstPercentage() { return CurrentThirst / MaxThirst; }
+
+	UFUNCTION(BlueprintPure, Category = "Thirst")
+	bool GetCanSprint() { return bCanSprint; }
 
 	// ** SETTERS ** //
 
