@@ -81,4 +81,9 @@ public:
 	UFUNCTION(BlueprintPure)
 	float GetHPPercentage() { return CurrentHP / MaxHP; }
 
+	// ** SETTER FUNCTIONS ** //
+
+	UFUNCTION(BlueprintCallable)
+	void SetCurrentHP(float HPAmount) { CurrentHP = HPAmount; }
+
 };

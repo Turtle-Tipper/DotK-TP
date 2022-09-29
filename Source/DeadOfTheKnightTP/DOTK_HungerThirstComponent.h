@@ -12,6 +12,7 @@ class DEADOFTHEKNIGHTTP_API UDOTK_HungerThirstComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
+
 public:	
 	// Sets default values for this component's properties
 	UDOTK_HungerThirstComponent();
@@ -111,17 +112,20 @@ public:
 	UFUNCTION(BlueprintPure, Category = "Thirst")
 	float GetThirstPercentage() { return CurrentThirst / MaxThirst; }
 
+	UFUNCTION(BlueprintPure, Category = "Hunger")
+	bool GetIsStarving() { return bIsStarving; }
+
 	UFUNCTION(BlueprintPure, Category = "Thirst")
 	bool GetIsDehydrated() { return bIsDehydrated; }
 
 	// ** SETTERS ** //
 
 	UFUNCTION(BlueprintCallable, Category = "Hunger")
-	void SetCurrentHunger(int HungerAmount) { CurrentHunger = HungerAmount; }
+	void SetCurrentHunger(float HungerAmount) { CurrentHunger = HungerAmount; }
 
 	UFUNCTION(BlueprintCallable, Category = "Hunger")
-	void SetCurrentSaturation(int SaturationAmount) { CurrentSaturation = SaturationAmount; }
+	void SetCurrentSaturation(float SaturationAmount) { CurrentSaturation = SaturationAmount; }
 	
 	UFUNCTION(BlueprintCallable, Category = "Thirst")
-	void SetCurrentThirst(int ThirstAmount) { CurrentThirst = ThirstAmount; }
+	void SetCurrentThirst(float ThirstAmount) { CurrentThirst = ThirstAmount; }
 };

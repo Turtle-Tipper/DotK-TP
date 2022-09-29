@@ -256,6 +256,7 @@ void ADeadOfTheKnightTPCharacter::RequestEmptyHungerThirst()
 //Called every frame.
 void ADeadOfTheKnightTPCharacter::Tick(float DeltaTime)
 {
+	// Sprint Stamina drain functionality
 	if (bIsSprinting)
 	{
 		CurrentStamina = FMath::FInterpConstantTo(CurrentStamina, 0.0f, DeltaTime, SprintStaminaDrain);
@@ -279,6 +280,4 @@ void ADeadOfTheKnightTPCharacter::Tick(float DeltaTime)
 			}
 		}
 	}
-
-
 }

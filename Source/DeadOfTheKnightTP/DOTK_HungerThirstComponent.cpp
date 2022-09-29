@@ -92,6 +92,12 @@ void UDOTK_HungerThirstComponent::TickComponent(float DeltaTime, ELevelTick Tick
 		}
 	}
 
+	// Starvation damage functionality
+	if (bIsStarving)
+	{
+
+	}
+
 
 	// Thirst Drain logic
 	if (!bIsDehydrated)
