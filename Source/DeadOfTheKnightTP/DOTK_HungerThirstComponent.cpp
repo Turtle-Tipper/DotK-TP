@@ -3,6 +3,34 @@
 
 #include "DOTK_HungerThirstComponent.h"
 
+
+/* Clamp CurrentHunger between 0 and MaxHunger. */
+template<class T>
+static T HungerClamp
+{
+	const T CurrentHunger,
+	const T 0.0f,
+	const T MaxHunger
+};
+
+/* Clamp CurrentSaturation between 0 and MaxSaturation. */ 
+template<class T>
+static T SaturationClamp
+{
+	const T CurrentSaturation,
+	const T 0.0f,
+	const T MaxSaturation
+};
+
+/* Clamp CurrentThirst between 0 and MaxThirst. */
+template<class T>
+static T ThirstClamp
+{
+	const T CurrentThirst,
+	const T 0.0f,
+	const T MaxThirst
+};
+
 // Sets default values for this component's properties
 UDOTK_HungerThirstComponent::UDOTK_HungerThirstComponent()
 {
@@ -19,6 +47,15 @@ void UDOTK_HungerThirstComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
+	/*
+	
+	// Clamp CurrentHunger between 0 and MaxHunger
+	FMath::Clamp(CurrentHunger, 0.0f, MaxHunger);
+
+	*/
+	
+
+
 	// ...
 	
 }
@@ -30,5 +67,88 @@ void UDOTK_HungerThirstComponent::TickComponent(float DeltaTime, ELevelTick Tick
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// ...
+
+	// Hunger Drain logic
+	if (bCanDrainHunger)
+	{
+		if (CurrentHunger > 0.0f)
+		{
+			if (CurrentSaturation > 0.0f)
+			{
+				CurrentSaturation = FMath::FInterpConstantTo(CurrentSaturation, 0.0f, DeltaTime, HungerDrain);
+			}
+			else if (CurrentSaturation == 0)
+			{
+				CurrentHunger = FMath::FInterpConstantTo(CurrentHunger, 0.0f, DeltaTime, HungerDrain);
+			}
+		}
+		else if (CurrentHunger <= 0.0f)
+		{
+			EnableStarvation();
+		}
+	}
+
+	// Thirst Drain logic
+	if (bCanDrainThirst)
+	{
+		if (CurrentThirst > 0.0f)
+		{
+			CurrentThirst = FMath::FInterpConstantTo(CurrentThirst, 0.0f, DeltaTime, ThirstDrain);
+		}
+		else if (CurrentThirst <= 0.0f)
+		{
+			EnableDehydration();
+		}
+	}
 }
 
+void UDOTK_HungerThirstComponent::Eat(float HungerValue, float SaturationValue)
+{
+	if (CurrentHunger < MaxHunger)
+	{
+		CurrentHunger += HungerValue;
+		CurrentSaturation += SaturationValue;
+		bIsStarving = false;
+
+		bCanDrainHunger = false;
+		// Constant timer after eating before hunger can start to drain
+		GetWorld()->GetTimerManager().SetTimer(HungerDrainTimerHandle, this, &UDOTK_HungerThirstComponent::EnableHungerDrain, HungerDrainDelay, false);
+	}
+}
+
+void UDOTK_HungerThirstComponent::Drink(float ThirstValue)
+{
+	if (CurrentThirst < MaxThirst)
+	{
+		CurrentThirst += ThirstValue;
+		bIsDehydrated = false;
+		
+		bCanDrainThirst = false;
+		// Constant timer after drinking before thirst can start to drain
+		GetWorld()->GetTimerManager().SetTimer(ThirstDrainTimerHandle, this, &UDOTK_HungerThirstComponent::EnableThirstDrain, ThirstDrainDelay, false);
+	}
+}
+
+void UDOTK_HungerThirstComponent::EnableHungerDrain()
+{
+	// Clear HungerDrainDelayTimer
+	GetWorld()->GetTimerManager().ClearTimer(HungerDrainTimerHandle);
+	bCanDrainHunger = true;
+}
+
+void UDOTK_HungerThirstComponent::EnableStarvation()
+{
+	bIsStarving = true;
+}
+
+void UDOTK_HungerThirstComponent::EnableThirstDrain()
+{
+	// Clear ThirstDrainDelayTimer
+	GetWorld()->GetTimerManager().ClearTimer(ThirstDrainTimerHandle);
+	bCanDrainThirst = true;
+}
+
+void UDOTK_HungerThirstComponent::EnableDehydration()
+{
+	bIsDehydrated = true;
+}

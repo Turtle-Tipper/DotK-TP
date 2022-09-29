@@ -8,6 +8,7 @@
 #include "DOTK_LevelHandlerComponent.h"
 #include "DotK_HealthComponent.h"
 #include "DotK_DamageHandlerComponent.h"
+#include "DOTK_HungerThirstComponent.h"
 #include "Math/UnrealMathUtility.h"
 #include "DeadOfTheKnightTPCharacter.generated.h"
 
@@ -29,6 +30,10 @@ class ADeadOfTheKnightTPCharacter : public ACharacter
 	/* Health Component */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Health, meta = (AllowPrivateAccess = "true"))
 	class UDotK_HealthComponent* HealthComponent;
+
+	/* Hunger and Thirst Component */
+	UPROPERTY(VisibleAnywhere, BluePrintReadOnly, Category = HungerAndThirst, meta = (AllowPrivateAccess = "true"))
+	class UDOTK_HungerThirstComponent* HungerThirstComponent;
 
 	/* Damage Handler Component */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Health, meta = (AllowPrivateAccess = "true"))
@@ -188,6 +193,8 @@ public:
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
 	/** Returns HealthComponent subobject **/
 	FORCEINLINE class UDotK_HealthComponent* GetHealthComponent() const { return HealthComponent; }
+	/** Returns HungerThirstComponent subobject **/
+	FORCEINLINE class UDOTK_HungerThirstComponent* GetHungerThirstComponent() const { return HungerThirstComponent; }
 	/** Returns DamageHandler subobject **/
 	FORCEINLINE class UDotK_DamageHandlerComponent* GetDamageHandler() const { return DamageHandlerComponent; }
 	/** Returns Attribute subobject **/

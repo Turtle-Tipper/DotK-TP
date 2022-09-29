@@ -53,6 +53,9 @@ ADeadOfTheKnightTPCharacter::ADeadOfTheKnightTPCharacter()
 	// Create a health component
 	HealthComponent = CreateDefaultSubobject<UDotK_HealthComponent>(TEXT("HealthComponent"));
 
+	// Create a hunger and thirst component
+	HungerThirstComponent = CreateDefaultSubobject<UDOTK_HungerThirstComponent>(TEXT("HungerHealthComponent"));
+
 	// Create a damage handler component
 	DamageHandlerComponent = CreateDefaultSubobject<UDotK_DamageHandlerComponent>(TEXT("DamageHandlerComponent"));
 												   
