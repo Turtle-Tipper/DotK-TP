@@ -79,11 +79,17 @@ public:
 	float GetMaxHP() { return MaxHP; }
 
 	UFUNCTION(BlueprintPure)
+	float GetMaxRegenHP() { return MaxRegenHP; }
+
+	UFUNCTION(BlueprintPure)
 	float GetHPPercentage() { return CurrentHP / MaxHP; }
 
 	// ** SETTER FUNCTIONS ** //
 
 	UFUNCTION(BlueprintCallable)
 	void SetCurrentHP(float HPAmount) { CurrentHP = HPAmount; }
+
+	UFUNCTION(BlueprintCallable)
+	void SetMaxRegenHP(float MaxRegenAmount) { MaxRegenHP = MaxRegenAmount; }
 
 };

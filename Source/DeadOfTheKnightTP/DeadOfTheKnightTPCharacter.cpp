@@ -191,7 +191,7 @@ void ADeadOfTheKnightTPCharacter::RequestSprintStop()
 	}
 }
 
-// TO DO: Crouch not fully implemented. No animations.
+// TO DO: Crouch not fully implemented. No animation graph or animation.
 
 void ADeadOfTheKnightTPCharacter::RequestCrouchStart()
 {
