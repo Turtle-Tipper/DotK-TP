@@ -4,17 +4,15 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "DotK_CharacterAttributeComponent.h"
+#include "DOTK_LevelHandlerComponent.h"
+#include "DotK_HealthComponent.h"
+#include "DotK_DamageHandlerComponent.h"
+#include "DOTK_HungerThirstComponent.h"
+#include "Math/UnrealMathUtility.h"
 #include "DeadOfTheKnightTPCharacter.generated.h"
 
-UENUM(BlueprintType)
-enum class ECharacterStat : uint8
-{
-	None			UMETA(DisplayName = "None"),
-	Constitution	UMETA(DisplayName = "Constitution"),
-	Strength		UMETA(DisplayName = "Strength"),
-	Agility			UMETA(DisplayName = "Agility"),
-	Intellect		UMETA(DisplayName = "Intellect"),
-};
+
 
 UCLASS(config=Game)
 class ADeadOfTheKnightTPCharacter : public ACharacter
@@ -28,6 +26,27 @@ class ADeadOfTheKnightTPCharacter : public ACharacter
 	/** Follow camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* FollowCamera;
+
+	/* Health Component */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Health, meta = (AllowPrivateAccess = "true"))
+	class UDotK_HealthComponent* HealthComponent;
+
+	/* Hunger and Thirst Component */
+	UPROPERTY(VisibleAnywhere, BluePrintReadOnly, Category = HungerAndThirst, meta = (AllowPrivateAccess = "true"))
+	class UDOTK_HungerThirstComponent* HungerThirstComponent;
+
+	/* Damage Handler Component */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Health, meta = (AllowPrivateAccess = "true"))
+	class UDotK_DamageHandlerComponent* DamageHandlerComponent;
+
+	/* Attribute Component */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
+	class UDotK_CharacterAttributeComponent* AttributeComponent;
+
+	/* Level Handler Component */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Level, meta = (AllowPrivateAccess = "true"))
+	class UDOTK_LevelHandlerComponent* LevelHandlerComponent;
+
 public:
 	ADeadOfTheKnightTPCharacter();
 
@@ -35,114 +54,10 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Input)
 	float TurnRateGamepad;
 
-	// ** SPRINT ** //
-
-	bool bIsSprinting = false;
-
-	/* Additive value that can be used to modify sprint speed.*/
-	UPROPERTY(EditAnywhere, Category = "Character Movement: Walking")
-	float SprintModifier = 0.0f;
-
-	/* Additive value to base movement speed. */
-	UPROPERTY(EditAnywhere, Category = "Character Movement: Walking")
-	float SprintSpeed = 200.0f;
-
-	/* Value that determines the max speed a player can sprint. */
-	UPROPERTY(EditAnywhere, Category = "Character Movement: Walking")
-	float MaxSprintSpeed = 1500.0f;
-
-	// ** STAMINA ** //
-	
-	/* The current amount of Stamina the character has. */
-	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
-	float Stamina = 100.0f;
-
-	/* The increment at which Stamina is drained. */
-	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
-	float StaminaDrain = 5.0f;
-
-	/* Multiplicative value that can be used to modify Stamina drain.*/
-	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
-	float StaminaDrainModifier;
-
-	/* The increment at which Stamina is regenerated. */
-	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
-	float StaminaRegen = 8.0f;
-
-	/* The lowest a players Stamina will drain to. */
-	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
-	float MinStamina = 0.0f;
-
-	/* Additive value that modifies the max Stamina a character can have. */
-	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
-	float MaxStaminaModifier = 0.0f;
-
-	/* The highest value a character's Stamina regens to. */
-	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
-	float MaxStamina = 100.0f + MaxStaminaModifier;
-
-	/*
-		Management of types of Stamina drain might be better with Data Table than with an ENUM.
-	*/
-
-	// ** STATS ** //
-
-	
-	/* The max amount of HP the character has. */
-	UPROPERTY(EditAnywhere, Category = "Character: Stats")
-	int MaxHP;
-
-	/* The current amount of HP the character has. */
-	UPROPERTY(EditAnywhere, Category = "Character: Stats")
-	int HP;
-
-	/* The current amount of Constitution the character has. */
-	UPROPERTY(EditAnywhere, Category = "Character: Stats")
-	int Constitution;
-	
-	/* The current amount of Strength the character has. */
-	UPROPERTY(EditAnywhere, Category = "Character: Stats")
-	int Strength;
-
-	/* The current amount of Agility the character has. */
-	UPROPERTY(EditAnywhere, Category = "Character: Stats")
-	int Agility;
-
-	/* The current amount of Intellect the character has. */
-	UPROPERTY(EditAnywhere, Category = "Character: Stats")
-	int Intellect;
-
-	/* Additive value that determines how much a stat with be increased/decreased. */
-	UPROPERTY(EditAnywhere, Category = "Character: Stats")
-	int StatModifier;
-
-	// ** LEVELING ** //
-
-	/* Experience value that must be reached in order to level up. */
-	UPROPERTY(EditAnywhere)
-	float MaxExperience;
-
-	/* Variable that keeps track of current XP value. */
-	UPROPERTY(EditAnywhere)
-	float CurrentExperience = 0.0f;
-
-	/* Experience to be rewarded for different activities. */
-	UPROPERTY(EditAnywhere)
-	float ExperienceIncrease;
-
-	/* Multiplicative value to modify Experience gain. */
-	UPROPERTY(EditAnywhere)
-	float ExperienceModifier = 1.0f;
-
-	/* Variable that keeps track of current level. */
-	UPROPERTY(EditAnywhere)
-	int CurrentLevel = 1;
-
-	/* Variable that keeps track of currently available skill points. */
-	UPROPERTY(EditAnywhere)
-	int AvailableSkillPoints = 1;
-
 protected:
+
+	// Called every frame.
+	virtual void Tick(float DeltaTime) override;
 
 	/** 
 	 * Called via input to turn at a given rate. 
@@ -176,39 +91,151 @@ protected:
 	void MoveRight(float Value);
 
 	// ** STAMINA FUNCTIONS ** //
-	float DrainStamina(float StaminaDrainModifier);
-	float RegenStamina(float StaminaRegenModifier);
+	
+	/* Called to drain stamina. */
+	UFUNCTION(BlueprintCallable)
+	void DrainStamina();
+	
+	/* Called to rest stamina regen logic. */
+	UFUNCTION(BlueprintCallable)
+	void EnableStaminaRegen();
 
-	// ** LEVELING FUNCTIONS ** //
-	void IncreaseExperience(float XP, float XPModifier);
-	void IncreaseLevel();
-	void IncreaseSkillPoints();
+	/* Called to perform actions to character once stamina is fully depleted (stun them, have regen delay, etc). */
+	UFUNCTION(BlueprintCallable)
+	void DepletedAllStamina();
 
-	// ** STATS FUNCTIONS ** //
+	// ** DEBUG ** //
+	
+	UFUNCTION(BlueprintCallable)
+	void RequestTakeDamage();
 
-	/* Called to permanently increase a stat. On level up or other progression points. */
-	void IncreaseStat(ECharacterStat StatType, int StatValue);
+	UFUNCTION(BlueprintCallable)
+	void RequestHeal();
 
-	/* Called to temporarily increase a stat. */
-	void BuffStat(ECharacterStat StatType, int StatValue);
+	UFUNCTION(BlueprintCallable)
+	void RequestEat();
 
-	/* Called to temporarily debuff a stat. */
-	void DebuffStat(ECharacterStat StatType, int StatValue);
+	UFUNCTION(BlueprintCallable)
+	void RequestDrink();
 
-	/* Called to update stats. */
-	void UpdateStats(ECharacterStat StatType, int StatValue);
+	UFUNCTION(BlueprintCallable)
+	void RequestEmptyHungerThirst();
 
+	// ** SPRINT ** //
+
+	/* Keeps track of whether or not the character is sprinting. */
+	UPROPERTY(EditAnywhere, Category = "Character Movement")
+	bool bIsSprinting = false;
+
+	/* Additive value that can be used to modify sprint speed.*/
+	UPROPERTY(EditAnywhere, Category = "Character Movement")
+	float SprintModifier = 0.0f;
+
+	/* Walking movement speed. */
+	UPROPERTY(EditAnywhere, Category = "Character Movement")
+	float WalkSpeed = 450.0f;
+
+	/* Sprint movement speed. */
+	UPROPERTY(EditAnywhere, Category = "Character Movement")
+	float SprintSpeed = 650.0f;
+
+	/* Value that determines the max speed a player can sprint. */
+	UPROPERTY(EditAnywhere, Category = "Character Movement")
+	float MaxSprintSpeed = 1500.0f;
+
+	// ** STAMINA ** //
+
+	/* Keeps track of whether character Stamina can currently regen. */
+	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
+	bool bCanRegenStamina;
+
+	/* The current amount of Stamina the character has. */
+	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
+	float CurrentStamina = 100.0f;
+
+	/* The highest value a character's Stamina regens to. */
+	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
+	float MaxStamina = 100.0f;
+
+	/* The value of stamina to be drained. */
+	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
+	float SprintStaminaDrain = 5.0f;
+
+	/* Interval in seconds at which Stamina is drained. */
+	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
+	float DrainInterval = 1.0f;
+
+	/* The increment at which Stamina is regenerated. */
+	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
+	float StaminaRegen = 8.0f;
+
+	/* Interval in seconds at which Stamina is regenerated. */
+	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
+	float RegenInterval = 1.0f;
+
+	/* The time after using Stamina before it begins to regenerate. */
+	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
+	float StaminaRegenDelay = 1.5f;
+
+	// ** DEBUG ** //
+
+	/* Damage amount applied by pressing K. For testing purposes. */
+	UPROPERTY(EditAnywhere, Category = "Debug")
+	float TestingDamageAmount = 5.0f;
+
+	/* Heal amount applied by pressing H. For testing purposes. */
+	UPROPERTY(EditAnywhere, Category = "Debug")
+	float TestingHealAmount = 5.0f;
+
+	/* Hunger amount applied by pressing F. For testing purposes. */
+	UPROPERTY(EditAnywhere, Category = "Debug")
+	float TestingEatAmount = 25.0f;
+
+	/* Applied when testing hunger. For testing purposes. */
+	UPROPERTY(EditAnywhere, Category = "Debug")
+	float TestingSaturationAmount = 25.0f;
+
+	/* Thirst amount applied by pressing T. For testing purposes. */
+	UPROPERTY(EditAnywhere, Category = "Debug")
+	float TestingDrinkAmount = 25.0f;
+
+	/* Stamina regen timer handle. */
+	FTimerHandle StaminaRegenTimerHandle;
+	
 protected:
 	// APawn interface
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	// End of APawn interface
 
 public:
+
+	// ** GETTER FUNCTIONS ** //
+
 	/** Returns CameraBoom subobject **/
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+	/** Returns HealthComponent subobject **/
+	FORCEINLINE class UDotK_HealthComponent* GetHealthComponent() const { return HealthComponent; }
+	/** Returns HungerThirstComponent subobject **/
+	FORCEINLINE class UDOTK_HungerThirstComponent* GetHungerThirstComponent() const { return HungerThirstComponent; }
+	/** Returns DamageHandler subobject **/
+	FORCEINLINE class UDotK_DamageHandlerComponent* GetDamageHandler() const { return DamageHandlerComponent; }
+	/** Returns Attribute subobject **/
+	FORCEINLINE class UDotK_CharacterAttributeComponent* GetAttributeComponent() const { return AttributeComponent; }
+	/** Returns LevelHandler subobject **/
+	FORCEINLINE class UDOTK_LevelHandlerComponent* GetLevelHandler() const { return LevelHandlerComponent; }
 
-	float GetSprintSpeed();
+	UFUNCTION(BlueprintPure)
+	float GetCurrentStaminaPercent() { return CurrentStamina / MaxStamina; }
+	
+	float GetSprintSpeed() { return SprintSpeed; }
+
+	float GetWalkSpeed() { return WalkSpeed; }
+
+	float GetMaxStamina() { return MaxStamina; }
+
+	// ** SETTERS ** //
+
 };
 
