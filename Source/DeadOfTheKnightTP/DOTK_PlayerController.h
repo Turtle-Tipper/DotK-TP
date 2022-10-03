@@ -20,4 +20,7 @@ protected:
 
 	void RequestJump();
 	void RequestStopJump();
+
+	void RequestSprintStart();
+	void RequestSprintStop();
 };

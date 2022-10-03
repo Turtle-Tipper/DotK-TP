@@ -77,9 +77,6 @@ void ADeadOfTheKnightTPCharacter::SetupPlayerInputComponent(class UInputComponen
 	// Set up gameplay key bindings
 	check(PlayerInputComponent);
 
-	PlayerInputComponent->BindAction("Sprint", IE_Pressed, this, &ADeadOfTheKnightTPCharacter::RequestSprintStart);
-	PlayerInputComponent->BindAction("Sprint", IE_Released, this, &ADeadOfTheKnightTPCharacter::RequestSprintStop);
-
 	PlayerInputComponent->BindAction("Crouch", IE_Pressed, this, &ADeadOfTheKnightTPCharacter::RequestCrouchStart);
 	PlayerInputComponent->BindAction("Crouch", IE_Released, this, &ADeadOfTheKnightTPCharacter::RequestCrouchStop);
 

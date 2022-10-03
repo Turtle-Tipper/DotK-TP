@@ -77,9 +77,7 @@ protected:
 	/** Handler for when a touch input stops. */
 	void TouchStopped(ETouchIndex::Type FingerIndex, FVector Location);
 
-	// ** CHARACTER MOVEMENT FUNCTIONS ** //
-	void RequestSprintStart();
-	void RequestSprintStop();
+
 	//bool CanSprint(float Speed);
 	void RequestCrouchStart();
 	void RequestCrouchStop();
@@ -209,6 +207,10 @@ protected:
 
 public:
 
+	// ** CHARACTER MOVEMENT FUNCTIONS ** //
+	void RequestSprintStart();
+	void RequestSprintStop();
+
 	// ** GETTER FUNCTIONS ** //
 
 	/** Returns CameraBoom subobject **/
@@ -236,6 +238,8 @@ public:
 	float GetMaxStamina() { return MaxStamina; }
 
 	// ** SETTERS ** //
+
+	void SetWalkSpeed(float Speed){}
 
 };
 
