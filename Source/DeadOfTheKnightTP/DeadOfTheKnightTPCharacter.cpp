@@ -80,9 +80,6 @@ void ADeadOfTheKnightTPCharacter::SetupPlayerInputComponent(class UInputComponen
 	PlayerInputComponent->BindAction("Crouch", IE_Pressed, this, &ADeadOfTheKnightTPCharacter::RequestCrouchStart);
 	PlayerInputComponent->BindAction("Crouch", IE_Released, this, &ADeadOfTheKnightTPCharacter::RequestCrouchStop);
 
-	PlayerInputComponent->BindAxis("Move Forward / Backward", this, &ADeadOfTheKnightTPCharacter::MoveForward);
-	PlayerInputComponent->BindAxis("Move Right / Left", this, &ADeadOfTheKnightTPCharacter::MoveRight);
-
 	// We have 2 versions of the rotation bindings to handle different kinds of devices differently
 	// "turn" handles devices that provide an absolute delta, such as a mouse.
 	// "turnrate" is for devices that we choose to treat as a rate of change, such as an analog joystick
@@ -125,35 +122,6 @@ void ADeadOfTheKnightTPCharacter::LookUpAtRate(float Rate)
 {
 	// calculate delta for this frame from the rate information
 	AddControllerPitchInput(Rate * TurnRateGamepad * GetWorld()->GetDeltaSeconds());
-}
-
-void ADeadOfTheKnightTPCharacter::MoveForward(float Value)
-{
-	if ((Controller != nullptr) && (Value != 0.0f))
-	{
-		// find out which way is forward
-		const FRotator Rotation = Controller->GetControlRotation();
-		const FRotator YawRotation(0, Rotation.Yaw, 0);
-
-		// get forward vector
-		const FVector Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
-		AddMovementInput(Direction, Value);
-	}
-}
-
-void ADeadOfTheKnightTPCharacter::MoveRight(float Value)
-{
-	if ( (Controller != nullptr) && (Value != 0.0f) )
-	{
-		// find out which way is right
-		const FRotator Rotation = Controller->GetControlRotation();
-		const FRotator YawRotation(0, Rotation.Yaw, 0);
-	
-		// get right vector 
-		const FVector Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
-		// add movement in that direction
-		AddMovementInput(Direction, Value);
-	}
 }
 
 // ** CHARACTER MOVEMENT ** //

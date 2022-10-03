@@ -82,12 +82,6 @@ protected:
 	void RequestCrouchStart();
 	void RequestCrouchStop();
 
-	/** Called for forwards/backward input */
-	void MoveForward(float Value);
-
-	/** Called for side to side input */
-	void MoveRight(float Value);
-
 	// ** STAMINA FUNCTIONS ** //
 	
 	/* Called to drain stamina. */
