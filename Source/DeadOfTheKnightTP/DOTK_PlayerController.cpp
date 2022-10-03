@@ -12,13 +12,18 @@ void ADOTK_PlayerController::SetupInputComponent()
 	
 	if (InputComponent)
 	{
+		/* Input bindings for basic movement. Functionality found in PlayerController. */
 		InputComponent->BindAxis("Move Forward / Backward", this, &ADOTK_PlayerController::RequestMoveForward);
 		InputComponent->BindAxis("Move Right / Left", this, &ADOTK_PlayerController::RequestMoveRight);
+
+		/* Input bindings for looking around. Functionality found in PlayerController. */
+		InputComponent->BindAxis("Look Up / Down Mouse", this, &ADOTK_PlayerController::RequestLookUp);
+		InputComponent->BindAxis("Turn Right / Left Mouse", this, &ADOTK_PlayerController::RequestLookRight);
 
 		/* Input binding for jumping. Functionality found in PlayerController. */
 		InputComponent->BindAction("Jump", EInputEvent::IE_Pressed, this, &ADOTK_PlayerController::RequestJump);
 		InputComponent->BindAction("Jump", EInputEvent::IE_Released, this, &ADOTK_PlayerController::RequestStopJump);
-		/* Input binding for sprinting. Functionality is still found in DeadOfTheKnightTPCharacter. */
+		/* Input binding for sprinting. Called in controller, but functionality is still found in DeadOfTheKnightTPCharacter. */
 		InputComponent->BindAction("Sprint", EInputEvent::IE_Pressed, this, &ADOTK_PlayerController::RequestSprintStart);
 		InputComponent->BindAction("Sprint", EInputEvent::IE_Released, this, &ADOTK_PlayerController::RequestSprintStop);
 	}
@@ -42,6 +47,15 @@ void ADOTK_PlayerController::RequestMoveRight(float AxisValue)
 		// transform to world space and add it
 		GetPawn()->AddMovementInput(FRotationMatrix(ControlSpaceRot).GetScaledAxis(EAxis::Y), AxisValue);
 	}
+}
+void ADOTK_PlayerController::RequestLookUp(float AxisValue)
+{
+	AddPitchInput(AxisValue * BaseLookUpRate * GetWorld()->GetDeltaSeconds());
+}
+
+void ADOTK_PlayerController::RequestLookRight(float AxisValue)
+{
+	AddYawInput(AxisValue * BaseLookRightRate * GetWorld()->GetDeltaSeconds());
 }
 
 void ADOTK_PlayerController::RequestJump()

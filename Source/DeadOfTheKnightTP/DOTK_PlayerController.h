@@ -24,8 +24,21 @@ protected:
 	void RequestSprintStart();
 	void RequestSprintStop();
 
-	/** Called for forwards/backward input */
+	/* Called for forwards/backward input. */
 	void RequestMoveForward(float AxisValue);
-	/** Called for side to side input */
+	/* Called for side to side input. */
 	void RequestMoveRight(float AxisValue);
+
+	/* Called for looking up and down. */
+	void RequestLookUp(float AxisValue);
+	/* Called for looking left and right. */
+	void RequestLookRight(float AxisValue);
+
+	// Base lookup rate, in deg/sec. Other scaling may affect final look up rate
+	UPROPERTY(EditAnywhere, Category = "Look")
+	float BaseLookUpRate = 90.0f;
+
+	// Base lookright rate, in deg/sec. Other scaling may affect final look right rate
+	UPROPERTY(EditAnywhere, Category = "Look")
+	float BaseLookRightRate = 90.0f;
 };
