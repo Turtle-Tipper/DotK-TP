@@ -15,6 +15,7 @@
 
 
 UCLASS(config=Game)
+// ADeadOfTheKnightTPCharacter
 class ADeadOfTheKnightTPCharacter : public ACharacter
 {
 	GENERATED_BODY()
