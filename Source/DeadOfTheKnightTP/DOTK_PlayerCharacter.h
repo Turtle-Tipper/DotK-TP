@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "DeadOfTheKnightTPCharacter.h"
 #include "DOTK_HungerThirstComponent.h"
+#include "DOTK_LevelHandlerComponent.h"
 #include "DOTK_PlayerCharacter.generated.h"
 
 /**
@@ -18,6 +19,10 @@ class DEADOFTHEKNIGHTTP_API ADOTK_PlayerCharacter : public ADeadOfTheKnightTPCha
 	/* Hunger and Thirst Component */
 	UPROPERTY(VisibleAnywhere, BluePrintReadOnly, Category = HungerAndThirst, meta = (AllowPrivateAccess = "true"))
 	class UDOTK_HungerThirstComponent* HungerThirstComponent;
+
+	/* Level Handler Component */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Level, meta = (AllowPrivateAccess = "true"))
+	class UDOTK_LevelHandlerComponent* LevelHandlerComponent;
 
 public:
 
@@ -129,5 +134,7 @@ public:
 
 	/** Returns HungerThirstComponent subobject **/
 	FORCEINLINE class UDOTK_HungerThirstComponent* GetHungerThirstComponent() const { return HungerThirstComponent; }
+	/** Returns LevelHandler subobject **/
+	FORCEINLINE class UDOTK_LevelHandlerComponent* GetLevelHandler() const { return LevelHandlerComponent; }
 	
 };

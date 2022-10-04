@@ -10,6 +10,9 @@ ADOTK_PlayerCharacter::ADOTK_PlayerCharacter()
 
 	// Create a hunger and thirst component
 	HungerThirstComponent = CreateDefaultSubobject<UDOTK_HungerThirstComponent>(TEXT("HungerHealthComponent"));
+
+	// Create a level handler component
+	LevelHandlerComponent = CreateDefaultSubobject<UDOTK_LevelHandlerComponent>(TEXT("LevelHandlerComponent"));
 }
 
 void ADOTK_PlayerCharacter::Tick(float DeltaTime)

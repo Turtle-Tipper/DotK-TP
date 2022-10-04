@@ -6,7 +6,6 @@
 #include "GameFramework/Character.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "DotK_CharacterAttributeComponent.h"
-#include "DOTK_LevelHandlerComponent.h"
 #include "DotK_HealthComponent.h"
 #include "DotK_DamageHandlerComponent.h"
 #include "Math/UnrealMathUtility.h"
@@ -37,10 +36,6 @@ class ADeadOfTheKnightTPCharacter : public ACharacter
 	/* Attribute Component */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
 	class UDotK_CharacterAttributeComponent* AttributeComponent;
-
-	/* Level Handler Component */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Level, meta = (AllowPrivateAccess = "true"))
-	class UDOTK_LevelHandlerComponent* LevelHandlerComponent;
 
 public:
 	ADeadOfTheKnightTPCharacter();
@@ -133,8 +128,6 @@ public:
 	FORCEINLINE class UDotK_DamageHandlerComponent* GetDamageHandler() const { return DamageHandlerComponent; }
 	/** Returns Attribute subobject **/
 	FORCEINLINE class UDotK_CharacterAttributeComponent* GetAttributeComponent() const { return AttributeComponent; }
-	/** Returns LevelHandler subobject **/
-	FORCEINLINE class UDOTK_LevelHandlerComponent* GetLevelHandler() const { return LevelHandlerComponent; }
 
 	float GetSprintSpeed() { return SprintSpeed; }
 
