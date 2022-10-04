@@ -48,7 +48,7 @@ protected:
 
 	/* Max Regen HP while starving. */
 	UPROPERTY(EditAnywhere, Category = "Regen")
-	float MaxStarvationRegen = 30.0f;
+	float StarvationHealthRegen = 30.0f;
 
 	/* Current amount of health that can be regenerated to. */
 	UPROPERTY(EditAnywhere, Category = "Regen")
@@ -77,7 +77,7 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	// Logic for health regeneration. Called in PlayerCharacter tick.
-	void RegenerateHealth(float DeltaTime);
+	void RegenerateHealth(float DeltaTime, float RegenLevel);
 
 	UFUNCTION(BlueprintCallable)
 	void TakeDamage(float DamageAmount);
@@ -92,6 +92,9 @@ public:
 
 	UFUNCTION(BlueprintPure)
 	float GetMaxHealth() { return MaxHealth; }
+
+	UFUNCTION(BlueprintPure)
+	float GetStarvingHealthRegen() { return StarvationHealthRegen; }
 
 	UFUNCTION(BlueprintPure)
 	float GetCurrentHealthRegen() { return CurrentHealthRegen; }

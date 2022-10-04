@@ -71,13 +71,13 @@ void UDotK_HealthComponent::RequestIncreaseMaxHealth()
 
 }
 
-void UDotK_HealthComponent::RegenerateHealth(float DeltaTime)
+void UDotK_HealthComponent::RegenerateHealth(float DeltaTime, float RegenLevel)
 {
 	if (bCanRegenHealth && bIsAlive)
 	{
-		if (CurrentHealth < MaxHealthRegen)
+		if (CurrentHealth < RegenLevel)
 		{
-			CurrentHealth = FMath::FInterpConstantTo(CurrentHealth, MaxHealthRegen, DeltaTime, HealthRegenAmount);
+			CurrentHealth = FMath::FInterpConstantTo(CurrentHealth, RegenLevel, DeltaTime, HealthRegenAmount);
 		}
 	}
 }

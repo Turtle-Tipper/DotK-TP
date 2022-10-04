@@ -18,7 +18,16 @@ void ADOTK_PlayerCharacter::Tick(float DeltaTime)
 
 	DrainStamina(DeltaTime);
 
-	GetHealthComponent()->RegenerateHealth(DeltaTime);
+	if (GetHungerThirstComponent()->GetIsStarving() == true)
+	{
+		// if the character is starving, pass in the current HP regen to the starving regen value.
+		GetHealthComponent()->RegenerateHealth(DeltaTime, GetHealthComponent()->GetStarvingHealthRegen());
+	}
+	else if (GetHungerThirstComponent()->GetIsStarving() == false)
+	{
+		// if the character is not starving, pass in the current HP regen to the max regen value.
+		GetHealthComponent()->RegenerateHealth(DeltaTime, GetHealthComponent()->GetMaxHealthRegen());
+	}
 
 	GetHungerThirstComponent()->DrainHunger(DeltaTime);
 	GetHungerThirstComponent()->DrainThirst(DeltaTime);
