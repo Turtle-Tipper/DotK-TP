@@ -4,7 +4,6 @@
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/InputComponent.h"
-#include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Math/UnrealMathUtility.h"
@@ -53,9 +52,6 @@ ADeadOfTheKnightTPCharacter::ADeadOfTheKnightTPCharacter()
 	// Create a health component
 	HealthComponent = CreateDefaultSubobject<UDotK_HealthComponent>(TEXT("HealthComponent"));
 
-	// Create a hunger and thirst component
-	HungerThirstComponent = CreateDefaultSubobject<UDOTK_HungerThirstComponent>(TEXT("HungerHealthComponent"));
-
 	// Create a damage handler component
 	DamageHandlerComponent = CreateDefaultSubobject<UDotK_DamageHandlerComponent>(TEXT("DamageHandlerComponent"));
 												   
@@ -94,9 +90,9 @@ void ADeadOfTheKnightTPCharacter::SetupPlayerInputComponent(class UInputComponen
 
 	PlayerInputComponent->BindAction("Take Damage", IE_Pressed, this, &ADeadOfTheKnightTPCharacter::RequestTakeDamage);
 	PlayerInputComponent->BindAction("Heal", IE_Pressed, this, &ADeadOfTheKnightTPCharacter::RequestHeal);
-	PlayerInputComponent->BindAction("Eat", IE_Pressed, this, &ADeadOfTheKnightTPCharacter::RequestEat);
-	PlayerInputComponent->BindAction("Drink", IE_Pressed, this, &ADeadOfTheKnightTPCharacter::RequestDrink);
-	PlayerInputComponent->BindAction("Empty Hunger and Thirst", IE_Pressed, this, &ADeadOfTheKnightTPCharacter::RequestEmptyHungerThirst);
+	//PlayerInputComponent->BindAction("Eat", IE_Pressed, this, &ADeadOfTheKnightTPCharacter::RequestEat);
+	//PlayerInputComponent->BindAction("Drink", IE_Pressed, this, &ADeadOfTheKnightTPCharacter::RequestDrink);
+	//PlayerInputComponent->BindAction("Empty Hunger and Thirst", IE_Pressed, this, &ADeadOfTheKnightTPCharacter::RequestEmptyHungerThirst);
 }
 
 
@@ -126,18 +122,8 @@ void ADeadOfTheKnightTPCharacter::LookUpAtRate(float Rate)
 
 void ADeadOfTheKnightTPCharacter::RequestSprintStart()
 {
-	if (GetHungerThirstComponent()->GetIsDehydrated() == false)
-	{
-		if (CurrentStamina > 0)
-		{
-			GetCharacterMovement()->MaxWalkSpeed = GetSprintSpeed();
-			bIsSprinting = true;
-
-			// Stop Stamina regen for a short period
-			bCanRegenStamina = false;
-			GetWorld()->GetTimerManager().ClearTimer(StaminaRegenTimerHandle);
-		}
-	}
+	GetCharacterMovement()->MaxWalkSpeed = GetSprintSpeed();
+	bIsSprinting = true;
 }
 
 void ADeadOfTheKnightTPCharacter::RequestSprintStop()
@@ -146,9 +132,6 @@ void ADeadOfTheKnightTPCharacter::RequestSprintStop()
 	{
 		GetCharacterMovement()->MaxWalkSpeed = GetWalkSpeed();
 		bIsSprinting = false;
-
-		// Start timer to regen stamina when character has stopped sprinting
-		GetWorld()->GetTimerManager().SetTimer(StaminaRegenTimerHandle, this, &ADeadOfTheKnightTPCharacter::EnableStaminaRegen, StaminaRegenDelay, false);
 	}
 }
 
@@ -166,23 +149,6 @@ void ADeadOfTheKnightTPCharacter::RequestCrouchStop()
 	bIsCrouched = false;
 }
 
-// ** STAMINA ** //
-
-void ADeadOfTheKnightTPCharacter::DrainStamina()
-{
-	
-}
-
-void ADeadOfTheKnightTPCharacter::EnableStaminaRegen()
-{
-	bCanRegenStamina = true;
-}
-
-void ADeadOfTheKnightTPCharacter::DepletedAllStamina()
-{
-	RequestSprintStop();
-}
-
 // ** HEALTH ** //
 
 void ADeadOfTheKnightTPCharacter::RequestTakeDamage()
@@ -195,50 +161,10 @@ void ADeadOfTheKnightTPCharacter::RequestHeal()
 	GetHealthComponent()->Heal(TestingHealAmount);
 }
 
-// ** HUNGER AND THIRST ** //
 
-void ADeadOfTheKnightTPCharacter::RequestEat()
-{
-	GetHungerThirstComponent()->Eat(TestingEatAmount, TestingSaturationAmount);
-}
-
-void ADeadOfTheKnightTPCharacter::RequestDrink()
-{
-	GetHungerThirstComponent()->Drink(TestingDrinkAmount);
-}
-
-void ADeadOfTheKnightTPCharacter::RequestEmptyHungerThirst()
-{
-	GetHungerThirstComponent()->SetCurrentSaturation(0.0f);
-	GetHungerThirstComponent()->SetCurrentHunger(0.0f);
-	GetHungerThirstComponent()->SetCurrentThirst(0.0f);
-}
 
 //Called every frame.
 void ADeadOfTheKnightTPCharacter::Tick(float DeltaTime)
 {
-	// Sprint Stamina drain functionality
-	if (bIsSprinting)
-	{
-		CurrentStamina = FMath::FInterpConstantTo(CurrentStamina, 0.0f, DeltaTime, SprintStaminaDrain);
 
-		if (GetHungerThirstComponent()->GetIsDehydrated() == true)
-		{
-			RequestSprintStop();
-		}
-		if (CurrentStamina <= 0.0f)
-		{
-			DepletedAllStamina();
-		}
-	}
-	else
-	{
-		if (CurrentStamina < MaxStamina)
-		{
-			if (bCanRegenStamina)
-			{
-				CurrentStamina = FMath::FInterpConstantTo(CurrentStamina, MaxStamina, DeltaTime, StaminaRegen);
-			}
-		}
-	}
 }

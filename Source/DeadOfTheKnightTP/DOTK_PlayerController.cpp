@@ -3,7 +3,7 @@
 
 #include "DOTK_PlayerController.h"
 #include "GameFramework/Character.h"
-#include "DeadOfTheKnightTPCharacter.h"
+#include "DOTK_PlayerCharacter.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
 void ADOTK_PlayerController::SetupInputComponent()
@@ -60,6 +60,7 @@ void ADOTK_PlayerController::RequestMoveRight(float AxisValue)
 		GetPawn()->AddMovementInput(Direction, AxisValue);
 	}
 }
+
 void ADOTK_PlayerController::RequestLookUp(float AxisValue)
 {
 	AddPitchInput(AxisValue * BaseLookUpRate * GetWorld()->GetDeltaSeconds());
@@ -88,16 +89,16 @@ void ADOTK_PlayerController::RequestStopJump()
 
 void ADOTK_PlayerController::RequestSprintStart()
 {
-	if (ADeadOfTheKnightTPCharacter* DOTK_Character = Cast<ADeadOfTheKnightTPCharacter>(GetCharacter()))
+	if (ADOTK_PlayerCharacter* DOTK_PlayerCharacter = Cast<ADOTK_PlayerCharacter>(GetCharacter()))
 	{
-		DOTK_Character->RequestSprintStart();
+		DOTK_PlayerCharacter->RequestSprintStart();
 	}
 }
 
 void ADOTK_PlayerController::RequestSprintStop()
 {
-	if (ADeadOfTheKnightTPCharacter* DOTK_Character = Cast<ADeadOfTheKnightTPCharacter>(GetCharacter()))
+	if (ADOTK_PlayerCharacter* DOTK_PlayerCharacter = Cast<ADOTK_PlayerCharacter>(GetCharacter()))
 	{
-		DOTK_Character->RequestSprintStop();
+		DOTK_PlayerCharacter->RequestSprintStop();
 	}
 }

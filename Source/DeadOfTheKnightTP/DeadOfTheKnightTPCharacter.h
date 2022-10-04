@@ -4,15 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "DotK_CharacterAttributeComponent.h"
 #include "DOTK_LevelHandlerComponent.h"
 #include "DotK_HealthComponent.h"
 #include "DotK_DamageHandlerComponent.h"
-#include "DOTK_HungerThirstComponent.h"
 #include "Math/UnrealMathUtility.h"
 #include "DeadOfTheKnightTPCharacter.generated.h"
-
-
 
 UCLASS(config=Game)
 // ADeadOfTheKnightTPCharacter
@@ -31,10 +29,6 @@ class ADeadOfTheKnightTPCharacter : public ACharacter
 	/* Health Component */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Health, meta = (AllowPrivateAccess = "true"))
 	class UDotK_HealthComponent* HealthComponent;
-
-	/* Hunger and Thirst Component */
-	UPROPERTY(VisibleAnywhere, BluePrintReadOnly, Category = HungerAndThirst, meta = (AllowPrivateAccess = "true"))
-	class UDOTK_HungerThirstComponent* HungerThirstComponent;
 
 	/* Damage Handler Component */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Health, meta = (AllowPrivateAccess = "true"))
@@ -78,24 +72,9 @@ protected:
 	/** Handler for when a touch input stops. */
 	void TouchStopped(ETouchIndex::Type FingerIndex, FVector Location);
 
-
 	//bool CanSprint(float Speed);
 	void RequestCrouchStart();
 	void RequestCrouchStop();
-
-	// ** STAMINA FUNCTIONS ** //
-	
-	/* Called to drain stamina. */
-	UFUNCTION(BlueprintCallable)
-	void DrainStamina();
-	
-	/* Called to rest stamina regen logic. */
-	UFUNCTION(BlueprintCallable)
-	void EnableStaminaRegen();
-
-	/* Called to perform actions to character once stamina is fully depleted (stun them, have regen delay, etc). */
-	UFUNCTION(BlueprintCallable)
-	void DepletedAllStamina();
 
 	// ** DEBUG ** //
 	
@@ -104,17 +83,6 @@ protected:
 
 	UFUNCTION(BlueprintCallable)
 	void RequestHeal();
-
-	UFUNCTION(BlueprintCallable)
-	void RequestEat();
-
-	UFUNCTION(BlueprintCallable)
-	void RequestDrink();
-
-	UFUNCTION(BlueprintCallable)
-	void RequestEmptyHungerThirst();
-
-	// ** SPRINT ** //
 
 	/* Keeps track of whether or not the character is sprinting. */
 	UPROPERTY(EditAnywhere, Category = "Character Movement")
@@ -132,45 +100,7 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Character Movement")
 	float SprintSpeed = 650.0f;
 
-	/* Value that determines the max speed a player can sprint. */
-	UPROPERTY(EditAnywhere, Category = "Character Movement")
-	float MaxSprintSpeed = 1500.0f;
-
-	// ** STAMINA ** //
-
-	/* Keeps track of whether character Stamina can currently regen. */
-	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
-	bool bCanRegenStamina;
-
-	/* The current amount of Stamina the character has. */
-	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
-	float CurrentStamina = 100.0f;
-
-	/* The highest value a character's Stamina regens to. */
-	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
-	float MaxStamina = 100.0f;
-
-	/* The value of stamina to be drained. */
-	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
-	float SprintStaminaDrain = 5.0f;
-
-	/* Interval in seconds at which Stamina is drained. */
-	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
-	float DrainInterval = 1.0f;
-
-	/* The increment at which Stamina is regenerated. */
-	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
-	float StaminaRegen = 8.0f;
-
-	/* Interval in seconds at which Stamina is regenerated. */
-	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
-	float RegenInterval = 1.0f;
-
-	/* The time after using Stamina before it begins to regenerate. */
-	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
-	float StaminaRegenDelay = 1.5f;
-
-	// ** DEBUG ** //
+	//Damage and Health
 
 	/* Damage amount applied by pressing K. For testing purposes. */
 	UPROPERTY(EditAnywhere, Category = "Debug")
@@ -191,9 +121,6 @@ protected:
 	/* Thirst amount applied by pressing T. For testing purposes. */
 	UPROPERTY(EditAnywhere, Category = "Debug")
 	float TestingDrinkAmount = 25.0f;
-
-	/* Stamina regen timer handle. */
-	FTimerHandle StaminaRegenTimerHandle;
 	
 protected:
 	// APawn interface
@@ -203,8 +130,8 @@ protected:
 public:
 
 	// ** CHARACTER MOVEMENT FUNCTIONS ** //
-	void RequestSprintStart();
-	void RequestSprintStop();
+	virtual void RequestSprintStart();
+	virtual void RequestSprintStop();
 
 	// ** GETTER FUNCTIONS ** //
 
@@ -214,8 +141,6 @@ public:
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
 	/** Returns HealthComponent subobject **/
 	FORCEINLINE class UDotK_HealthComponent* GetHealthComponent() const { return HealthComponent; }
-	/** Returns HungerThirstComponent subobject **/
-	FORCEINLINE class UDOTK_HungerThirstComponent* GetHungerThirstComponent() const { return HungerThirstComponent; }
 	/** Returns DamageHandler subobject **/
 	FORCEINLINE class UDotK_DamageHandlerComponent* GetDamageHandler() const { return DamageHandlerComponent; }
 	/** Returns Attribute subobject **/
@@ -223,14 +148,11 @@ public:
 	/** Returns LevelHandler subobject **/
 	FORCEINLINE class UDOTK_LevelHandlerComponent* GetLevelHandler() const { return LevelHandlerComponent; }
 
-	UFUNCTION(BlueprintPure)
-	float GetCurrentStaminaPercent() { return CurrentStamina / MaxStamina; }
-	
 	float GetSprintSpeed() { return SprintSpeed; }
 
 	float GetWalkSpeed() { return WalkSpeed; }
 
-	float GetMaxStamina() { return MaxStamina; }
+	bool GetIsCrouched() { return bIsCrouched; }
 
 	// ** SETTERS ** //
 
