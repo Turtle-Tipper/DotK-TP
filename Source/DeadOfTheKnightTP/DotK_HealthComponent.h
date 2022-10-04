@@ -36,15 +36,27 @@ protected:
 
 	/* Maximum health of entity. Applicable for creatures and breakable objects. */
 	UPROPERTY(EditAnywhere, Category = "Health")
-	float MaxHP = 100;
+	float MaxHealth = 100;
 
 	/* Current health of entity. Applicable for creatures and breakable objects. */
 	UPROPERTY(EditAnywhere, Category = "Health")
-	float CurrentHP = MaxHP;
+	float CurrentHealth = MaxHealth;
+
+	/* Rate at which health is drained while starving. */
+	UPROPERTY(EditAnywhere, Category = "Hunger")
+	float StarvationHealthDrain = 1.0f;
+
+	/* Max Regen HP while starving. */
+	UPROPERTY(EditAnywhere, Category = "Regen")
+	float StarvationHealthRegen = 30.0f;
+
+	/* Current amount of health that can be regenerated to. */
+	UPROPERTY(EditAnywhere, Category = "Regen")
+	float CurrentHealthRegen = MaxHealthRegen;
 
 	/* Maximum amount of health the player can naturally regenerate to. */
 	UPROPERTY(EditAnywhere, Category = "Regen")
-	float MaxRegenHP = 70.0f;
+	float MaxHealthRegen = 70.0f;
 
 	/* Amount of health regenerated for each regen interval. */
 	UPROPERTY(EditAnywhere, Category = "Regen")
@@ -64,6 +76,9 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+	// Logic for health regeneration. Called in PlayerCharacter tick.
+	void RegenerateHealth(float DeltaTime, float RegenLevel);
+
 	UFUNCTION(BlueprintCallable)
 	void TakeDamage(float DamageAmount);
 
@@ -73,23 +88,32 @@ public:
 	// ** GETTER FUNCTIONS ** //
 
 	UFUNCTION(BlueprintPure)
-	float GetCurrentHP() { return CurrentHP; }
+	float GetCurrentHealth() { return CurrentHealth; }
 
 	UFUNCTION(BlueprintPure)
-	float GetMaxHP() { return MaxHP; }
+	float GetMaxHealth() { return MaxHealth; }
 
 	UFUNCTION(BlueprintPure)
-	float GetMaxRegenHP() { return MaxRegenHP; }
+	float GetStarvingHealthRegen() { return StarvationHealthRegen; }
 
 	UFUNCTION(BlueprintPure)
-	float GetHPPercentage() { return CurrentHP / MaxHP; }
+	float GetCurrentHealthRegen() { return CurrentHealthRegen; }
+
+	UFUNCTION(BlueprintPure)
+	float GetMaxHealthRegen() { return MaxHealthRegen; }
+
+	UFUNCTION(BlueprintPure)
+	float GetHPPercentage() { return CurrentHealth / MaxHealth; }
 
 	// ** SETTER FUNCTIONS ** //
 
 	UFUNCTION(BlueprintCallable)
-	void SetCurrentHP(float HPAmount) { CurrentHP = HPAmount; }
+	void SetCurrentHealth(float HPAmount) { CurrentHealth = HPAmount; }
 
 	UFUNCTION(BlueprintCallable)
-	void SetMaxRegenHP(float MaxRegenAmount) { MaxRegenHP = MaxRegenAmount; }
+	void SetCurrentHealthRegen(float CurrentRegenAmount) { CurrentHealthRegen = CurrentRegenAmount; }
+
+	UFUNCTION(BlueprintCallable)
+	void SetMaxHealthRegen(float MaxRegenAmount) { MaxHealthRegen = MaxRegenAmount; }
 
 };
