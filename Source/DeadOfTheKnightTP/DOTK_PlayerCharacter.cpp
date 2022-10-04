@@ -16,6 +16,8 @@ void ADOTK_PlayerCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	GetHealthComponent()->RegenerateHealth(DeltaTime);
+
 	// Sprint Stamina drain functionality
 	if (bIsSprinting)
 	{

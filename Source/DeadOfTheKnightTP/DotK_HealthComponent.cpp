@@ -28,14 +28,6 @@ void UDotK_HealthComponent::BeginPlay()
 void UDotK_HealthComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-	if (bCanRegenHealth && bIsAlive)
-	{
-		if (CurrentHealth < MaxHealthRegen)
-		{
-			CurrentHealth = FMath::FInterpConstantTo(CurrentHealth, MaxHealthRegen, DeltaTime, HealthRegenAmount);
-		}
-	}
 }
 
 void UDotK_HealthComponent::EnableHealthRegen()
@@ -77,4 +69,15 @@ void UDotK_HealthComponent::Heal(float HealAmount)
 void UDotK_HealthComponent::RequestIncreaseMaxHealth()
 {
 
+}
+
+void UDotK_HealthComponent::RegenerateHealth(float DeltaTime)
+{
+	if (bCanRegenHealth && bIsAlive)
+	{
+		if (CurrentHealth < MaxHealthRegen)
+		{
+			CurrentHealth = FMath::FInterpConstantTo(CurrentHealth, MaxHealthRegen, DeltaTime, HealthRegenAmount);
+		}
+	}
 }
