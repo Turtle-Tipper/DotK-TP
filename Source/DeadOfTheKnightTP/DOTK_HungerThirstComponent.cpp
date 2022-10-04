@@ -67,8 +67,10 @@ void UDOTK_HungerThirstComponent::TickComponent(float DeltaTime, ELevelTick Tick
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// ...
+}
 
-	// Hunger Drain logic
+void UDOTK_HungerThirstComponent::DrainHunger(float DeltaTime)
+{
 	if (!bIsStarving)
 	{
 		if (CurrentHunger <= 0.0f)
@@ -91,9 +93,10 @@ void UDOTK_HungerThirstComponent::TickComponent(float DeltaTime, ELevelTick Tick
 			}
 		}
 	}
+}
 
-
-	// Thirst Drain logic
+void UDOTK_HungerThirstComponent::DrainThirst(float DeltaTime)
+{
 	if (!bIsDehydrated)
 	{
 		if (CurrentThirst <= 0.0f)

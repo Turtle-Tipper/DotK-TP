@@ -72,6 +72,7 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+	// Logic for health regeneration. Called in PlayerCharacter tick.
 	void RegenerateHealth(float DeltaTime);
 
 	UFUNCTION(BlueprintCallable)

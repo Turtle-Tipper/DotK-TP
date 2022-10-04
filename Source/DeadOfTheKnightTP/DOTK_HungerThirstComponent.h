@@ -97,6 +97,10 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+	// Logic for Hunger and Thirst Drain. Called in the Player CharacterTick
+	void DrainHunger(float DeltaTime);
+	void DrainThirst(float DeltaTime);
+
 	void Eat(float HungerValue, float SaturationValue);
 
 	void Drink(float ThirstValue);
