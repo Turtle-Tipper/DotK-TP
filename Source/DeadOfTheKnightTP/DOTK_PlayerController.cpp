@@ -26,6 +26,9 @@ void ADOTK_PlayerController::SetupInputComponent()
 		/* Input binding for sprinting. Called in controller, but functionality is still found in DeadOfTheKnightTPCharacter. */
 		InputComponent->BindAction("Sprint", EInputEvent::IE_Pressed, this, &ADOTK_PlayerController::RequestSprintStart);
 		InputComponent->BindAction("Sprint", EInputEvent::IE_Released, this, &ADOTK_PlayerController::RequestSprintStop);
+		/* Input binding for crouching. Functionality found in PlayerController. */
+		InputComponent->BindAction("Crouch", IE_Pressed, this, &ADOTK_PlayerController::RequestCrouchStart);
+		InputComponent->BindAction("Crouch", IE_Released, this, &ADOTK_PlayerController::RequestCrouchStop);
 
 		// ** DEBUG ** //
 		InputComponent->BindAction("Eat", IE_Pressed, this, &ADOTK_PlayerController::RequestEat);
@@ -105,6 +108,26 @@ void ADOTK_PlayerController::RequestSprintStop()
 	if (ADOTK_PlayerCharacter* DOTK_PlayerCharacter = Cast<ADOTK_PlayerCharacter>(GetCharacter()))
 	{
 		DOTK_PlayerCharacter->RequestSprintStop();
+	}
+}
+
+// TO DO: Crouch not fully implemented. No animation graph or animation.
+
+void ADOTK_PlayerController::RequestCrouchStart()
+{
+	if (GetCharacter())
+	{
+		GetCharacter()->Crouch();
+		GetCharacter()->bIsCrouched = true;
+	}
+}
+
+void ADOTK_PlayerController::RequestCrouchStop()
+{
+	if (GetCharacter())
+	{
+		GetCharacter()->UnCrouch();
+		GetCharacter()->bIsCrouched = false;
 	}
 }
 

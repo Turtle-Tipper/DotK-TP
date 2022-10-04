@@ -67,10 +67,6 @@ protected:
 	/** Handler for when a touch input stops. */
 	void TouchStopped(ETouchIndex::Type FingerIndex, FVector Location);
 
-	//bool CanSprint(float Speed);
-	void RequestCrouchStart();
-	void RequestCrouchStop();
-
 	// ** DEBUG ** //
 	
 	UFUNCTION(BlueprintCallable)

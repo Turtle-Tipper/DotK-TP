@@ -24,6 +24,9 @@ protected:
 	void RequestSprintStart();
 	void RequestSprintStop();
 
+	void RequestCrouchStart();
+	void RequestCrouchStop();
+
 	/* Called for forwards/backward input. */
 	void RequestMoveForward(float AxisValue);
 	/* Called for side to side input. */

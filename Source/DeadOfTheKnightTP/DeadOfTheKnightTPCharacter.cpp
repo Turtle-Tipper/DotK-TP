@@ -69,9 +69,6 @@ void ADeadOfTheKnightTPCharacter::SetupPlayerInputComponent(class UInputComponen
 	// Set up gameplay key bindings
 	check(PlayerInputComponent);
 
-	PlayerInputComponent->BindAction("Crouch", IE_Pressed, this, &ADeadOfTheKnightTPCharacter::RequestCrouchStart);
-	PlayerInputComponent->BindAction("Crouch", IE_Released, this, &ADeadOfTheKnightTPCharacter::RequestCrouchStop);
-
 	// We have 2 versions of the rotation bindings to handle different kinds of devices differently
 	// "turn" handles devices that provide an absolute delta, such as a mouse.
 	// "turnrate" is for devices that we choose to treat as a rate of change, such as an analog joystick
@@ -126,20 +123,6 @@ void ADeadOfTheKnightTPCharacter::RequestSprintStop()
 		GetCharacterMovement()->MaxWalkSpeed = GetWalkSpeed();
 		bIsSprinting = false;
 	}
-}
-
-// TO DO: Crouch not fully implemented. No animation graph or animation.
-
-void ADeadOfTheKnightTPCharacter::RequestCrouchStart()
-{
-	Crouch();
-	bIsCrouched = true;
-}
-
-void ADeadOfTheKnightTPCharacter::RequestCrouchStop()
-{
-	UnCrouch();
-	bIsCrouched = false;
 }
 
 // ** HEALTH ** //
