@@ -31,7 +31,7 @@ protected:
 
 	/* Called to drain stamina. */
 	UFUNCTION(BlueprintCallable)
-	void DrainStamina();
+	void DrainStamina(float DeltaTime);
 
 	/* Called to rest stamina regen logic. */
 	UFUNCTION(BlueprintCallable)

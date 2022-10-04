@@ -16,35 +16,15 @@ void ADOTK_PlayerCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	DrainStamina(DeltaTime);
+
 	GetHealthComponent()->RegenerateHealth(DeltaTime);
 
 	GetHungerThirstComponent()->DrainHunger(DeltaTime);
 	GetHungerThirstComponent()->DrainThirst(DeltaTime);
 
-	// Sprint Stamina drain functionality
-	if (bIsSprinting)
-	{
-		CurrentStamina = FMath::FInterpConstantTo(CurrentStamina, 0.0f, DeltaTime, SprintStaminaDrain);
 
-		if (GetHungerThirstComponent()->GetIsDehydrated() == true)
-		{
-			RequestSprintStop();
-		}
-		if (CurrentStamina <= 0.0f)
-		{
-			DepletedAllStamina();
-		}
-	}
-	else
-	{
-		if (CurrentStamina < MaxStamina)
-		{
-			if (bCanRegenStamina)
-			{
-				CurrentStamina = FMath::FInterpConstantTo(CurrentStamina, MaxStamina, DeltaTime, StaminaRegen);
-			}
-		}
-	}
+
 }
 
 // ** CHARACTER MOVEMENT ** //
@@ -79,9 +59,31 @@ void ADOTK_PlayerCharacter::RequestSprintStop()
 
 // ** STAMINA ** //
 
-void ADOTK_PlayerCharacter::DrainStamina()
+void ADOTK_PlayerCharacter::DrainStamina(float DeltaTime)
 {
+	if (bIsSprinting)
+	{
+		CurrentStamina = FMath::FInterpConstantTo(CurrentStamina, 0.0f, DeltaTime, SprintStaminaDrain);
 
+		if (GetHungerThirstComponent()->GetIsDehydrated() == true)
+		{
+			RequestSprintStop();
+		}
+		if (CurrentStamina <= 0.0f)
+		{
+			DepletedAllStamina();
+		}
+	}
+	else
+	{
+		if (CurrentStamina < MaxStamina)
+		{
+			if (bCanRegenStamina)
+			{
+				CurrentStamina = FMath::FInterpConstantTo(CurrentStamina, MaxStamina, DeltaTime, StaminaRegen);
+			}
+		}
+	}
 }
 
 void ADOTK_PlayerCharacter::EnableStaminaRegen()
