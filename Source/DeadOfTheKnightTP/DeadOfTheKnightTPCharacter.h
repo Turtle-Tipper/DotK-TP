@@ -234,7 +234,7 @@ public:
 
 	// ** SETTERS ** //
 
-	void SetWalkSpeed(float Speed){}
+	void SetWalkSpeed(float Speed) { WalkSpeed = Speed; }
 
 };
 
