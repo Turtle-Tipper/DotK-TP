@@ -33,9 +33,15 @@ void ADOTK_PlayerController::RequestMoveForward(float AxisValue)
 {
 	if (AxisValue != 0.0f)
 	{
-		FRotator const ControlSpaceRot = GetControlRotation();
-		// transform to world space and add it
-		GetPawn()->AddMovementInput(FRotationMatrix(ControlSpaceRot).GetScaledAxis(EAxis::X), AxisValue);
+		// find out which way is forward
+		const FRotator Rotation = GetControlRotation();
+		// Isolate the Yaw so that looking up/down aren't part of the movement direction calculation.
+		const FRotator YawRotation(0, Rotation.Yaw, 0);
+
+		// get forward vector
+		const FVector Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
+		// add movement in that direction
+		GetPawn()->AddMovementInput(Direction, AxisValue);
 	}
 }
 
@@ -43,9 +49,15 @@ void ADOTK_PlayerController::RequestMoveRight(float AxisValue)
 {
 	if (AxisValue != 0.0f)
 	{
-		FRotator const ControlSpaceRot = GetControlRotation();
-		// transform to world space and add it
-		GetPawn()->AddMovementInput(FRotationMatrix(ControlSpaceRot).GetScaledAxis(EAxis::Y), AxisValue);
+		// find out which way is right
+		const FRotator Rotation = GetControlRotation();
+		// Isolate the Yaw so that looking up/down aren't part of the movement direction calculation.
+		const FRotator YawRotation(0, Rotation.Yaw, 0);
+
+		// get right vector 
+		const FVector Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
+		// add movement in that direction
+		GetPawn()->AddMovementInput(Direction, AxisValue);
 	}
 }
 void ADOTK_PlayerController::RequestLookUp(float AxisValue)
