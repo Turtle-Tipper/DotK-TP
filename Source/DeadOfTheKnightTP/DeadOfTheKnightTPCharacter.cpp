@@ -6,7 +6,6 @@
 #include "Components/InputComponent.h"
 #include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
-#include "Math/UnrealMathUtility.h"
 
 //////////////////////////////////////////////////////////////////////////
 // ADeadOfTheKnightTPCharacter
@@ -90,9 +89,6 @@ void ADeadOfTheKnightTPCharacter::SetupPlayerInputComponent(class UInputComponen
 
 	PlayerInputComponent->BindAction("Take Damage", IE_Pressed, this, &ADeadOfTheKnightTPCharacter::RequestTakeDamage);
 	PlayerInputComponent->BindAction("Heal", IE_Pressed, this, &ADeadOfTheKnightTPCharacter::RequestHeal);
-	//PlayerInputComponent->BindAction("Eat", IE_Pressed, this, &ADeadOfTheKnightTPCharacter::RequestEat);
-	//PlayerInputComponent->BindAction("Drink", IE_Pressed, this, &ADeadOfTheKnightTPCharacter::RequestDrink);
-	//PlayerInputComponent->BindAction("Empty Hunger and Thirst", IE_Pressed, this, &ADeadOfTheKnightTPCharacter::RequestEmptyHungerThirst);
 }
 
 
@@ -160,8 +156,6 @@ void ADeadOfTheKnightTPCharacter::RequestHeal()
 {
 	GetHealthComponent()->Heal(TestingHealAmount);
 }
-
-
 
 //Called every frame.
 void ADeadOfTheKnightTPCharacter::Tick(float DeltaTime)

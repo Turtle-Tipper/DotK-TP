@@ -109,18 +109,6 @@ protected:
 	/* Heal amount applied by pressing H. For testing purposes. */
 	UPROPERTY(EditAnywhere, Category = "Debug")
 	float TestingHealAmount = 5.0f;
-
-	/* Hunger amount applied by pressing F. For testing purposes. */
-	UPROPERTY(EditAnywhere, Category = "Debug")
-	float TestingEatAmount = 25.0f;
-
-	/* Applied when testing hunger. For testing purposes. */
-	UPROPERTY(EditAnywhere, Category = "Debug")
-	float TestingSaturationAmount = 25.0f;
-
-	/* Thirst amount applied by pressing T. For testing purposes. */
-	UPROPERTY(EditAnywhere, Category = "Debug")
-	float TestingDrinkAmount = 25.0f;
 	
 protected:
 	// APawn interface

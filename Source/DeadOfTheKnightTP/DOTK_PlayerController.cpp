@@ -26,6 +26,11 @@ void ADOTK_PlayerController::SetupInputComponent()
 		/* Input binding for sprinting. Called in controller, but functionality is still found in DeadOfTheKnightTPCharacter. */
 		InputComponent->BindAction("Sprint", EInputEvent::IE_Pressed, this, &ADOTK_PlayerController::RequestSprintStart);
 		InputComponent->BindAction("Sprint", EInputEvent::IE_Released, this, &ADOTK_PlayerController::RequestSprintStop);
+
+		// ** DEBUG ** //
+		InputComponent->BindAction("Eat", IE_Pressed, this, &ADOTK_PlayerController::RequestEat);
+		InputComponent->BindAction("Drink", IE_Pressed, this, &ADOTK_PlayerController::RequestDrink);
+		InputComponent->BindAction("Empty Hunger and Thirst", IE_Pressed, this, &ADOTK_PlayerController::RequestEmptyHungerThirst);
 	}
 }
 
@@ -100,5 +105,31 @@ void ADOTK_PlayerController::RequestSprintStop()
 	if (ADOTK_PlayerCharacter* DOTK_PlayerCharacter = Cast<ADOTK_PlayerCharacter>(GetCharacter()))
 	{
 		DOTK_PlayerCharacter->RequestSprintStop();
+	}
+}
+
+// ** DEBUG ** //
+
+void ADOTK_PlayerController::RequestEat()
+{
+	if (ADOTK_PlayerCharacter* DOTK_PlayerCharacter = Cast<ADOTK_PlayerCharacter>(GetCharacter()))
+	{
+		DOTK_PlayerCharacter->RequestEat();
+	}
+}
+
+void ADOTK_PlayerController::RequestDrink()
+{
+	if (ADOTK_PlayerCharacter* DOTK_PlayerCharacter = Cast<ADOTK_PlayerCharacter>(GetCharacter()))
+	{
+		DOTK_PlayerCharacter->RequestDrink();
+	}
+}
+
+void ADOTK_PlayerController::RequestEmptyHungerThirst()
+{
+	if (ADOTK_PlayerCharacter* DOTK_PlayerCharacter = Cast<ADOTK_PlayerCharacter>(GetCharacter()))
+	{
+		DOTK_PlayerCharacter->RequestEmptyHungerThirst();
 	}
 }

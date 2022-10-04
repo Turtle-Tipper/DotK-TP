@@ -41,16 +41,7 @@ protected:
 	UFUNCTION(BlueprintCallable)
 	void DepletedAllStamina();
 
-	// ** HUNGER AND THIRST FUNCTIONS ** //
-	
-	UFUNCTION(BlueprintCallable)
-	void RequestEat();
 
-	UFUNCTION(BlueprintCallable)
-	void RequestDrink();
-
-	UFUNCTION(BlueprintCallable)
-	void RequestEmptyHungerThirst();
 
 protected:
 
@@ -99,7 +90,32 @@ protected:
 
 	/* Character Reference. */
 
+	// ** DEBUG ** //
+
+	/* Hunger amount applied by pressing F. For testing purposes. */
+	UPROPERTY(EditAnywhere, Category = "Debug")
+	float TestingEatAmount = 25.0f;
+
+	/* Applied when testing hunger. For testing purposes. */
+	UPROPERTY(EditAnywhere, Category = "Debug")
+	float TestingSaturationAmount = 25.0f;
+
+	/* Thirst amount applied by pressing T. For testing purposes. */
+	UPROPERTY(EditAnywhere, Category = "Debug")
+	float TestingDrinkAmount = 25.0f;
+
 public:
+
+	// ** HUNGER AND THIRST FUNCTIONS ** //
+
+	UFUNCTION(BlueprintCallable)
+	void RequestEat();
+
+	UFUNCTION(BlueprintCallable)
+	void RequestDrink();
+
+	UFUNCTION(BlueprintCallable)
+	void RequestEmptyHungerThirst();
 
 	virtual void RequestSprintStart() override;
 	virtual void RequestSprintStop() override;

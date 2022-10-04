@@ -93,17 +93,17 @@ void ADOTK_PlayerCharacter::DepletedAllStamina()
 
 void ADOTK_PlayerCharacter::RequestEat()
 {
-	//GetHungerThirstComponent()->Eat(TestingEatAmount, TestingSaturationAmount);
+	GetHungerThirstComponent()->Eat(TestingEatAmount, TestingSaturationAmount);
 }
 
 void ADOTK_PlayerCharacter::RequestDrink()
 {
-	//GetHungerThirstComponent()->Drink(TestingDrinkAmount);
+	GetHungerThirstComponent()->Drink(TestingDrinkAmount);
 }
 
 void ADOTK_PlayerCharacter::RequestEmptyHungerThirst()
 {
-	//GetHungerThirstComponent()->SetCurrentSaturation(0.0f);
-	//GetHungerThirstComponent()->SetCurrentHunger(0.0f);
-	//GetHungerThirstComponent()->SetCurrentThirst(0.0f);
+	GetHungerThirstComponent()->SetCurrentSaturation(0.0f);
+	GetHungerThirstComponent()->SetCurrentHunger(0.0f);
+	GetHungerThirstComponent()->SetCurrentThirst(0.0f);
 }

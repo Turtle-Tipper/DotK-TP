@@ -41,4 +41,10 @@ protected:
 	// Base lookright rate, in deg/sec. Other scaling may affect final look right rate
 	UPROPERTY(EditAnywhere, Category = "Look")
 	float BaseLookRightRate = 90.0f;
+
+	// ** DEBUG ** //
+	
+	void RequestEat();
+	void RequestDrink();
+	void RequestEmptyHungerThirst();
 };
