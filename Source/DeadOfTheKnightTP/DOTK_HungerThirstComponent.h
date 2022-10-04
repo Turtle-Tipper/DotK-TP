@@ -51,14 +51,6 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Hunger")
 	float HungerDrain = 0.2f;
 
-	/* Rate at which health is drained while starving. */
-	UPROPERTY(EditAnywhere, Category = "Hunger")
-	float StarvationHPDrain = 1.0f;
-
-	/* Max Regen HP while starving. */
-	UPROPERTY(EditAnywhere, Category = "Hunger")
-	float MaxStarvationRegen = 30.0f;
-
 	/* Max Saturation value for a character. */
 	UPROPERTY(EditAnywhere, Category = "Hunger")
 	float MaxSaturation = 100.0f;

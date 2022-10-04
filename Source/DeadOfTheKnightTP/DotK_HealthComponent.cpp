@@ -31,9 +31,9 @@ void UDotK_HealthComponent::TickComponent(float DeltaTime, ELevelTick TickType, 
 
 	if (bCanRegenHealth && bIsAlive)
 	{
-		if (CurrentHP < MaxRegenHP)
+		if (CurrentHealth < MaxHealthRegen)
 		{
-			CurrentHP = FMath::FInterpConstantTo(CurrentHP, MaxRegenHP, DeltaTime, HealthRegenAmount);
+			CurrentHealth = FMath::FInterpConstantTo(CurrentHealth, MaxHealthRegen, DeltaTime, HealthRegenAmount);
 		}
 	}
 }
@@ -47,15 +47,15 @@ void UDotK_HealthComponent::TakeDamage(float DamageAmount)
 {
 	if (bIsAlive)
 	{
-		CurrentHP -= DamageAmount;
+		CurrentHealth -= DamageAmount;
 		bCanRegenHealth = false;
 
 		// Start timer before character can regen health
 		GetWorld()->GetTimerManager().SetTimer(HealthRegenTimerHandle, this, &UDotK_HealthComponent::EnableHealthRegen, HealthRegenDelay, false);
 		
-		if (CurrentHP <= 0.0f)
+		if (CurrentHealth <= 0.0f)
 		{
-			CurrentHP = 0.0f;
+			CurrentHealth = 0.0f;
 			bIsAlive = false;
 		}
 	}
@@ -65,11 +65,11 @@ void UDotK_HealthComponent::Heal(float HealAmount)
 {
 	if (bIsAlive)
 	{
-		CurrentHP += HealAmount;
+		CurrentHealth += HealAmount;
 
-		if (CurrentHP > MaxHP)
+		if (CurrentHealth > MaxHealth)
 		{
-			CurrentHP = MaxHP;
+			CurrentHealth = MaxHealth;
 		}
 	}
 }

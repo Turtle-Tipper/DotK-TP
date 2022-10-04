@@ -36,15 +36,23 @@ protected:
 
 	/* Maximum health of entity. Applicable for creatures and breakable objects. */
 	UPROPERTY(EditAnywhere, Category = "Health")
-	float MaxHP = 100;
+	float MaxHealth = 100;
 
 	/* Current health of entity. Applicable for creatures and breakable objects. */
 	UPROPERTY(EditAnywhere, Category = "Health")
-	float CurrentHP = MaxHP;
+	float CurrentHealth = MaxHealth;
+
+	/* Rate at which health is drained while starving. */
+	UPROPERTY(EditAnywhere, Category = "Hunger")
+	float StarvationHealthDrain = 1.0f;
+
+	/* Max Regen HP while starving. */
+	UPROPERTY(EditAnywhere, Category = "Regen")
+	float MaxStarvationRegen = 30.0f;
 
 	/* Maximum amount of health the player can naturally regenerate to. */
 	UPROPERTY(EditAnywhere, Category = "Regen")
-	float MaxRegenHP = 70.0f;
+	float MaxHealthRegen = 70.0f;
 
 	/* Amount of health regenerated for each regen interval. */
 	UPROPERTY(EditAnywhere, Category = "Regen")
@@ -73,23 +81,23 @@ public:
 	// ** GETTER FUNCTIONS ** //
 
 	UFUNCTION(BlueprintPure)
-	float GetCurrentHP() { return CurrentHP; }
+	float GetCurrentHealth() { return CurrentHealth; }
 
 	UFUNCTION(BlueprintPure)
-	float GetMaxHP() { return MaxHP; }
+	float GetMaxHealth() { return MaxHealth; }
 
 	UFUNCTION(BlueprintPure)
-	float GetMaxRegenHP() { return MaxRegenHP; }
+	float GetMaxHealthRegen() { return MaxHealthRegen; }
 
 	UFUNCTION(BlueprintPure)
-	float GetHPPercentage() { return CurrentHP / MaxHP; }
+	float GetHPPercentage() { return CurrentHealth / MaxHealth; }
 
 	// ** SETTER FUNCTIONS ** //
 
 	UFUNCTION(BlueprintCallable)
-	void SetCurrentHP(float HPAmount) { CurrentHP = HPAmount; }
+	void SetCurrentHealth(float HPAmount) { CurrentHealth = HPAmount; }
 
 	UFUNCTION(BlueprintCallable)
-	void SetMaxRegenHP(float MaxRegenAmount) { MaxRegenHP = MaxRegenAmount; }
+	void SetMaxHealthRegen(float MaxRegenAmount) { MaxHealthRegen = MaxRegenAmount; }
 
 };
