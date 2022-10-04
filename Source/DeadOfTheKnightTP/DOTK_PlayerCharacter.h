@@ -46,9 +46,11 @@ protected:
 	UFUNCTION(BlueprintCallable)
 	void DepletedAllStamina();
 
-
-
 protected:
+
+	/* Tracks whether or not the character is overlapping an item. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Items")
+	bool bIsOverlappingItem;
 
 	// ** STAMINA ** //
 
@@ -110,6 +112,10 @@ protected:
 	float TestingDrinkAmount = 25.0f;
 
 public:
+
+	// ** ITEMS ** //
+
+	void PickupItem();
 
 	// ** HUNGER AND THIRST FUNCTIONS ** //
 

@@ -123,3 +123,13 @@ void ADOTK_PlayerCharacter::RequestEmptyHungerThirst()
 	GetHungerThirstComponent()->SetCurrentHunger(0.0f);
 	GetHungerThirstComponent()->SetCurrentThirst(0.0f);
 }
+
+// ** ITEMS ** //
+
+void ADOTK_PlayerCharacter::PickupItem()
+{
+	if (bIsOverlappingItem)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("We picked up an item."))
+	}
+}
