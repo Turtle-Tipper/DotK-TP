@@ -22,9 +22,6 @@ void ADOTK_PlayerCharacter::Tick(float DeltaTime)
 
 	GetHungerThirstComponent()->DrainHunger(DeltaTime);
 	GetHungerThirstComponent()->DrainThirst(DeltaTime);
-
-
-
 }
 
 // ** CHARACTER MOVEMENT ** //

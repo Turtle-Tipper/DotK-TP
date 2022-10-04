@@ -50,6 +50,10 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Regen")
 	float MaxStarvationRegen = 30.0f;
 
+	/* Current amount of health that can be regenerated to. */
+	UPROPERTY(EditAnywhere, Category = "Regen")
+	float CurrentHealthRegen = MaxHealthRegen;
+
 	/* Maximum amount of health the player can naturally regenerate to. */
 	UPROPERTY(EditAnywhere, Category = "Regen")
 	float MaxHealthRegen = 70.0f;
@@ -90,6 +94,9 @@ public:
 	float GetMaxHealth() { return MaxHealth; }
 
 	UFUNCTION(BlueprintPure)
+	float GetCurrentHealthRegen() { return CurrentHealthRegen; }
+
+	UFUNCTION(BlueprintPure)
 	float GetMaxHealthRegen() { return MaxHealthRegen; }
 
 	UFUNCTION(BlueprintPure)
@@ -99,6 +106,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void SetCurrentHealth(float HPAmount) { CurrentHealth = HPAmount; }
+
+	UFUNCTION(BlueprintCallable)
+	void SetCurrentHealthRegen(float CurrentRegenAmount) { CurrentHealthRegen = CurrentRegenAmount; }
 
 	UFUNCTION(BlueprintCallable)
 	void SetMaxHealthRegen(float MaxRegenAmount) { MaxHealthRegen = MaxRegenAmount; }
