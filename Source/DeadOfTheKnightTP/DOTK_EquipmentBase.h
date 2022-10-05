@@ -6,9 +6,18 @@
 #include "DOTK_ItemBase.h"
 #include "DOTK_EquipmentBase.generated.h"
 
-/**
- * 
- */
+UENUM()
+enum class EEquipSlot : uint8
+{
+
+};
+
+UENUM()
+enum class EArmorType : uint8
+{
+
+};
+
 UCLASS()
 class DEADOFTHEKNIGHTTP_API ADOTK_EquipmentBase : public ADOTK_ItemBase
 {
