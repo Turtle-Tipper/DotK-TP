@@ -9,6 +9,7 @@
 UENUM(BlueprintType)
 enum class EWeaponType : uint8
 {
+	DEFAULT			UMETA(DisplayName = "DEFAULT"),
 	None			UMETA(DisplayName = "None"),
 	Dagger			UMETA(DisplayName = "Dagger"),
 	Shield			UMETA(DisplayName = "Shield"),
@@ -22,6 +23,7 @@ enum class EWeaponType : uint8
 UENUM(BlueprintType)
 enum class EHandSlot : uint8
 {
+	DEFAULT			UMETA(DisplayName = "DEFAULT"),
 	None			UMETA(DisplayName = "None"),
 	MainHand		UMETA(DisplayName = "Main Hand"),
 	OffHand			UMETA(DisplayName = "Off Hand"),

@@ -10,6 +10,7 @@
 UENUM(BlueprintType)
 enum class EItemQuality : uint8
 {
+	DEFAULT			UMETA(DisplayName = "DEFAULT"),
 	None			UMETA(DisplayName = "None"),
 	Poor			UMETA(DisplayName = "Poor"),
 	Common			UMETA(DisplayName = "Common"),
@@ -35,11 +36,13 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	int StackSize;
-
-	EItemQuality ItemQuality;
+	UPROPERTY(EditAnywhere)
+	int StackSize = 1;
 
 	UPROPERTY(EditAnywhere)
+	EItemQuality ItemQuality;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FString ItemName;
 
 public:	

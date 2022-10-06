@@ -9,6 +9,7 @@
 UENUM(BlueprintType)
 enum class EEquipSlot : uint8
 {
+	DEFAULT			UMETA(DisplayName = "DEFAULT"),
 	None			UMETA(DisplayName = "None"),
 	Head			UMETA(DisplayName = "Head"),
 	Chest			UMETA(DisplayName = "Chest"),
@@ -19,6 +20,7 @@ enum class EEquipSlot : uint8
 UENUM(BlueprintType)
 enum class EArmorType : uint8
 {
+	DEFAULT			UMETA(DisplayName = "DEFAULT"),
 	None			UMETA(DisplayName = "None"),
 	Cloth			UMETA(DisplayName = "Cloth"),
 	Light			UMETA(DisplayName = "Light"),
