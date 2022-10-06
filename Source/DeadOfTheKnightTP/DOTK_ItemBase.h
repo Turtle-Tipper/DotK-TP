@@ -51,6 +51,9 @@ protected:
 	virtual void BeginPlay() override;
 
 	UPROPERTY(EditAnywhere)
+	int LevelReq;
+
+	UPROPERTY(EditAnywhere)
 	int StackSize = 1;
 
 	UPROPERTY(EditAnywhere)
