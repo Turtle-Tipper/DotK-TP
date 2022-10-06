@@ -7,7 +7,7 @@
 #include "DotK_CharacterAttributeComponent.h"
 #include "DOTK_ItemBase.generated.h"
 
-UENUM()
+UENUM(EditAnywhere, BlueprintReadOnly)
 enum class EItemQuality : uint8
 {
 	None			UMETA(DisplayName = "None"),
