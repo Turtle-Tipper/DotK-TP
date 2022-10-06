@@ -39,7 +39,7 @@ class DEADOFTHEKNIGHTTP_API ADOTK_ItemBase : public AActor
 	class UStaticMeshComponent* StaticMeshComponent;
 
 	/* 2D Texture Component */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Static Mesh", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	class UTexture2D* ItemImage;
 	
 public:	
