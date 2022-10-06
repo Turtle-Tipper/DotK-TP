@@ -10,6 +10,8 @@ ADOTK_ItemBase::ADOTK_ItemBase()
 	PrimaryActorTick.bCanEverTick = true;
 
 	StaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMeshComponent"));
+
+	ItemImage = CreateDefaultSubobject<UTexture2D>(TEXT("ItemImage"));
 }
 
 // Called when the game starts or when spawned

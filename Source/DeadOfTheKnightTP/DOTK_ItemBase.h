@@ -19,6 +19,16 @@ enum class EItemQuality : uint8
 	Epic			UMETA(DisplayName = "Epic"),
 };
 
+UENUM(BlueprintType)
+enum class EItemType : uint8
+{
+	DEFAULT			UMETA(DisplayName = "DEFAULT"),
+	Resource		UMETA(DisplayName = "Resource"),
+	Consumable		UMETA(DisplayName = "Consumable"),
+	Weapon			UMETA(DisplayName = "Weapon"),
+	Equipment		UMETA(DisplayName = "Equipment"),
+};
+
 UCLASS()
 class DEADOFTHEKNIGHTTP_API ADOTK_ItemBase : public AActor
 {
@@ -27,6 +37,10 @@ class DEADOFTHEKNIGHTTP_API ADOTK_ItemBase : public AActor
 	/* Static Mesh Component */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Static Mesh", meta = (AllowPrivateAccess = "true"))
 	class UStaticMeshComponent* StaticMeshComponent;
+
+	/* 2D Texture Component */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Static Mesh", meta = (AllowPrivateAccess = "true"))
+	class UTexture2D* ItemImage;
 	
 public:	
 	// Sets default values for this actor's properties
@@ -42,6 +56,9 @@ protected:
 	UPROPERTY(EditAnywhere)
 	EItemQuality ItemQuality;
 
+	UPROPERTY(EditAnywhere)
+	EItemType ItemType;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FString ItemName;
 
@@ -52,5 +69,7 @@ public:
 	// ** GETTERS ** //
 	/** Returns HungerThirstComponent subobject **/
 	FORCEINLINE class UStaticMeshComponent* GetHungerThirstComponent() const { return StaticMeshComponent; }
+	/* Returns ItemImage. */
+	FORCEINLINE class UTexture2D* GetItemImage() const { return ItemImage; }
 
 };
