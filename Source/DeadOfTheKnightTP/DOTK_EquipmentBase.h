@@ -6,7 +6,7 @@
 #include "DOTK_ItemBase.h"
 #include "DOTK_EquipmentBase.generated.h"
 
-UENUM(EditAnywhere, BlueprintReadOnly)
+UENUM(BlueprintType)
 enum class EEquipSlot : uint8
 {
 	None			UMETA(DisplayName = "None"),
@@ -16,7 +16,7 @@ enum class EEquipSlot : uint8
 	Feet			UMETA(DisplayName = "Feet"),
 };
 
-UENUM(EditAnywhere, BlueprintReadOnly)
+UENUM(BlueprintType)
 enum class EArmorType : uint8
 {
 	None			UMETA(DisplayName = "None"),
