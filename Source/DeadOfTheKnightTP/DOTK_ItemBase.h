@@ -62,6 +62,9 @@ protected:
 	int LevelReq;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float ItemWeight;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int StackSize = 1;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
