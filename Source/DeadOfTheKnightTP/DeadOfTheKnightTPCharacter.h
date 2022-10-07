@@ -100,6 +100,10 @@ protected:
 	/* Heal amount applied by pressing H. For testing purposes. */
 	UPROPERTY(EditAnywhere, Category = "Debug")
 	float TestingHealAmount = 5.0f;
+
+	/* Base attack speed of a character. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category "Stats")
+	float BaseAttackSpeed = 1.0f;
 	
 protected:
 	// APawn interface
