@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "DOTK_PlayerCharacter.h"
 #include "DotK_CharacterAttributeComponent.h"
 #include "DOTK_ItemBase.generated.h"
 
@@ -50,6 +51,14 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	// Custom Overlap begin function
+	UFUNCTION()
+	void OnBeginOverlap(AActor* OverlappedActor, AActor* OtherActor);
+
+	// Custom Overlap end function
+	UFUNCTION()
+	void OnEndOverlap(AActor* OverlappedActor, AActor* OtherActor);
+
 	UPROPERTY(EditAnywhere)
 	int LevelReq;
 
@@ -74,5 +83,7 @@ public:
 	FORCEINLINE class UStaticMeshComponent* GetHungerThirstComponent() const { return StaticMeshComponent; }
 	/* Returns ItemImage. */
 	FORCEINLINE class UTexture2D* GetItemImage() const { return ItemImage; }
+
+	FORCEINLINE FString GetItemName() { return ItemName; }
 
 };
