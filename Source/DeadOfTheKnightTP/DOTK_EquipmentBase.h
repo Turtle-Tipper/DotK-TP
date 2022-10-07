@@ -42,23 +42,23 @@ protected:
 	virtual void BeginPlay() override;
 
 	/* Determines the equip slot.*/
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	EEquipSlot EquipSlot;
 
 	/* Determines the armor type. Different armor types can receive bonuses to them based on talents or armor specialties. */
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	EArmorType ArmorType;
 
 	/* Armor applied by piece of gear. Can be improved with attachments. */
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int BaseArmor;
 
 	/* Increases Stamina Drain by this amount per second when equipped. Generally higher the heavier the armor type. Can be changed with attachments and talents. */
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float StaminaDrainModifier = 0.0f;
 
 	/* Decreases Movement Speed by this value when equipped. Generally higher movement speed reduction on heavier armor types. Can be changed with attachments and talents.  */
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float MoveSpeedModifier = 0.0f;
 
 public:

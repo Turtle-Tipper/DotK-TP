@@ -45,19 +45,19 @@ protected:
 	virtual void BeginPlay() override;
 
 	/* Initial attack speed before being modified by stats (agility) or weapon skill/talents. */
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float BaseAttackSpeed = 2.0f;
 
 	/* Initial weapon damage before being modified by stats, weapon skill, crits. */
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float BaseAttackDamage = 5.0f;
 
 	/* Determines the weapon type. For use in choosing attack animation, applying damage modifiers based on weapon skill/talents, and displaying on item info. */
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	EWeaponType WeaponType;
 
 	/* Determines slot weapon can be equipped in. One Hand can be equipped in either Main Hand or Off Hand. */
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	EHandSlot HandSlot;
 
 public:
