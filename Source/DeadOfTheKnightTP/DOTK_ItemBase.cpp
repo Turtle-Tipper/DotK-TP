@@ -12,6 +12,10 @@ ADOTK_ItemBase::ADOTK_ItemBase()
 	StaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMeshComponent"));
 
 	ItemImage = CreateDefaultSubobject<UTexture2D>(TEXT("ItemImage"));
+
+	OnActorBeginOverlap.AddDynamic(this, &ADOTK_ItemBase::OnBeginOverlap);
+
+	OnActorEndOverlap.AddDynamic(this, &ADOTK_ItemBase::OnEndOverlap);
 }
 
 // Called when the game starts or when spawned
@@ -32,8 +36,19 @@ void ADOTK_ItemBase::OnBeginOverlap(AActor* OverlappedActor, AActor* OtherActor)
 {
 	if (OtherActor == Cast<ADOTK_PlayerCharacter>(OtherActor))
 	{
-		//get item name
+		if (!GameWidgetClass) { UE_LOG(LogTemp, Warning, TEXT("No Game Widget Class detected.")) return; }
+
+		//set item name
+		SetCorrectItemName(ItemName);
+
+		// get player controller to add to
+		PC = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+		GameWidget = CreateWidget<UDOTK_GameWidget>(PC, GameWidgetClass);
 		//create widget
+
+		if (!GameWidget) { UE_LOG(LogTemp, Warning, TEXT("Game Widget returning null.")) return; }
+
+		GameWidget->AddToViewport();
 	}
 }
 
@@ -42,5 +57,8 @@ void ADOTK_ItemBase::OnEndOverlap(AActor* OverlappedActor, AActor* OtherActor)
 	if (OtherActor == Cast<ADOTK_PlayerCharacter>(OtherActor))
 	{
 		// destroy widget
+		if (!GameWidget) { UE_LOG(LogTemp, Warning, TEXT("Game Widget returning null.")) return; }
+
+		GameWidget->RemoveFromParent();
 	}
 }

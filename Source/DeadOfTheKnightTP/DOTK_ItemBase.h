@@ -6,6 +6,8 @@
 #include "GameFramework/Actor.h"
 #include "DOTK_PlayerCharacter.h"
 #include "DotK_CharacterAttributeComponent.h"
+#include "DOTK_GameWidget.h"
+#include "Kismet/GameplayStatics.h"
 #include "DOTK_ItemBase.generated.h"
 
 UENUM(BlueprintType)
@@ -42,6 +44,14 @@ class DEADOFTHEKNIGHTTP_API ADOTK_ItemBase : public AActor
 	/* 2D Texture Component */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	class UTexture2D* ItemImage;
+
+	/* Object being created and added to the viewport. */
+	UPROPERTY()
+	UDOTK_GameWidget* GameWidget;
+	
+	/* Exposed class to check the type of widget to display. */ 
+	UPROPERTY(EditAnywhere, Category = "Widget")
+	TSubclassOf<UDOTK_GameWidget> GameWidgetClass;
 	
 public:	
 	// Sets default values for this actor's properties
@@ -85,5 +95,12 @@ public:
 	FORCEINLINE class UTexture2D* GetItemImage() const { return ItemImage; }
 
 	FORCEINLINE FString GetItemName() { return ItemName; }
+
+	// ** SETTERS ** //
+
+	void SetCorrectItemName(FString Name) { ItemName = Name; }
+
+private:
+	APlayerController* PC = nullptr;
 
 };
