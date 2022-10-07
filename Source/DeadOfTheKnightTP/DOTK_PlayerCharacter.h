@@ -6,11 +6,14 @@
 #include "DeadOfTheKnightTPCharacter.h"
 #include "DOTK_HungerThirstComponent.h"
 #include "DOTK_LevelHandlerComponent.h"
+#include "DOTK_ItemBase.h"
 #include "DOTK_PlayerCharacter.generated.h"
 
 /**
  * 
  */
+
+
 UCLASS()
 class DEADOFTHEKNIGHTTP_API ADOTK_PlayerCharacter : public ADeadOfTheKnightTPCharacter
 {

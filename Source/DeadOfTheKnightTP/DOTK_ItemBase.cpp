@@ -30,17 +30,17 @@ void ADOTK_ItemBase::Tick(float DeltaTime)
 
 void ADOTK_ItemBase::OnBeginOverlap(AActor* OverlappedActor, AActor* OtherActor)
 {
-	if (OtherActor == Cast<ADOTK_PlayerCharacter>(OtherActor))
-	{
-		//get item name
-		//create widget
-	}
+		//if (OtherActor == Cast<ADOTK_PlayerCharacter>(OtherActor))
+		//{
+		//	//get item name
+		//	//create widget
+		//}
 }
 
 void ADOTK_ItemBase::OnEndOverlap(AActor* OverlappedActor, AActor* OtherActor)
 {
-	if (OtherActor == Cast<ADOTK_PlayerCharacter>(OtherActor))
-	{
-		// destroy widget
-	}
+	//if (OtherActor == Cast<ADOTK_PlayerCharacter>(OtherActor))
+	//{
+	//	// destroy widget
+	//}
 }
