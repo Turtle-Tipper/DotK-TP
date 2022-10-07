@@ -32,7 +32,7 @@ void ADOTK_PlayerController::SetupInputComponent()
 		InputComponent->BindAction("Crouch", IE_Pressed, this, &ADOTK_PlayerController::RequestCrouchStart);
 		InputComponent->BindAction("Crouch", IE_Released, this, &ADOTK_PlayerController::RequestCrouchStop);
 
-		InputComponent->BindAction("Pick Up Item", IE_Pressed, this, &ADOTK_PlayerController::RequestPickupItem);
+		//InputComponent->BindAction("Pick Up Item", IE_Pressed, this, &ADOTK_PlayerController::RequestPickupItem);
 
 		// ** DEBUG ** //
 		InputComponent->BindAction("Eat", IE_Pressed, this, &ADOTK_PlayerController::RequestEat);
