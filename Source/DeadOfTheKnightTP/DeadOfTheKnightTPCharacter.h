@@ -102,7 +102,7 @@ protected:
 	float TestingHealAmount = 5.0f;
 
 	/* Base attack speed of a character. */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category "Stats")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
 	float BaseAttackSpeed = 1.0f;
 	
 protected:
