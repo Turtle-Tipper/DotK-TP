@@ -9,10 +9,17 @@
 #include "DOTK_ItemBase.h"
 #include "DOTK_PlayerCharacter.generated.h"
 
-/**
- * 
- */
+USTRUCT(BlueprintType)
+struct FInventory
+{
+	GENERATED_BODY()
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int SlotLimit;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<ADOTK_ItemBase*> ItemList;
+};
 
 UCLASS()
 class DEADOFTHEKNIGHTTP_API ADOTK_PlayerCharacter : public ADeadOfTheKnightTPCharacter
@@ -98,6 +105,12 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
 	float StaminaRegenDelay = 1.5f;
 
+	// ** INVENTORY ** //
+
+	/* The inventory structure for the character. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inventory")
+	FInventory Inventory;
+
 	/* Character Reference. */
 
 	// ** DEBUG ** //
@@ -119,6 +132,10 @@ public:
 	// ** ITEMS ** //
 
 	void PickupItem();
+
+	// Add an item to the character's inventory
+	UFUNCTION(BlueprintCallable, Category = "Item")
+	void AddToInventory(ADOTK_ItemBase* Item);
 
 	// ** HUNGER AND THIRST FUNCTIONS ** //
 
