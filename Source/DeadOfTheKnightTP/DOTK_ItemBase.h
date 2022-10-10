@@ -36,7 +36,7 @@ class DEADOFTHEKNIGHTTP_API ADOTK_ItemBase : public AActor
 
 	/* Static Mesh Component */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Static Mesh", meta = (AllowPrivateAccess = "true"))
-	class UStaticMeshComponent* StaticMeshComponent;
+	class UStaticMeshComponent* ItemMesh;
 
 	/* 2D Texture Component */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
@@ -81,8 +81,8 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	// ** GETTERS ** //
-	/** Returns HungerThirstComponent subobject **/
-	FORCEINLINE class UStaticMeshComponent* GetHungerThirstComponent() const { return StaticMeshComponent; }
+	/** Returns StaticMeshComponent subobject **/
+	FORCEINLINE class UStaticMeshComponent* GetStaticMeshComponent() const { return ItemMesh; }
 	/* Returns ItemImage. */
 	FORCEINLINE class UTexture2D* GetItemImage() const { return ItemImage; }
 
