@@ -26,7 +26,7 @@ enum class EItemType : uint8
 	Resource		UMETA(DisplayName = "Resource"),
 	Consumable		UMETA(DisplayName = "Consumable"),
 	Weapon			UMETA(DisplayName = "Weapon"),
-	Equipment		UMETA(DisplayName = "Equipment"),
+	Armor			UMETA(DisplayName = "Armor"),
 };
 
 UCLASS()

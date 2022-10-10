@@ -15,18 +15,12 @@ enum class EEquipSlot : uint8
 	Chest			UMETA(DisplayName = "Chest"),
 	Legs			UMETA(DisplayName = "Legs"),
 	Feet			UMETA(DisplayName = "Feet"),
+	MainHand		UMETA(DisplayName = "Main Hand"),
+	OffHand			UMETA(DisplayName = "Off Hand"),
+	OneHand			UMETA(DisplayName = "One Hand"),
+	TwoHand			UMETA(DisplayName = "Two Hand"),
 };
 
-UENUM(BlueprintType)
-enum class EArmorType : uint8
-{
-	DEFAULT			UMETA(DisplayName = "DEFAULT"),
-	None			UMETA(DisplayName = "None"),
-	Cloth			UMETA(DisplayName = "Cloth"),
-	Light			UMETA(DisplayName = "Light"),
-	Medium			UMETA(DisplayName = "Medium"),
-	Heavy			UMETA(DisplayName = "Heavy"),
-};
 
 UCLASS()
 class DEADOFTHEKNIGHTTP_API ADOTK_EquipmentBase : public ADOTK_ItemBase
@@ -34,7 +28,7 @@ class DEADOFTHEKNIGHTTP_API ADOTK_EquipmentBase : public ADOTK_ItemBase
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this actor's propertiesvv
+	// Sets default values for this actor's properties
 	ADOTK_EquipmentBase();
 
 protected:
@@ -44,14 +38,6 @@ protected:
 	/* Determines the equip slot.*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	EEquipSlot EquipSlot;
-
-	/* Determines the armor type. Different armor types can receive bonuses to them based on talents or armor specialties. */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	EArmorType ArmorType;
-
-	/* Armor applied by piece of gear. Can be improved with attachments. */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int BaseArmor;
 
 	/* Increases Stamina Drain by this amount per second when equipped. Generally higher the heavier the armor type. Can be changed with attachments and talents. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

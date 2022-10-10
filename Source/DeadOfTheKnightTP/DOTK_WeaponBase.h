@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "DOTK_ItemBase.h"
+#include "DOTK_EquipmentBase.h"
 #include "DOTK_WeaponBase.generated.h"
 
 UENUM(BlueprintType)
@@ -20,19 +20,19 @@ enum class EWeaponType : uint8
 	Other			UMETA(DisplayName = "Other"),
 };
 
-UENUM(BlueprintType)
-enum class EHandSlot : uint8
-{
-	DEFAULT			UMETA(DisplayName = "DEFAULT"),
-	None			UMETA(DisplayName = "None"),
-	MainHand		UMETA(DisplayName = "Main Hand"),
-	OffHand			UMETA(DisplayName = "Off Hand"),
-	OneHand			UMETA(DisplayName = "One Hand"),
-	TwoHand			UMETA(DisplayName = "Two Hand"),
-};
+//UENUM(BlueprintType)
+//enum class EHandSlot : uint8
+//{
+//	DEFAULT			UMETA(DisplayName = "DEFAULT"),
+//	None			UMETA(DisplayName = "None"),
+//	MainHand		UMETA(DisplayName = "Main Hand"),
+//	OffHand			UMETA(DisplayName = "Off Hand"),
+//	OneHand			UMETA(DisplayName = "One Hand"),
+//	TwoHand			UMETA(DisplayName = "Two Hand"),
+//};
 
 UCLASS()
-class DEADOFTHEKNIGHTTP_API ADOTK_WeaponBase : public ADOTK_ItemBase
+class DEADOFTHEKNIGHTTP_API ADOTK_WeaponBase : public ADOTK_EquipmentBase
 {
 	GENERATED_BODY()
 
@@ -57,8 +57,8 @@ protected:
 	EWeaponType WeaponType;
 
 	/* Determines slot weapon can be equipped in. One Hand can be equipped in either Main Hand or Off Hand. */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	EHandSlot HandSlot;
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	//EHandSlot HandSlot;
 
 public:
 	// Called every frame
