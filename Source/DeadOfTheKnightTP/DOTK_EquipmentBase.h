@@ -27,6 +27,10 @@ class DEADOFTHEKNIGHTTP_API ADOTK_EquipmentBase : public ADOTK_ItemBase
 {
 	GENERATED_BODY()
 
+	/* Attribute Component */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
+	class UDotK_CharacterAttributeComponent* AttributeComponent;
+
 public:
 	// Sets default values for this actor's properties
 	ADOTK_EquipmentBase();
@@ -50,5 +54,8 @@ protected:
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	/** Returns Attribute subobject **/
+	FORCEINLINE class UDotK_CharacterAttributeComponent* GetAttributeComponent() const { return AttributeComponent; }
 
 };

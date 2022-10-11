@@ -55,7 +55,7 @@ ADeadOfTheKnightTPCharacter::ADeadOfTheKnightTPCharacter()
 	DamageHandlerComponent = CreateDefaultSubobject<UDotK_DamageHandlerComponent>(TEXT("DamageHandlerComponent"));
 												   
 	// Create an attribute component
-	AttributeComponent = CreateDefaultSubobject<UDotK_CharacterAttributeComponent>(TEXT("AttributeComponent"));
+	CharacterAttributeComponent = CreateDefaultSubobject<UDotK_CharacterAttributeComponent>(TEXT("CharacterAttributeComponent"));
 
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)

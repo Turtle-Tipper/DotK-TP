@@ -35,7 +35,7 @@ class ADeadOfTheKnightTPCharacter : public ACharacter
 
 	/* Attribute Component */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
-	class UDotK_CharacterAttributeComponent* AttributeComponent;
+	class UDotK_CharacterAttributeComponent* CharacterAttributeComponent;
 
 public:
 	ADeadOfTheKnightTPCharacter();
@@ -127,7 +127,7 @@ public:
 	/** Returns DamageHandler subobject **/
 	FORCEINLINE class UDotK_DamageHandlerComponent* GetDamageHandler() const { return DamageHandlerComponent; }
 	/** Returns Attribute subobject **/
-	FORCEINLINE class UDotK_CharacterAttributeComponent* GetAttributeComponent() const { return AttributeComponent; }
+	FORCEINLINE class UDotK_CharacterAttributeComponent* GetCharacterAttributeComponent() const { return CharacterAttributeComponent; }
 
 	float GetSprintSpeed() { return SprintSpeed; }
 
