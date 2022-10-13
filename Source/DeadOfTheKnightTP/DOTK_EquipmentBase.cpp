@@ -31,15 +31,15 @@ void ADOTK_EquipmentBase::Tick(float DeltaTime)
 
 void ADOTK_EquipmentBase::RequestTakeDamage(float DamageAmount)
 {
-	GetHealthComponent()->TakeDamage(DamageAmount);
+	GetDurabilityComponent()->TakeDamage(DamageAmount);
 }
 
 void ADOTK_EquipmentBase::RequestHeal(float HealAmount)
 {
-	GetHealthComponent()->Heal(HealAmount);
+	GetDurabilityComponent()->Heal(HealAmount);
 }
 
 void ADOTK_EquipmentBase::RequestRepair()
 {
-	GetHealthComponent()->Revive(GetHealthComponent()->GetMaxHealth());
+	GetDurabilityComponent()->Revive(GetDurabilityComponent()->GetMaxHealth());
 }

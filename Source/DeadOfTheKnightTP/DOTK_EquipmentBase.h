@@ -73,6 +73,6 @@ public:
 	FORCEINLINE class UDotK_CharacterAttributeComponent* GetAttributeComponent() const { return AttributeComponent; }
 
 	/** Returns Health subobject **/
-	FORCEINLINE class UDotK_HealthComponent* GetHealthComponent() const { return DurabilityComponent; }
+	FORCEINLINE class UDotK_HealthComponent* GetDurabilityComponent() const { return DurabilityComponent; }
 
 };
