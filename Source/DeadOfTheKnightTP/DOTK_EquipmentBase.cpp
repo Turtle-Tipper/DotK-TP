@@ -11,6 +11,8 @@ ADOTK_EquipmentBase::ADOTK_EquipmentBase()
 
 	AttributeComponent = CreateDefaultSubobject<UDotK_CharacterAttributeComponent>(TEXT("AttributeComponent"));
 
+	DurabilityComponent = CreateDefaultSubobject<UDotK_HealthComponent>(TEXT("HealthComponent"));
+
 }
 
 // Called when the game starts or when spawned
@@ -25,4 +27,19 @@ void ADOTK_EquipmentBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+}
+
+void ADOTK_EquipmentBase::RequestTakeDamage(float DamageAmount)
+{
+	GetHealthComponent()->TakeDamage(DamageAmount);
+}
+
+void ADOTK_EquipmentBase::RequestHeal(float HealAmount)
+{
+	GetHealthComponent()->Heal(HealAmount);
+}
+
+void ADOTK_EquipmentBase::RequestRepair()
+{
+	GetHealthComponent()->Revive(GetHealthComponent()->GetMaxHealth());
 }

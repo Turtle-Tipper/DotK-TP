@@ -66,6 +66,19 @@ void UDotK_HealthComponent::Heal(float HealAmount)
 	}
 }
 
+void UDotK_HealthComponent::Revive(float HealthToRezWith)
+{	
+	if (!bIsAlive)
+	{
+		CurrentHealth = HealthToRezWith;
+		bIsAlive = true;
+	}
+	else if (bIsAlive)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Not Dead."))
+	}
+}
+
 void UDotK_HealthComponent::RequestIncreaseMaxHealth()
 {
 

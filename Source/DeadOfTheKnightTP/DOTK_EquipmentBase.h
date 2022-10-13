@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "DOTK_ItemBase.h"
+#include "DotK_HealthComponent.h"
 #include "DOTK_EquipmentBase.generated.h"
 
 UENUM(BlueprintType)
@@ -31,9 +32,22 @@ class DEADOFTHEKNIGHTTP_API ADOTK_EquipmentBase : public ADOTK_ItemBase
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Stats, meta = (AllowPrivateAccess = "true"))
 	class UDotK_CharacterAttributeComponent* AttributeComponent;
 
+	/*Health Component */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Durability, meta = (AllowPrivateAccess = "true"))
+	class UDotK_HealthComponent* DurabilityComponent;
+
 public:
 	// Sets default values for this actor's properties
 	ADOTK_EquipmentBase();
+	
+	/* Called to apply durability damage to equipment. */
+	void RequestTakeDamage(float Damage);
+
+	/* Called to increase remaining durability on equipment. */
+	void RequestHeal(float Heal);
+
+	/* Called to fully repair equipment (at workbench etc). */
+	void RequestRepair();
 
 protected:
 	// Called when the game starts or when spawned
@@ -57,5 +71,8 @@ public:
 
 	/** Returns Attribute subobject **/
 	FORCEINLINE class UDotK_CharacterAttributeComponent* GetAttributeComponent() const { return AttributeComponent; }
+
+	/** Returns Health subobject **/
+	FORCEINLINE class UDotK_HealthComponent* GetHealthComponent() const { return DurabilityComponent; }
 
 };
