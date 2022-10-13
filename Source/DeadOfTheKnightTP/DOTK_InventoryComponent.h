@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "DOTK_ItemBase.h"
 #include "DOTK_InventoryComponent.generated.h"
 
 
@@ -16,9 +17,47 @@ public:
 	// Sets default values for this component's properties
 	UDOTK_InventoryComponent();
 
+	UFUNCTION(BlueprintCallable)
+	void AddToInventory(ADOTK_ItemBase* Item);
+
+	// ** GETTERS ** //
+	int GetSlotLimit() { return SlotLimit; }
+
+	int GetOccupiedSlots() { return OccupiedSlots; }
+
+	int GetItemListSize() { return ItemList.Num(); }
+
+	/* Could be used to control whether or not a text component in inventory widget is displayed. Chests and other containers might not have weight limit. */
+	bool HasWeightLimit();
+
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
+
+	/* Number of inventory slots that the inventory array should be instantiated with. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int SlotLimit = 36;
+
+	/* Weight that can be carried in inventory before being encumbered. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float WeightLimit;
+
+	/* Number of inventory slots that will be unusable until being unlocked. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int LockedSlots;
+
+	/* Number of inventory slots that are already occupied. Should be set based on getting the ItemList size. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int OccupiedSlots;
+
+	/* Number of available inventory slots. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int AvailableSlots = SlotLimit - (LockedSlots + OccupiedSlots);
+
+	TArray<ADOTK_ItemBase*> ItemList;
+
+	//not sure how to make object specific array size
+	//ADOTK_ItemBase* ItemList[SlotLimit];
 
 public:	
 	// Called every frame

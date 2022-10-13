@@ -32,3 +32,25 @@ void UDOTK_InventoryComponent::TickComponent(float DeltaTime, ELevelTick TickTyp
 	// ...
 }
 
+void UDOTK_InventoryComponent::AddToInventory(ADOTK_ItemBase* Item)
+{
+	// check to make sure an item is passed in, if not UE_LOG and return
+	if (!Item) { UE_LOG(LogTemp, Warning, TEXT("Item to add returning null.")) return; }
+
+	// get inventory struct, get ItemList array and add item to array.
+	// in player character version, inventory was all in struct, so you needed to go into the instance of the struct that was named Inventory
+	// FInventory Inventory
+	ItemList.Add(Item);
+}
+
+bool UDOTK_InventoryComponent::HasWeightLimit()
+{
+	if (WeightLimit)
+	{
+		return true;
+	}
+	else if (!WeightLimit)
+	{
+		return false;
+	}
+}
