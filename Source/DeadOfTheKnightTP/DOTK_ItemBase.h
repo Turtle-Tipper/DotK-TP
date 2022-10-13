@@ -8,7 +8,7 @@
 #include "DOTK_ItemBase.generated.h"
 
 UENUM(BlueprintType)
-enum class EItemQuality : uint8
+enum class EItemRarity : uint8
 {
 	DEFAULT			UMETA(DisplayName = "DEFAULT"),
 	None			UMETA(DisplayName = "None"),
@@ -68,7 +68,7 @@ protected:
 	int StackSize = 1;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	EItemQuality ItemQuality;
+	EItemRarity ItemRarity;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	EItemType ItemType;
