@@ -16,7 +16,16 @@ struct FInventory
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int SlotLimit;
+	int SlotLimit = 36;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int LockedSlots;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int AvailableSlots = SlotLimit - LockedSlots;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float WeightLimit;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<ADOTK_ItemBase*> ItemList;
