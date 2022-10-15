@@ -49,7 +49,7 @@ bool UDOTK_InventoryComponent::HasWeightLimit()
 	{
 		return true;
 	}
-	else if (!WeightLimit)
+	else
 	{
 		return false;
 	}

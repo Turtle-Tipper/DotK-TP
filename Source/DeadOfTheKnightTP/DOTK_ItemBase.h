@@ -34,6 +34,10 @@ class DEADOFTHEKNIGHTTP_API ADOTK_ItemBase : public AActor
 {
 	GENERATED_BODY()
 
+	/* Scene Component */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	class USceneComponent* RootSceneComponent;
+		
 	/* Static Mesh Component */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Static Mesh", meta = (AllowPrivateAccess = "true"))
 	class UStaticMeshComponent* ItemMesh;
@@ -81,6 +85,8 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	// ** GETTERS ** //
+	/** Returns RootSceneComponent **/
+	FORCEINLINE class USceneComponent* GetRootSceneComponent() const { return RootSceneComponent; }
 	/** Returns StaticMeshComponent subobject **/
 	FORCEINLINE class UStaticMeshComponent* GetStaticMeshComponent() const { return ItemMesh; }
 	/* Returns ItemImage. */

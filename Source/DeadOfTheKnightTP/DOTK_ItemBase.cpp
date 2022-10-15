@@ -9,8 +9,14 @@ ADOTK_ItemBase::ADOTK_ItemBase()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	ItemMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ItemMesh"));
+	// Create Root Scene Component
+	RootSceneComponent = CreateDefaultSubobject<USceneComponent>(TEXT("RootSceneComponent"));
 
+	// Create Item Mesh and attach it to Root Scene Component
+	ItemMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ItemMesh"));
+	ItemMesh->SetupAttachment(RootSceneComponent);
+
+	// Create Item Image to be displayed in inventory
 	ItemImage = CreateDefaultSubobject<UTexture2D>(TEXT("ItemImage"));
 }
 
