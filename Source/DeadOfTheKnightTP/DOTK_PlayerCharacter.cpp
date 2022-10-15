@@ -123,3 +123,22 @@ void ADOTK_PlayerCharacter::RequestEmptyHungerThirst()
 	GetHungerThirstComponent()->SetCurrentHunger(0.0f);
 	GetHungerThirstComponent()->SetCurrentThirst(0.0f);
 }
+
+// ** ITEMS ** //
+
+void ADOTK_PlayerCharacter::PickupItem()
+{
+	if (bIsOverlappingItem)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("We picked up an item."))
+	}
+}
+
+void ADOTK_PlayerCharacter::AddToInventory(ADOTK_ItemBase* Item)
+{
+	// check to make sure an item is passed in, if not UE_LOG and return
+	if (!Item) { UE_LOG(LogTemp, Warning, TEXT("Item to add returning null.")) return; }
+
+	// get inventory struct, get ItemList array and add item to array.
+	Inventory.ItemList.Add(Item);
+}

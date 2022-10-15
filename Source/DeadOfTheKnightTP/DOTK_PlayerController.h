@@ -37,6 +37,8 @@ protected:
 	/* Called for looking left and right. */
 	void RequestLookRight(float AxisValue);
 
+	void RequestPickupItem();
+
 	// Base lookup rate, in deg/sec. Other scaling may affect final look up rate
 	UPROPERTY(EditAnywhere, Category = "Look")
 	float BaseLookUpRate = 90.0f;

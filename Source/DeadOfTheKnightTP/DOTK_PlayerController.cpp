@@ -12,6 +12,8 @@ void ADOTK_PlayerController::SetupInputComponent()
 	
 	if (InputComponent)
 	{
+		// ** CHARACTER MOVEMENT ** //
+
 		/* Input bindings for basic movement. Functionality found in PlayerController. */
 		InputComponent->BindAxis("Move Forward / Backward", this, &ADOTK_PlayerController::RequestMoveForward);
 		InputComponent->BindAxis("Move Right / Left", this, &ADOTK_PlayerController::RequestMoveRight);
@@ -29,6 +31,8 @@ void ADOTK_PlayerController::SetupInputComponent()
 		/* Input binding for crouching. Functionality found in PlayerController. */
 		InputComponent->BindAction("Crouch", IE_Pressed, this, &ADOTK_PlayerController::RequestCrouchStart);
 		InputComponent->BindAction("Crouch", IE_Released, this, &ADOTK_PlayerController::RequestCrouchStop);
+
+		//InputComponent->BindAction("Pick Up Item", IE_Pressed, this, &ADOTK_PlayerController::RequestPickupItem);
 
 		// ** DEBUG ** //
 		InputComponent->BindAction("Eat", IE_Pressed, this, &ADOTK_PlayerController::RequestEat);
@@ -128,6 +132,14 @@ void ADOTK_PlayerController::RequestCrouchStop()
 	{
 		GetCharacter()->UnCrouch();
 		GetCharacter()->bIsCrouched = false;
+	}
+}
+
+void ADOTK_PlayerController::RequestPickupItem()
+{
+	if (ADOTK_PlayerCharacter* DOTK_PlayerCharacter = Cast<ADOTK_PlayerCharacter>(GetCharacter()))
+	{
+		DOTK_PlayerCharacter->PickupItem();
 	}
 }
 

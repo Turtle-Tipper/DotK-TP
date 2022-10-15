@@ -85,6 +85,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void Heal(float HealAmount);
 
+	UFUNCTION(BlueprintCallable)
+	void Revive(float HealthToRezWith);
+
 	// ** GETTER FUNCTIONS ** //
 
 	UFUNCTION(BlueprintPure)

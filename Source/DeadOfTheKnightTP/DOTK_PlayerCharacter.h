@@ -6,11 +6,31 @@
 #include "DeadOfTheKnightTPCharacter.h"
 #include "DOTK_HungerThirstComponent.h"
 #include "DOTK_LevelHandlerComponent.h"
+#include "DOTK_ItemBase.h"
+#include "DOTK_WeaponBase.h"
 #include "DOTK_PlayerCharacter.generated.h"
 
-/**
- * 
- */
+USTRUCT(BlueprintType)
+struct FInventory
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int SlotLimit = 36;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int LockedSlots;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int AvailableSlots = SlotLimit - LockedSlots;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float WeightLimit;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<ADOTK_ItemBase*> ItemList;
+};
+
 UCLASS()
 class DEADOFTHEKNIGHTTP_API ADOTK_PlayerCharacter : public ADeadOfTheKnightTPCharacter
 {
@@ -46,9 +66,11 @@ protected:
 	UFUNCTION(BlueprintCallable)
 	void DepletedAllStamina();
 
-
-
 protected:
+
+	/* Tracks whether or not the character is overlapping an item. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Items")
+	bool bIsOverlappingItem;
 
 	// ** STAMINA ** //
 
@@ -93,6 +115,20 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
 	float StaminaRegenDelay = 1.5f;
 
+	// ** INVENTORY ** //
+
+	/* The inventory structure for the character. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inventory")
+	FInventory Inventory;
+
+	/* The weapon the character is currently using in their main hand. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
+	ADOTK_WeaponBase* CurrentMainWeapon;
+
+	/* The weapon the character is currently using in their off hand. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
+	ADOTK_WeaponBase* CurrentOffWeapon;
+
 	/* Character Reference. */
 
 	// ** DEBUG ** //
@@ -110,6 +146,14 @@ protected:
 	float TestingDrinkAmount = 25.0f;
 
 public:
+
+	// ** ITEMS ** //
+
+	void PickupItem();
+
+	// Add an item to the character's inventory
+	UFUNCTION(BlueprintCallable, Category = "Item")
+	void AddToInventory(ADOTK_ItemBase* Item);
 
 	// ** HUNGER AND THIRST FUNCTIONS ** //
 
