@@ -26,6 +26,44 @@ public:
 	// Sets default values for this component's properties
 	UDotK_CharacterAttributeComponent();
 
+	// ** STATS FUNCTIONS ** //
+
+	/* Called to permanently increase a stat. On level up or other progression points. */
+	UFUNCTION(BlueprintCallable)
+	void IncreaseStat(ECharacterStat StatToIncrease, int IncreaseValue);
+
+	/* Called to temporarily increase a stat. */
+	UFUNCTION(BlueprintCallable)
+	void BuffStat();
+
+	/* Called to temporarily debuff a stat. */
+	UFUNCTION(BlueprintCallable)
+	void DebuffStat();
+
+	/* GETTER FUNCTIONS */
+
+	UFUNCTION(BlueprintPure)
+	int GetAvailableSkillPoints() { return AvailableSkillPoints; }
+
+	/* STATS */
+
+	UFUNCTION(BlueprintPure)
+	int GetConstitutionValue() { return ConstitutionValue; }
+	UFUNCTION(BlueprintPure)
+	int GetStrengthValue() { return StrengthValue; }
+	UFUNCTION(BlueprintPure)
+	int GetAgilityValue() { return AgilityValue; }
+	UFUNCTION(BlueprintPure)
+	int GetIntellectValue() { return IntellectValue; }
+	UFUNCTION(BlueprintPure)
+	int GetWisdomValue() { return WisdomValue; }
+	UFUNCTION(BlueprintPure)
+	int GetHasteValue() { return HasteValue; }
+
+protected:
+	// Called when the game starts
+	virtual void BeginPlay() override;
+
 	/* Variable that keeps track of currently available skill points. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Leveling")
 	int AvailableSkillPoints = 1;
@@ -66,47 +104,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Secondary Stats")
 	float HasteValue;
 
-protected:
-	// Called when the game starts
-	virtual void BeginPlay() override;
-
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-
-
-	// ** STATS FUNCTIONS ** //
-
-	/* Called to permanently increase a stat. On level up or other progression points. */
-	UFUNCTION(BlueprintCallable)
-	void IncreaseStat(ECharacterStat StatToIncrease, int IncreaseValue);
-
-	/* Called to temporarily increase a stat. */
-	UFUNCTION(BlueprintCallable)
-	void BuffStat();
-
-	/* Called to temporarily debuff a stat. */
-	UFUNCTION(BlueprintCallable)
-	void DebuffStat();
-
-	/* GETTER FUNCTIONS */
-
-	UFUNCTION(BlueprintPure)
-	int GetAvailableSkillPoints() { return AvailableSkillPoints; }
-
-	/* STATS */
-
-	UFUNCTION(BlueprintPure)
-	int GetConstitutionValue() { return ConstitutionValue; }
-	UFUNCTION(BlueprintPure)
-	int GetStrengthValue() { return StrengthValue; }
-	UFUNCTION(BlueprintPure)
-	int GetAgilityValue() { return AgilityValue; }
-	UFUNCTION(BlueprintPure)
-	int GetIntellectValue() { return IntellectValue; }
-	UFUNCTION(BlueprintPure)
-	int GetWisdomValue() { return WisdomValue; }
-	UFUNCTION(BlueprintPure)
-	int GetHasteValue() { return HasteValue; }
 		
 };
