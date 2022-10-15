@@ -27,7 +27,7 @@ public:
 	UDotK_CharacterAttributeComponent();
 
 	/* Variable that keeps track of currently available skill points. */
-	UPROPERTY(EditAnywhere, Category = "Leveling")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Leveling")
 	int AvailableSkillPoints = 1;
 
 	// ** PRIMARY STATS ** //
@@ -37,33 +37,33 @@ public:
 	TArray<uint8> PrimaryStatArray;
 
 	/* Armor reduces damage taken. */
-	UPROPERTY(EditAnywhere, Category = "Primary Stats")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Primary Stats")
 	int ArmorValue;
 
 	/* Constitution modifies HP and block value. */
-	UPROPERTY(EditAnywhere, Category = "Primary Stats")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Primary Stats")
 	int ConstitutionValue;
 
 	/* Strength modifies physical damage. */
-	UPROPERTY(EditAnywhere, Category = "Primary Stats")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Primary Stats")
 	int StrengthValue;
 
 	/* Agility modifies attack speed and critical strike chance. */
-	UPROPERTY(EditAnywhere, Category = "Primary Stats")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Primary Stats")
 	int AgilityValue;
 
 	/* Intellect modifies spell damage. */
-	UPROPERTY(EditAnywhere, Category = "Primary Stats")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Primary Stats")
 	int IntellectValue;
 
 	/* Wisdom modifies maximum mana and mana regen. */
-	UPROPERTY(EditAnywhere, Category = "Primary Stats")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Primary Stats")
 	int WisdomValue;
 
 	// ** SECONDARY STATS ** //
 
 	/* Haste modifies casting speed. */
-	UPROPERTY(EditAnywhere, Category = "Secondary Stats")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Secondary Stats")
 	float HasteValue;
 
 protected:
