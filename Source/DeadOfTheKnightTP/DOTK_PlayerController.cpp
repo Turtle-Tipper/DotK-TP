@@ -32,6 +32,11 @@ void ADOTK_PlayerController::SetupInputComponent()
 		InputComponent->BindAction("Crouch", IE_Pressed, this, &ADOTK_PlayerController::RequestCrouchStart);
 		InputComponent->BindAction("Crouch", IE_Released, this, &ADOTK_PlayerController::RequestCrouchStop);
 
+		/* Input binding for attacking. Functionality found in DeadOfTheKnightTPCharacter. */
+		InputComponent->BindAction("Attack", IE_Pressed, this, &ADOTK_PlayerController::RequestAttack);
+		/* Input binding for alternate attacking. Functionality found in DeadOfTheKnightTPCharacter. */
+		InputComponent->BindAction("Alternate Attack", IE_Pressed, this, &ADOTK_PlayerController::RequestAlternateAttack);
+
 		//InputComponent->BindAction("Pick Up Item", IE_Pressed, this, &ADOTK_PlayerController::RequestPickupItem);
 
 		// ** DEBUG ** //
@@ -140,6 +145,22 @@ void ADOTK_PlayerController::RequestPickupItem()
 	if (ADOTK_PlayerCharacter* DOTK_PlayerCharacter = Cast<ADOTK_PlayerCharacter>(GetCharacter()))
 	{
 		DOTK_PlayerCharacter->PickupItem();
+	}
+}
+
+void ADOTK_PlayerController::RequestAttack()
+{
+	if (ADeadOfTheKnightTPCharacter* DOTK_CharacterBase = Cast<ADeadOfTheKnightTPCharacter>(GetCharacter()))
+	{
+		DOTK_CharacterBase->Attack();
+	}
+}
+
+void ADOTK_PlayerController::RequestAlternateAttack()
+{
+	if (ADeadOfTheKnightTPCharacter* DOTK_CharacterBase = Cast<ADeadOfTheKnightTPCharacter>(GetCharacter()))
+	{
+		DOTK_CharacterBase->AlternateAttack();
 	}
 }
 

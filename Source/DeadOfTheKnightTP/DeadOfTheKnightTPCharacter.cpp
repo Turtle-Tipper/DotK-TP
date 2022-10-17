@@ -137,6 +137,17 @@ void ADeadOfTheKnightTPCharacter::RequestHeal()
 	GetHealthComponent()->Heal(TestingHealAmount);
 }
 
+// ** COMBAT ** //
+void ADeadOfTheKnightTPCharacter::Attack()
+{
+
+}
+
+void ADeadOfTheKnightTPCharacter::AlternateAttack()
+{
+
+}
+
 //Called every frame.
 void ADeadOfTheKnightTPCharacter::Tick(float DeltaTime)
 {

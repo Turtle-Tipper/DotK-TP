@@ -39,6 +39,9 @@ protected:
 
 	void RequestPickupItem();
 
+	void RequestAttack();
+	void RequestAlternateAttack();
+
 	// Base lookup rate, in deg/sec. Other scaling may affect final look up rate
 	UPROPERTY(EditAnywhere, Category = "Look")
 	float BaseLookUpRate = 90.0f;

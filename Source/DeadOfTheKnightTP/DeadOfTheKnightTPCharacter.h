@@ -40,6 +40,12 @@ class ADeadOfTheKnightTPCharacter : public ACharacter
 public:
 	ADeadOfTheKnightTPCharacter();
 
+	/* Called to attack. */
+	void Attack();
+
+	/* Called to perform alternate attack. Could be swing with off-hand weapon or block with shield/two-hand weapon. */
+	void AlternateAttack();
+
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Input)
 	float TurnRateGamepad;
@@ -78,6 +84,10 @@ protected:
 	/* Keeps track of whether or not the character is sprinting. */
 	UPROPERTY(EditAnywhere, Category = "Character Movement")
 	bool bIsSprinting = false;
+
+	/* Keeps track of whether or not the character has attacked. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
+	bool bHasAttacked = false;
 
 	/* Additive value that can be used to modify sprint speed.*/
 	UPROPERTY(EditAnywhere, Category = "Character Movement")
