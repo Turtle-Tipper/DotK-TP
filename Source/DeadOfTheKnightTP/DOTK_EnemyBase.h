@@ -13,5 +13,19 @@ UCLASS()
 class DEADOFTHEKNIGHTTP_API ADOTK_EnemyBase : public ADeadOfTheKnightTPCharacter
 {
 	GENERATED_BODY()
+
+public:
+	ADOTK_EnemyBase();
+
+	// Called every frame.
+	virtual void Tick(float DeltaTime) override;
+
+
+protected:
+
+	virtual void BeginPlay() override;
+
+private:
+
 	
 };
