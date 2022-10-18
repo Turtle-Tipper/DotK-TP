@@ -49,6 +49,10 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	/* Keeps track of whether damage has been dealt this swing. Set true in BP and false when bHasAttacked is set to false in AnimBP. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool bHasDealtDamage = false;
+
 	/* Initial attack speed before being modified by stats (agility) or weapon skill/talents. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float BaseAttackSpeed = 2.0f;
