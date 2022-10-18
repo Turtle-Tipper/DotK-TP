@@ -140,12 +140,12 @@ void ADeadOfTheKnightTPCharacter::RequestHeal()
 // ** COMBAT ** //
 void ADeadOfTheKnightTPCharacter::Attack()
 {
-
+	EWeaponType CurrentWeaponType = CurrentMainWeapon->GetWeaponType();
 }
 
 void ADeadOfTheKnightTPCharacter::AlternateAttack()
 {
-
+	EWeaponType CurrentWeaponType = CurrentOffWeapon->GetWeaponType();
 }
 
 //Called every frame.

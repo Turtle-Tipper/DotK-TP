@@ -7,7 +7,6 @@
 #include "DOTK_HungerThirstComponent.h"
 #include "DOTK_LevelHandlerComponent.h"
 #include "DOTK_ItemBase.h"
-#include "DOTK_WeaponBase.h"
 #include "DOTK_PlayerCharacter.generated.h"
 
 USTRUCT(BlueprintType)
@@ -120,14 +119,6 @@ protected:
 	/* The inventory structure for the character. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inventory")
 	FInventory Inventory;
-
-	/* The weapon the character is currently using in their main hand. */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
-	ADOTK_WeaponBase* CurrentMainWeapon;
-
-	/* The weapon the character is currently using in their off hand. */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
-	ADOTK_WeaponBase* CurrentOffWeapon;
 
 	/* Character Reference. */
 

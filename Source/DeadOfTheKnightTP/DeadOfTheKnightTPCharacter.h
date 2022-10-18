@@ -8,6 +8,7 @@
 #include "DotK_CharacterAttributeComponent.h"
 #include "DotK_HealthComponent.h"
 #include "DotK_DamageHandlerComponent.h"
+#include "DOTK_WeaponBase.h"
 #include "Math/UnrealMathUtility.h"
 #include "DeadOfTheKnightTPCharacter.generated.h"
 
@@ -80,6 +81,14 @@ protected:
 
 	UFUNCTION(BlueprintCallable)
 	void RequestHeal();
+
+	/* The weapon the character is currently using in their main hand. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
+	ADOTK_WeaponBase* CurrentMainWeapon;
+
+	/* The weapon the character is currently using in their off hand. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
+	ADOTK_WeaponBase* CurrentOffWeapon;
 
 	/* Keeps track of whether or not the character is sprinting. */
 	UPROPERTY(EditAnywhere, Category = "Character Movement")

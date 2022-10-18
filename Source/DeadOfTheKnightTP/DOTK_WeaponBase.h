@@ -40,6 +40,11 @@ public:
 	// Sets default values for this actor's properties
 	ADOTK_WeaponBase();
 
+	// ** GETTERS ** //
+
+	/* Returns the weapon type. Useful for determining attack animation to play. */
+	EWeaponType GetWeaponType() { return WeaponType; }
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
