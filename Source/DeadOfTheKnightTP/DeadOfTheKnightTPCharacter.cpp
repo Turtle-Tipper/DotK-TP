@@ -141,6 +141,7 @@ void ADeadOfTheKnightTPCharacter::RequestHeal()
 void ADeadOfTheKnightTPCharacter::Attack()
 {
 	EWeaponType CurrentWeaponType = CurrentMainWeapon->GetWeaponType();
+	bHasAttacked = true;
 }
 
 void ADeadOfTheKnightTPCharacter::AlternateAttack()
