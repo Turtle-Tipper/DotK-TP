@@ -6,6 +6,8 @@
 #include "Components/ActorComponent.h"
 #include "DotK_HealthComponent.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDeathDelegate);
+
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class DEADOFTHEKNIGHTTP_API UDotK_HealthComponent : public UActorComponent
@@ -27,6 +29,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void Heal(float HealAmount);
+
+	UFUNCTION(BlueprintCallable)
+	void Kill();
 
 	UFUNCTION(BlueprintCallable)
 	void Revive(float HealthToRezWith);
@@ -119,5 +124,7 @@ protected:
 
 	FTimerHandle HealthRegenTimerHandle;
 
-public:	
+public:
+	UPROPERTY(BlueprintAssignable)
+	FOnDeathDelegate OnDeathDelegate;
 };
