@@ -16,6 +16,53 @@ public:
 	// Sets default values for this component's properties
 	UDotK_HealthComponent();
 
+	// Called every frame
+	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+
+	// Logic for health regeneration. Called in PlayerCharacter tick.
+	void RegenerateHealth(float DeltaTime, float RegenLevel);
+
+	UFUNCTION(BlueprintCallable)
+	void TakeDamage(float DamageAmount);
+
+	UFUNCTION(BlueprintCallable)
+	void Heal(float HealAmount);
+
+	UFUNCTION(BlueprintCallable)
+	void Revive(float HealthToRezWith);
+
+	// ** GETTER FUNCTIONS ** //
+
+	UFUNCTION(BlueprintPure)
+	float GetCurrentHealth() { return CurrentHealth; }
+
+	UFUNCTION(BlueprintPure)
+	float GetMaxHealth() { return MaxHealth; }
+
+	UFUNCTION(BlueprintPure)
+	float GetStarvingHealthRegen() { return StarvationHealthRegen; }
+
+	UFUNCTION(BlueprintPure)
+	float GetCurrentHealthRegen() { return CurrentHealthRegen; }
+
+	UFUNCTION(BlueprintPure)
+	float GetMaxHealthRegen() { return MaxHealthRegen; }
+
+	UFUNCTION(BlueprintPure)
+	float GetHPPercentage() { return CurrentHealth / MaxHealth; }
+
+	// ** SETTER FUNCTIONS ** //
+
+	UFUNCTION(BlueprintCallable)
+	void SetCurrentHealth(float HPAmount) { CurrentHealth = HPAmount; }
+
+	UFUNCTION(BlueprintCallable)
+	void SetCurrentHealthRegen(float CurrentRegenAmount) { CurrentHealthRegen = CurrentRegenAmount; }
+
+	UFUNCTION(BlueprintCallable)
+	void SetMaxHealthRegen(float MaxRegenAmount) { MaxHealthRegen = MaxRegenAmount; }
+
+
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
@@ -73,50 +120,4 @@ protected:
 	FTimerHandle HealthRegenTimerHandle;
 
 public:	
-	// Called every frame
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-
-	// Logic for health regeneration. Called in PlayerCharacter tick.
-	void RegenerateHealth(float DeltaTime, float RegenLevel);
-
-	UFUNCTION(BlueprintCallable)
-	void TakeDamage(float DamageAmount);
-
-	UFUNCTION(BlueprintCallable)
-	void Heal(float HealAmount);
-
-	UFUNCTION(BlueprintCallable)
-	void Revive(float HealthToRezWith);
-
-	// ** GETTER FUNCTIONS ** //
-
-	UFUNCTION(BlueprintPure)
-	float GetCurrentHealth() { return CurrentHealth; }
-
-	UFUNCTION(BlueprintPure)
-	float GetMaxHealth() { return MaxHealth; }
-
-	UFUNCTION(BlueprintPure)
-	float GetStarvingHealthRegen() { return StarvationHealthRegen; }
-
-	UFUNCTION(BlueprintPure)
-	float GetCurrentHealthRegen() { return CurrentHealthRegen; }
-
-	UFUNCTION(BlueprintPure)
-	float GetMaxHealthRegen() { return MaxHealthRegen; }
-
-	UFUNCTION(BlueprintPure)
-	float GetHPPercentage() { return CurrentHealth / MaxHealth; }
-
-	// ** SETTER FUNCTIONS ** //
-
-	UFUNCTION(BlueprintCallable)
-	void SetCurrentHealth(float HPAmount) { CurrentHealth = HPAmount; }
-
-	UFUNCTION(BlueprintCallable)
-	void SetCurrentHealthRegen(float CurrentRegenAmount) { CurrentHealthRegen = CurrentRegenAmount; }
-
-	UFUNCTION(BlueprintCallable)
-	void SetMaxHealthRegen(float MaxRegenAmount) { MaxHealthRegen = MaxRegenAmount; }
-
 };
