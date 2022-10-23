@@ -55,8 +55,40 @@ public:
 
 	ADOTK_PlayerCharacter();
 
-	// ** GETTERS ** //
 
+	// ** ITEMS ** //
+
+	void PickupItem();
+
+	// Add an item to the character's inventory
+	UFUNCTION(BlueprintCallable, Category = "Item")
+	void AddToInventory(ADOTK_ItemBase* Item);
+
+	// ** HUNGER AND THIRST FUNCTIONS ** //
+
+	UFUNCTION(BlueprintCallable)
+	void RequestEat();
+
+	UFUNCTION(BlueprintCallable)
+	void RequestDrink();
+
+	UFUNCTION(BlueprintCallable)
+	void RequestEmptyHungerThirst();
+
+	virtual void RequestSprintStart() override;
+	virtual void RequestSprintStop() override;
+
+	/* GETTER FUNCTIONS */
+
+	UFUNCTION(BlueprintPure)
+	float GetCurrentStaminaPercent() { return CurrentStamina / MaxStamina; }
+
+	float GetMaxStamina() { return MaxStamina; }
+
+	/** Returns HungerThirstComponent subobject **/
+	FORCEINLINE class UDOTK_HungerThirstComponent* GetHungerThirstComponent() const { return HungerThirstComponent; }
+	/** Returns LevelHandler subobject **/
+	FORCEINLINE class UDOTK_LevelHandlerComponent* GetLevelHandler() const { return LevelHandlerComponent; }
 	/** Returns CameraBoom subobject **/
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	/** Returns FollowCamera subobject **/
@@ -152,39 +184,5 @@ protected:
 	float TestingDrinkAmount = 25.0f;
 
 public:
-
-	// ** ITEMS ** //
-
-	void PickupItem();
-
-	// Add an item to the character's inventory
-	UFUNCTION(BlueprintCallable, Category = "Item")
-	void AddToInventory(ADOTK_ItemBase* Item);
-
-	// ** HUNGER AND THIRST FUNCTIONS ** //
-
-	UFUNCTION(BlueprintCallable)
-	void RequestEat();
-
-	UFUNCTION(BlueprintCallable)
-	void RequestDrink();
-
-	UFUNCTION(BlueprintCallable)
-	void RequestEmptyHungerThirst();
-
-	virtual void RequestSprintStart() override;
-	virtual void RequestSprintStop() override;
-
-	/* GETTER FUNCTIONS */
-
-	UFUNCTION(BlueprintPure)
-	float GetCurrentStaminaPercent() { return CurrentStamina / MaxStamina; }
-
-	float GetMaxStamina() { return MaxStamina; }
-
-	/** Returns HungerThirstComponent subobject **/
-	FORCEINLINE class UDOTK_HungerThirstComponent* GetHungerThirstComponent() const { return HungerThirstComponent; }
-	/** Returns LevelHandler subobject **/
-	FORCEINLINE class UDOTK_LevelHandlerComponent* GetLevelHandler() const { return LevelHandlerComponent; }
 	
 };
