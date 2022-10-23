@@ -49,6 +49,16 @@ void ADOTK_PlayerCharacter::Tick(float DeltaTime)
 	GetHungerThirstComponent()->DrainThirst(DeltaTime);
 }
 
+void ADOTK_PlayerCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+
+	if (GetHealthComponent())
+	{
+		HealthComponent->OnDeathDelegate.AddDynamic(this, &ADOTK_PlayerCharacter::OnDeath);
+	}
+}
+
 // ** CHARACTER MOVEMENT ** //
 
 void ADOTK_PlayerCharacter::RequestSprintStart()
@@ -154,4 +164,12 @@ void ADOTK_PlayerCharacter::AddToInventory(ADOTK_ItemBase* Item)
 
 	// get inventory struct, get ItemList array and add item to array.
 	Inventory.ItemList.Add(Item);
+}
+
+// ** HEALTH ** //
+
+void ADOTK_PlayerCharacter::OnDeath()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Player is dead."));
+	// could add other logic like death screen, animation, etc
 }

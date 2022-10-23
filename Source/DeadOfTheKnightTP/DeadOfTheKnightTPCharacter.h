@@ -18,10 +18,6 @@ class ADeadOfTheKnightTPCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
-	/* Health Component */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Health, meta = (AllowPrivateAccess = "true"))
-	class UDotK_HealthComponent* HealthComponent;
-
 	/* Damage Handler Component */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Health, meta = (AllowPrivateAccess = "true"))
 	class UDotK_DamageHandlerComponent* DamageHandlerComponent;
@@ -115,6 +111,10 @@ protected:
 	/* Base attack speed of a character. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
 	float BaseAttackSpeed = 1.0f;
+
+	/* Health Component */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Health, meta = (AllowPrivateAccess = "true"))
+	class UDotK_HealthComponent* HealthComponent;
 	
 protected:
 	// APawn interface

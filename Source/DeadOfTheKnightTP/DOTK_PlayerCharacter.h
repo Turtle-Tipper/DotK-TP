@@ -98,6 +98,8 @@ protected:
 
 	virtual void Tick(float DeltaTime) override;
 
+	virtual void BeginPlay() override;
+
 	// ** STAMINA FUNCTIONS ** //
 
 	/* Called to drain stamina. */
@@ -111,6 +113,9 @@ protected:
 	/* Called to perform actions to character once stamina is fully depleted (stun them, have regen delay, etc). */
 	UFUNCTION(BlueprintCallable)
 	void DepletedAllStamina();
+
+	UFUNCTION(BlueprintCallable)
+	void OnDeath();
 
 protected:
 

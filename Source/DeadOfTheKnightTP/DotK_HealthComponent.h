@@ -38,6 +38,8 @@ public:
 
 	// ** GETTER FUNCTIONS ** //
 
+	bool GetIsAlive() { return bIsAlive; }
+
 	UFUNCTION(BlueprintPure)
 	float GetCurrentHealth() { return CurrentHealth; }
 
