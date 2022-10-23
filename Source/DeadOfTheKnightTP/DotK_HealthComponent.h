@@ -81,7 +81,7 @@ protected:
 	void RequestIncreaseMaxHealth();
 
 	/* Keeps track of life status. */
-	UPROPERTY(EditAnywhere, Category = "Health")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Health")
 	bool bIsAlive = true;
 
 	/* Keeps track of whether entity can regen health. */

@@ -26,6 +26,7 @@ ADOTK_PlayerCharacter::ADOTK_PlayerCharacter()
 
 	// Create a level handler component
 	LevelHandlerComponent = CreateDefaultSubobject<UDOTK_LevelHandlerComponent>(TEXT("LevelHandlerComponent"));
+
 }
 
 void ADOTK_PlayerCharacter::Tick(float DeltaTime)
@@ -172,4 +173,9 @@ void ADOTK_PlayerCharacter::OnDeath()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Player is dead."));
 	// could add other logic like death screen, animation, etc
+	if (DeathMontage)
+	{
+		//PlayAnimMontage(DeathMontage, 1, NAME_None);
+		// should open DeathScreenWidget here
+	}
 }

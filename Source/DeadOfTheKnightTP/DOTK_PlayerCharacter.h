@@ -7,6 +7,7 @@
 #include "DOTK_HungerThirstComponent.h"
 #include "DOTK_LevelHandlerComponent.h"
 #include "DOTK_ItemBase.h"
+#include "DOTK_PlayerController.h"
 #include "DOTK_PlayerCharacter.generated.h"
 
 USTRUCT(BlueprintType)
@@ -50,6 +51,10 @@ class DEADOFTHEKNIGHTTP_API ADOTK_PlayerCharacter : public ADeadOfTheKnightTPCha
 	/* Level Handler Component */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Level, meta = (AllowPrivateAccess = "true"))
 	class UDOTK_LevelHandlerComponent* LevelHandlerComponent;
+
+	/* Instance to set InputMode to UI only. */
+	FInputModeUIOnly UIOnly;
+
 
 public:
 

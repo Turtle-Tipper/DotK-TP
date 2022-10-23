@@ -78,6 +78,10 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
 	ADOTK_WeaponBase* CurrentOffWeapon;
 
+	/* Reference to death animation montage. ReadWrite as it may be useful for setting up a struct to randomly select from. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animation")
+	UAnimMontage* DeathMontage;
+
 	/* Keeps track of whether or not the character is sprinting. */
 	UPROPERTY(EditAnywhere, Category = "Character Movement")
 	bool bIsSprinting = false;
