@@ -56,7 +56,10 @@ void ADOTK_PlayerCharacter::BeginPlay()
 
 	if (GetHealthComponent())
 	{
+		/* Bind on death delegate. */
 		HealthComponent->OnDeathDelegate.AddDynamic(this, &ADOTK_PlayerCharacter::OnDeath);
+		/* Bind on damage received delegate. */
+		HealthComponent->OnDamageReceivedDelegate.AddDynamic(this, &ADOTK_PlayerCharacter::OnDamageReceived);
 	}
 }
 
@@ -172,10 +175,23 @@ void ADOTK_PlayerCharacter::AddToInventory(ADOTK_ItemBase* Item)
 void ADOTK_PlayerCharacter::OnDeath()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Player is dead."));
+
+
+	// disable player input on death
+	ADOTK_PlayerController* PlayerController = GetController<ADOTK_PlayerController>();
+	if (PlayerController)
+	{
+		PlayerController->DisableInput(PlayerController);
+	}
 	// could add other logic like death screen, animation, etc
 	if (DeathMontage)
 	{
 		//PlayAnimMontage(DeathMontage, 1, NAME_None);
 		// should open DeathScreenWidget here
 	}
+}
+
+void ADOTK_PlayerCharacter::OnDamageReceived()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Player took damage."));
 }

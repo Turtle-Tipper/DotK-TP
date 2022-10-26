@@ -7,6 +7,7 @@
 #include "DotK_HealthComponent.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDeathDelegate);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDamageReceivedDelegate);
 
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -129,4 +130,7 @@ protected:
 public:
 	UPROPERTY(BlueprintAssignable)
 	FOnDeathDelegate OnDeathDelegate;
+
+	UPROPERTY(BlueprintAssignable)
+	FOnDamageReceivedDelegate OnDamageReceivedDelegate;
 };

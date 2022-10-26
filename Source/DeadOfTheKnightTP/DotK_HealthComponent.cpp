@@ -42,6 +42,8 @@ void UDotK_HealthComponent::TakeDamage(float DamageAmount)
 		CurrentHealth -= DamageAmount;
 		bCanRegenHealth = false;
 
+		OnDamageReceivedDelegate.Broadcast();
+
 		// Start timer before character can regen health
 		GetWorld()->GetTimerManager().SetTimer(HealthRegenTimerHandle, this, &UDotK_HealthComponent::EnableHealthRegen, HealthRegenDelay, false);
 		

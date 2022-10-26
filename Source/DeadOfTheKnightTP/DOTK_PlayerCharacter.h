@@ -122,6 +122,9 @@ protected:
 	UFUNCTION(BlueprintCallable)
 	void OnDeath();
 
+	UFUNCTION(BlueprintCallable)
+	void OnDamageReceived();
+
 protected:
 
 	/* Tracks whether or not the character is overlapping an item. */
