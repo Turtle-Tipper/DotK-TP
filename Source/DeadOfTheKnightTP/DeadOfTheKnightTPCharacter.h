@@ -30,10 +30,10 @@ public:
 	ADeadOfTheKnightTPCharacter();
 
 	/* Called to attack. */
-	void Attack();
+	virtual void Attack();
 
 	/* Called to perform alternate attack. Could be swing with off-hand weapon or block with shield/two-hand weapon. */
-	void AlternateAttack();
+	virtual void AlternateAttack();
 
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Input)

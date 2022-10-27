@@ -140,7 +140,7 @@ void ADeadOfTheKnightTPCharacter::Attack()
 
 void ADeadOfTheKnightTPCharacter::AlternateAttack()
 {
-	if (!CurrentMainWeapon)
+	if (!CurrentOffWeapon)
 	{
 		EWeaponType CurrentWeaponType = EWeaponType::Fists;
 	}

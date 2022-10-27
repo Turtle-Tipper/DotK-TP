@@ -163,6 +163,31 @@ void ADOTK_PlayerCharacter::DepletedAllStamina()
 	// could also set exhausted state or something?
 }
 
+void ADOTK_PlayerCharacter::Attack()
+{
+	if (!CurrentMainWeapon)
+	{
+		EWeaponType CurrentWeaponType = EWeaponType::Fists;
+	}
+	else
+	{
+		EWeaponType CurrentWeaponType = CurrentMainWeapon->GetWeaponType();
+		if (CurrentStamina >= CurrentMainWeapon->GetBaseStaminaDrain())
+		{
+			if (!bHasAttacked)
+			{
+				bHasAttacked = true;
+				UseStamina(CurrentMainWeapon->GetBaseStaminaDrain());
+			}
+		}
+	}
+}
+
+void ADOTK_PlayerCharacter::AlternateAttack()
+{
+
+}
+
 // ** HUNGER AND THIRST ** //
 
 void ADOTK_PlayerCharacter::RequestEat()

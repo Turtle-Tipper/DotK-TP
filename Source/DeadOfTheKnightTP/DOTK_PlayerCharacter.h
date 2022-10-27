@@ -87,6 +87,9 @@ public:
 
 	//void RequestJumpStop();
 
+	virtual void Attack() override;
+	virtual void AlternateAttack() override;
+
 	/* GETTER FUNCTIONS */
 
 	UFUNCTION(BlueprintPure)
@@ -159,7 +162,7 @@ protected:
 
 	/* The value of stamina used by jumping. */
 	UPROPERTY(EditAnywhere, Category = "Stamina")
-	float JumpStaminaDrain = 10.0f;
+	float JumpStaminaDrain = 7.0f;
 
 	/* Interval in seconds at which Stamina is drained. */
 	UPROPERTY(EditAnywhere, Category = "Stamina")
