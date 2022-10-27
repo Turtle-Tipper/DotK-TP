@@ -22,7 +22,7 @@ void ADOTK_PlayerController::SetupInputComponent()
 		InputComponent->BindAxis("Look Up / Down Mouse", this, &ADOTK_PlayerController::RequestLookUp);
 		InputComponent->BindAxis("Turn Right / Left Mouse", this, &ADOTK_PlayerController::RequestLookRight);
 
-		/* Input binding for jumping. Functionality found in PlayerController. */
+		/* Input binding for jumping. Called in controller, Functionality found in PlayerCharacter. */
 		InputComponent->BindAction("Jump", EInputEvent::IE_Pressed, this, &ADOTK_PlayerController::RequestJump);
 		InputComponent->BindAction("Jump", EInputEvent::IE_Released, this, &ADOTK_PlayerController::RequestStopJump);
 		/* Input binding for sprinting. Called in controller, but functionality is still found in DeadOfTheKnightTPCharacter. */
@@ -90,9 +90,9 @@ void ADOTK_PlayerController::RequestLookRight(float AxisValue)
 
 void ADOTK_PlayerController::RequestJump()
 {
-	if (GetCharacter())
+	if (ADOTK_PlayerCharacter* DOTK_PlayerCharacter = Cast<ADOTK_PlayerCharacter>(GetCharacter()))
 	{
-		GetCharacter()->Jump();
+		DOTK_PlayerCharacter->RequestJump();
 	}
 }
 

@@ -93,6 +93,18 @@ void ADOTK_PlayerCharacter::RequestSprintStop()
 	}
 }
 
+void ADOTK_PlayerCharacter::RequestJump()
+{
+		if (GetCharacterMovement()->IsMovingOnGround())
+		{
+			if (CurrentStamina >= JumpStaminaDrain)
+			{
+				Jump();
+				UseStamina(JumpStaminaDrain);
+			}
+		}
+}
+
 // ** STAMINA ** //
 
 void ADOTK_PlayerCharacter::DrainStamina(float DeltaTime)
@@ -122,6 +134,23 @@ void ADOTK_PlayerCharacter::DrainStamina(float DeltaTime)
 	}
 }
 
+void ADOTK_PlayerCharacter::UseStamina(float StaminaToUse)
+{
+	// use stamina and disable regen
+	CurrentStamina -= StaminaToUse;
+	bCanRegenStamina = false;
+	
+	// Start timer to regen stamina after using, if not currently sprinting
+	if (!bIsSprinting)
+	{
+		GetWorld()->GetTimerManager().SetTimer(StaminaRegenTimerHandle, this, &ADOTK_PlayerCharacter::EnableStaminaRegen, StaminaRegenDelay, false);
+	}
+	if (CurrentStamina < 0.0f)
+	{
+		DepletedAllStamina();
+	}
+}
+
 void ADOTK_PlayerCharacter::EnableStaminaRegen()
 {
 	bCanRegenStamina = true;
@@ -129,7 +158,9 @@ void ADOTK_PlayerCharacter::EnableStaminaRegen()
 
 void ADOTK_PlayerCharacter::DepletedAllStamina()
 {
+	CurrentStamina = 0.0f;
 	RequestSprintStop();
+	// could also set exhausted state or something?
 }
 
 // ** HUNGER AND THIRST ** //

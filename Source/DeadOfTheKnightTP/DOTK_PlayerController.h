@@ -14,6 +14,7 @@ class DEADOFTHEKNIGHTTP_API ADOTK_PlayerController : public APlayerController
 {
 	GENERATED_BODY()
 public:
+
 protected:
 
 	void SetupInputComponent() override;
@@ -55,4 +56,7 @@ protected:
 	void RequestEat();
 	void RequestDrink();
 	void RequestEmptyHungerThirst();
+
+public:
+
 };

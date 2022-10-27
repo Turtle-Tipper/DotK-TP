@@ -83,6 +83,10 @@ public:
 	virtual void RequestSprintStart() override;
 	virtual void RequestSprintStop() override;
 
+	void RequestJump();
+
+	//void RequestJumpStop();
+
 	/* GETTER FUNCTIONS */
 
 	UFUNCTION(BlueprintPure)
@@ -111,6 +115,10 @@ protected:
 	UFUNCTION(BlueprintCallable)
 	void DrainStamina(float DeltaTime);
 
+	/* Called to use stamina for single instance. For example, jumping or attacking. */
+	UFUNCTION(BlueprintCallable)
+	void UseStamina(float StaminaToUse);
+
 	/* Called to rest stamina regen logic. */
 	UFUNCTION(BlueprintCallable)
 	void EnableStaminaRegen();
@@ -134,31 +142,35 @@ protected:
 	// ** STAMINA ** //
 
 	/* Keeps track of whether character Stamina can currently regen. */
-	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
+	UPROPERTY(EditAnywhere, Category = "Stamina")
 	bool bCanRegenStamina;
 
 	/* The current amount of Stamina the character has. */
-	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
+	UPROPERTY(EditAnywhere, Category = "Stamina")
 	float CurrentStamina = 100.0f;
 
 	/* The highest value a character's Stamina regens to. */
-	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
+	UPROPERTY(EditAnywhere, Category = "Stamina")
 	float MaxStamina = 100.0f;
 
-	/* The value of stamina to be drained. */
-	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
+	/* The value of stamina to be drained by sprinting. */
+	UPROPERTY(EditAnywhere, Category = "Stamina")
 	float SprintStaminaDrain = 5.0f;
 
+	/* The value of stamina used by jumping. */
+	UPROPERTY(EditAnywhere, Category = "Stamina")
+	float JumpStaminaDrain = 10.0f;
+
 	/* Interval in seconds at which Stamina is drained. */
-	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
+	UPROPERTY(EditAnywhere, Category = "Stamina")
 	float DrainInterval = 1.0f;
 
 	/* The increment at which Stamina is regenerated. */
-	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
+	UPROPERTY(EditAnywhere, Category = "Stamina")
 	float StaminaRegen = 8.0f;
 
 	/* Interval in seconds at which Stamina is regenerated. */
-	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
+	UPROPERTY(EditAnywhere, Category = "Stamina")
 	float RegenInterval = 1.0f;
 
 	/* Stamina regen timer handle. */
