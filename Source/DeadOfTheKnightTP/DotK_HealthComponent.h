@@ -84,6 +84,9 @@ protected:
 	/* Keeps track of life status. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Health")
 	bool bIsAlive = true;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Health")
+	bool bHasTakenDamage = false;
 
 	/* Keeps track of whether entity can regen health. */
 	UPROPERTY(EditAnywhere, Category = "Regen")

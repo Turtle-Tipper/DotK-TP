@@ -51,6 +51,10 @@ void UDotK_HealthComponent::TakeDamage(float DamageAmount)
 		{
 			Kill();
 		}
+		else
+		{
+			bHasTakenDamage = true;
+		}
 	}
 }
 
