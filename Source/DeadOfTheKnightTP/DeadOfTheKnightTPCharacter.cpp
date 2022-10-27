@@ -131,7 +131,7 @@ void ADeadOfTheKnightTPCharacter::Attack()
 	{
 		EWeaponType CurrentWeaponType = EWeaponType::Fists;
 	}
-	else
+	else if (!bHasAttacked)
 	{
 		EWeaponType CurrentWeaponType = CurrentMainWeapon->GetWeaponType();
 		bHasAttacked = true;

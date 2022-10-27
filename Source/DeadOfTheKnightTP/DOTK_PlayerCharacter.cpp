@@ -139,6 +139,7 @@ void ADOTK_PlayerCharacter::UseStamina(float StaminaToUse)
 	// use stamina and disable regen
 	CurrentStamina -= StaminaToUse;
 	bCanRegenStamina = false;
+	UE_LOG(LogTemp, Warning, TEXT("Using Stamina"));
 	
 	// Start timer to regen stamina after using, if not currently sprinting
 	if (!bIsSprinting)
