@@ -127,13 +127,27 @@ void ADeadOfTheKnightTPCharacter::RequestHeal()
 // ** COMBAT ** //
 void ADeadOfTheKnightTPCharacter::Attack()
 {
-	EWeaponType CurrentWeaponType = CurrentMainWeapon->GetWeaponType();
-	bHasAttacked = true;
+	if (!CurrentMainWeapon)
+	{
+		EWeaponType CurrentWeaponType = EWeaponType::Fists;
+	}
+	else
+	{
+		EWeaponType CurrentWeaponType = CurrentMainWeapon->GetWeaponType();
+		bHasAttacked = true;
+	}
 }
 
 void ADeadOfTheKnightTPCharacter::AlternateAttack()
 {
-	EWeaponType CurrentWeaponType = CurrentOffWeapon->GetWeaponType();
+	if (!CurrentMainWeapon)
+	{
+		EWeaponType CurrentWeaponType = EWeaponType::Fists;
+	}
+	else
+	{
+		EWeaponType CurrentWeaponType = CurrentOffWeapon->GetWeaponType();
+	}
 }
 
 //Called every frame.

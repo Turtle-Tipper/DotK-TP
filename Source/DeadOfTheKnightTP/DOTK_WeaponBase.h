@@ -11,6 +11,7 @@ enum class EWeaponType : uint8
 {
 	DEFAULT			UMETA(DisplayName = "DEFAULT"),
 	None			UMETA(DisplayName = "None"),
+	Fists			UMETA(DisplayName= "Fists"),
 	Dagger			UMETA(DisplayName = "Dagger"),
 	Shield			UMETA(DisplayName = "Shield"),
 	Sword			UMETA(DisplayName = "Sword"),
