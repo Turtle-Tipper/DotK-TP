@@ -80,15 +80,21 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void RequestEmptyHungerThirst();
 
+	// ** MOVEMENT ** //
+
 	virtual void RequestSprintStart() override;
 	virtual void RequestSprintStop() override;
 
 	void RequestJump();
-
 	//void RequestJumpStop();
+
+	// ** COMBAT ** //
 
 	virtual void Attack() override;
 	virtual void AlternateAttack() override;
+
+	UFUNCTION(BlueprintCallable, Category = "Weapon Skills")
+	void IncreaseWeaponSkill();
 
 	/* GETTER FUNCTIONS */
 
@@ -194,6 +200,44 @@ protected:
 	/* The inventory structure for the character. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inventory")
 	FInventory Inventory;
+
+	// ** WEAPON SKILLS ** //
+
+	/* Max level weapon skills can reach. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Skills")
+	int MaxSkillLevel = 100;
+
+	/* Amount that skills will increment up on use. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Skills")
+	float SkillUpAmount = 1.0f;
+	
+	/* Skill with fists. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Skills")
+	float FistSkill = 0.0f;
+
+	/* Skill with daggers. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Skills")
+	float DaggerSkill = 0.0f;
+
+	/* Skill with shields. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Skills")
+	float ShieldSkill = 0.0f;
+
+	/* Skill with swords. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Skills")
+	float SwordSkill = 0.0f;
+
+	/* Skill with axes. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Skills")
+	float AxeSkill = 0.0f;
+
+	/* Skill with maces and clubs. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Skills")
+	float MaceSkill = 0.0f;
+
+	/* Skill with spears (pole weapons). */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Skills")
+	float SpearSkill = 0.0f;
 
 	/* Character Reference. */
 

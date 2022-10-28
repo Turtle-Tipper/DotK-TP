@@ -164,6 +164,8 @@ void ADOTK_PlayerCharacter::DepletedAllStamina()
 	// could also set exhausted state or something?
 }
 
+// ** COMBAT ** //
+
 void ADOTK_PlayerCharacter::Attack()
 {
 	if (!CurrentMainWeapon)
@@ -186,6 +188,125 @@ void ADOTK_PlayerCharacter::Attack()
 
 void ADOTK_PlayerCharacter::AlternateAttack()
 {
+
+}
+
+void ADOTK_PlayerCharacter::IncreaseWeaponSkill()
+{
+	EWeaponType CurrentWeaponType = CurrentMainWeapon->GetWeaponType();
+	switch (CurrentWeaponType)
+	{
+		case EWeaponType::Axe:
+		{
+			// make sure AxeSkill is below max level
+			if (AxeSkill < MaxSkillLevel)
+			{
+				AxeSkill += SkillUpAmount;
+				// if it larger, set it max skill level
+				if (AxeSkill > MaxSkillLevel)
+				{
+					AxeSkill = MaxSkillLevel;
+				}
+			}
+
+			break;
+		}
+		case EWeaponType::Dagger:
+		{
+			// make sure DaggerSkill is below max level
+			if (DaggerSkill < MaxSkillLevel)
+			{
+				DaggerSkill += SkillUpAmount;
+				// if it larger, set it max skill level
+				if (DaggerSkill > MaxSkillLevel)
+				{
+					DaggerSkill = MaxSkillLevel;
+				}
+			}
+
+			break;
+		}
+		case EWeaponType::Fists:
+		{
+			// make sure FistSkill is below max level
+			if (FistSkill < MaxSkillLevel)
+			{
+				FistSkill += SkillUpAmount;
+				// if it larger, set it max skill level
+				if (FistSkill > MaxSkillLevel)
+				{
+					FistSkill = MaxSkillLevel;
+				}
+			}
+
+			break;
+		}
+		case EWeaponType::Mace:
+		{
+			// make sure MaceSkill is below max level
+			if (MaceSkill < MaxSkillLevel)
+			{
+				MaceSkill += SkillUpAmount;
+				// if it larger, set it max skill level
+				if (MaceSkill > MaxSkillLevel)
+				{
+					MaceSkill = MaxSkillLevel;
+				}
+			}
+
+			break;
+		}
+		case EWeaponType::Shield:
+		{
+			// make sure ShieldSkill is below max level
+			if (ShieldSkill < MaxSkillLevel)
+			{
+				ShieldSkill += SkillUpAmount;
+				// if it larger, set it max skill level
+				if (ShieldSkill > MaxSkillLevel)
+				{
+					ShieldSkill = MaxSkillLevel;
+				}
+			}
+
+			break;
+		}
+		case EWeaponType::Spear:
+		{
+			// make sure SpearSkill is below max level
+			if (SpearSkill < MaxSkillLevel)
+			{
+				SpearSkill += SkillUpAmount;
+				// if it larger, set it max skill level
+				if (SpearSkill > MaxSkillLevel)
+				{
+					SpearSkill = MaxSkillLevel;
+				}
+			}
+
+			break;
+		}
+		case EWeaponType::Sword:
+		{
+			// make sure SwordSkill is below max level
+			if (SwordSkill < MaxSkillLevel)
+			{
+				SwordSkill += SkillUpAmount;
+				// if it larger, set it max skill level
+				if (SwordSkill > MaxSkillLevel)
+				{
+					SwordSkill = MaxSkillLevel;
+				}
+			}
+
+			break;
+		}
+		default:
+		{
+			UE_LOG(LogTemp, Warning, TEXT("No weapon type."));
+			break;
+		}
+	}
 
 }
 
