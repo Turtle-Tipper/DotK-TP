@@ -202,7 +202,9 @@ void ADOTK_PlayerCharacter::IncreaseWeaponSkill()
 			if (AxeSkill < MaxSkillLevel)
 			{
 				AxeSkill += SkillUpAmount;
-				// if it larger, set it max skill level
+				UE_LOG(LogTemp, Warning, TEXT("AXE SKILL INCREASED"))
+				
+					// if it larger, set it max skill level (should only ever happen if level increase isn't whole numbers)
 				if (AxeSkill > MaxSkillLevel)
 				{
 					AxeSkill = MaxSkillLevel;
@@ -217,7 +219,9 @@ void ADOTK_PlayerCharacter::IncreaseWeaponSkill()
 			if (DaggerSkill < MaxSkillLevel)
 			{
 				DaggerSkill += SkillUpAmount;
-				// if it larger, set it max skill level
+				UE_LOG(LogTemp, Warning, TEXT("DAGGER SKILL INCREASED"))
+				
+				// if it larger, set it max skill level (should only ever happen if level increase isn't whole numbers)
 				if (DaggerSkill > MaxSkillLevel)
 				{
 					DaggerSkill = MaxSkillLevel;
@@ -232,7 +236,9 @@ void ADOTK_PlayerCharacter::IncreaseWeaponSkill()
 			if (FistSkill < MaxSkillLevel)
 			{
 				FistSkill += SkillUpAmount;
-				// if it larger, set it max skill level
+				UE_LOG(LogTemp, Warning, TEXT("FIST SKILL INCREASED"))
+				
+				// if it larger, set it max skill level (should only ever happen if level increase isn't whole numbers)
 				if (FistSkill > MaxSkillLevel)
 				{
 					FistSkill = MaxSkillLevel;
@@ -247,7 +253,9 @@ void ADOTK_PlayerCharacter::IncreaseWeaponSkill()
 			if (MaceSkill < MaxSkillLevel)
 			{
 				MaceSkill += SkillUpAmount;
-				// if it larger, set it max skill level
+				UE_LOG(LogTemp, Warning, TEXT("MACE SKILL INCREASED"))
+				
+				// if it larger, set it max skill level (should only ever happen if level increase isn't whole numbers)
 				if (MaceSkill > MaxSkillLevel)
 				{
 					MaceSkill = MaxSkillLevel;
@@ -262,7 +270,9 @@ void ADOTK_PlayerCharacter::IncreaseWeaponSkill()
 			if (ShieldSkill < MaxSkillLevel)
 			{
 				ShieldSkill += SkillUpAmount;
-				// if it larger, set it max skill level
+				UE_LOG(LogTemp, Warning, TEXT("SHIELD SKILL INCREASED"))
+				
+				// if it larger, set it max skill level (should only ever happen if level increase isn't whole numbers)
 				if (ShieldSkill > MaxSkillLevel)
 				{
 					ShieldSkill = MaxSkillLevel;
@@ -277,7 +287,9 @@ void ADOTK_PlayerCharacter::IncreaseWeaponSkill()
 			if (SpearSkill < MaxSkillLevel)
 			{
 				SpearSkill += SkillUpAmount;
-				// if it larger, set it max skill level
+				UE_LOG(LogTemp, Warning, TEXT("SPEAR SKILL INCREASED"))
+				
+				// if it larger, set it max skill level (should only ever happen if level increase isn't whole numbers)
 				if (SpearSkill > MaxSkillLevel)
 				{
 					SpearSkill = MaxSkillLevel;
@@ -292,7 +304,9 @@ void ADOTK_PlayerCharacter::IncreaseWeaponSkill()
 			if (SwordSkill < MaxSkillLevel)
 			{
 				SwordSkill += SkillUpAmount;
-				// if it larger, set it max skill level
+				UE_LOG(LogTemp, Warning, TEXT("SWORD SKILL INCREASED"))
+				
+				// if it larger, set it max skill level (should only ever happen if level increase isn't whole numbers)
 				if (SwordSkill > MaxSkillLevel)
 				{
 					SwordSkill = MaxSkillLevel;
