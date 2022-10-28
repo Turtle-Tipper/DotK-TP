@@ -49,6 +49,8 @@ public:
 	/* Returns Base stamina drain. */
 	float GetBaseStaminaDrain() { return BaseStaminaDrain; }
 
+	bool GetHasDealtDamage() { return bHasDealtDamage; }
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

@@ -94,7 +94,7 @@ public:
 	virtual void AlternateAttack() override;
 
 	UFUNCTION(BlueprintCallable, Category = "Weapon Skills")
-	void IncreaseWeaponSkill();
+	void IncreaseWeaponSkill(EWeaponType Type);
 
 	/* GETTER FUNCTIONS */
 

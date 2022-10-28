@@ -181,6 +181,10 @@ void ADOTK_PlayerCharacter::Attack()
 			{
 				bHasAttacked = true;
 				UseStamina(CurrentMainWeapon->GetBaseStaminaDrain());
+				if (CurrentMainWeapon->GetHasDealtDamage())
+				{
+					IncreaseWeaponSkill(CurrentWeaponType);
+				}
 			}
 		}
 	}
@@ -191,10 +195,10 @@ void ADOTK_PlayerCharacter::AlternateAttack()
 
 }
 
-void ADOTK_PlayerCharacter::IncreaseWeaponSkill()
+void ADOTK_PlayerCharacter::IncreaseWeaponSkill(EWeaponType Type)
 {
-	EWeaponType CurrentWeaponType = CurrentMainWeapon->GetWeaponType();
-	switch (CurrentWeaponType)
+	UE_LOG(LogTemp, Warning, TEXT("IncreaseWeaponSkill called"))
+	switch (Type)
 	{
 		case EWeaponType::Axe:
 		{
