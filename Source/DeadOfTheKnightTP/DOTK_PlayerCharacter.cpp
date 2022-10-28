@@ -181,10 +181,6 @@ void ADOTK_PlayerCharacter::Attack()
 			{
 				bHasAttacked = true;
 				UseStamina(CurrentMainWeapon->GetBaseStaminaDrain());
-				if (CurrentMainWeapon->GetHasDealtDamage())
-				{
-					IncreaseWeaponSkill(CurrentWeaponType);
-				}
 			}
 		}
 	}
