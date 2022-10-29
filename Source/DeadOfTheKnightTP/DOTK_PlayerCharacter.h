@@ -31,11 +31,12 @@ struct FInventory
 	TArray<ADOTK_ItemBase*> ItemList;
 };
 
-//USTRUCT(BlueprintType)
+USTRUCT(BlueprintType)
 struct FSkill
 {
-	//GENERATED_BODY()
+	GENERATED_BODY()
 
+public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FString SkillName;
 
