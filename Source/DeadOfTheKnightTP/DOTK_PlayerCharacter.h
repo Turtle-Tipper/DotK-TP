@@ -31,22 +31,22 @@ struct FInventory
 	TArray<ADOTK_ItemBase*> ItemList;
 };
 
-USTRUCT(BlueprintType)
+//USTRUCT(BlueprintType)
 struct FSkill
 {
-	GENERATED_BODY()
+	//GENERATED_BODY()
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FString Skill;
+	FString SkillName;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float CurrentSkill = 0.0f;
+	float CurrentSkillValue = 0.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float MaxSkill = 100.0f;
+	float MaxSkillValue = 100.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float SkillIncrement = 1.0f;
+	float SkillUpAmount = 1.0f;
 };
 
 UCLASS()

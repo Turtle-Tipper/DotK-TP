@@ -199,15 +199,15 @@ void ADOTK_PlayerCharacter::IncreaseWeaponSkill(EWeaponType Type)
 		case EWeaponType::Axe:
 		{
 			// make sure AxeSkill is below max level
-			if (AxeSkill < MaxSkillLevel)
+			if (AxeSkill.CurrentSkillValue < AxeSkill.MaxSkillValue)
 			{
-				AxeSkill += SkillUpAmount;
+				AxeSkill.CurrentSkillValue += AxeSkill.SkillUpAmount;
 				UE_LOG(LogTemp, Warning, TEXT("AXE SKILL INCREASED"))
 				
 					// if it larger, set it max skill level (should only ever happen if level increase isn't whole numbers)
-				if (AxeSkill > MaxSkillLevel)
+				if (AxeSkill.CurrentSkillValue > AxeSkill.MaxSkillValue)
 				{
-					AxeSkill = MaxSkillLevel;
+					AxeSkill.CurrentSkillValue = AxeSkill.MaxSkillValue;
 				}
 			}
 
@@ -216,15 +216,15 @@ void ADOTK_PlayerCharacter::IncreaseWeaponSkill(EWeaponType Type)
 		case EWeaponType::Dagger:
 		{
 			// make sure DaggerSkill is below max level
-			if (DaggerSkill < MaxSkillLevel)
+			if (DaggerSkill.CurrentSkillValue < DaggerSkill.MaxSkillValue)
 			{
-				DaggerSkill += SkillUpAmount;
+				DaggerSkill.CurrentSkillValue += DaggerSkill.SkillUpAmount;
 				UE_LOG(LogTemp, Warning, TEXT("DAGGER SKILL INCREASED"))
 				
 				// if it larger, set it max skill level (should only ever happen if level increase isn't whole numbers)
-				if (DaggerSkill > MaxSkillLevel)
+				if (DaggerSkill.CurrentSkillValue > DaggerSkill.MaxSkillValue)
 				{
-					DaggerSkill = MaxSkillLevel;
+					DaggerSkill.CurrentSkillValue = DaggerSkill.MaxSkillValue;
 				}
 			}
 
@@ -233,15 +233,15 @@ void ADOTK_PlayerCharacter::IncreaseWeaponSkill(EWeaponType Type)
 		case EWeaponType::Fists:
 		{
 			// make sure FistSkill is below max level
-			if (FistSkill < MaxSkillLevel)
+			if (FistSkill.CurrentSkillValue < FistSkill.MaxSkillValue)
 			{
-				FistSkill += SkillUpAmount;
+				FistSkill.CurrentSkillValue += FistSkill.SkillUpAmount;
 				UE_LOG(LogTemp, Warning, TEXT("FIST SKILL INCREASED"))
 				
 				// if it larger, set it max skill level (should only ever happen if level increase isn't whole numbers)
-				if (FistSkill > MaxSkillLevel)
+				if (FistSkill.CurrentSkillValue > FistSkill.MaxSkillValue)
 				{
-					FistSkill = MaxSkillLevel;
+					FistSkill.CurrentSkillValue = FistSkill.MaxSkillValue;
 				}
 			}
 
@@ -250,15 +250,15 @@ void ADOTK_PlayerCharacter::IncreaseWeaponSkill(EWeaponType Type)
 		case EWeaponType::Mace:
 		{
 			// make sure MaceSkill is below max level
-			if (MaceSkill < MaxSkillLevel)
+			if (MaceSkill.CurrentSkillValue < MaceSkill.MaxSkillValue)
 			{
-				MaceSkill += SkillUpAmount;
+				MaceSkill.CurrentSkillValue += MaceSkill.SkillUpAmount;
 				UE_LOG(LogTemp, Warning, TEXT("MACE SKILL INCREASED"))
 				
 				// if it larger, set it max skill level (should only ever happen if level increase isn't whole numbers)
-				if (MaceSkill > MaxSkillLevel)
+				if (MaceSkill.CurrentSkillValue > MaceSkill.MaxSkillValue)
 				{
-					MaceSkill = MaxSkillLevel;
+					MaceSkill.CurrentSkillValue = MaceSkill.MaxSkillValue;
 				}
 			}
 
@@ -267,15 +267,15 @@ void ADOTK_PlayerCharacter::IncreaseWeaponSkill(EWeaponType Type)
 		case EWeaponType::Shield:
 		{
 			// make sure ShieldSkill is below max level
-			if (ShieldSkill < MaxSkillLevel)
+			if (ShieldSkill.CurrentSkillValue < ShieldSkill.MaxSkillValue)
 			{
-				ShieldSkill += SkillUpAmount;
+				ShieldSkill.CurrentSkillValue += ShieldSkill.SkillUpAmount;
 				UE_LOG(LogTemp, Warning, TEXT("SHIELD SKILL INCREASED"))
 				
 				// if it larger, set it max skill level (should only ever happen if level increase isn't whole numbers)
-				if (ShieldSkill > MaxSkillLevel)
+				if (ShieldSkill.CurrentSkillValue > ShieldSkill.MaxSkillValue)
 				{
-					ShieldSkill = MaxSkillLevel;
+					ShieldSkill.CurrentSkillValue = ShieldSkill.MaxSkillValue;
 				}
 			}
 
@@ -284,15 +284,15 @@ void ADOTK_PlayerCharacter::IncreaseWeaponSkill(EWeaponType Type)
 		case EWeaponType::Spear:
 		{
 			// make sure SpearSkill is below max level
-			if (SpearSkill < MaxSkillLevel)
+			if (SpearSkill.CurrentSkillValue < SpearSkill.MaxSkillValue)
 			{
-				SpearSkill += SkillUpAmount;
+				SpearSkill.CurrentSkillValue += SpearSkill.SkillUpAmount;
 				UE_LOG(LogTemp, Warning, TEXT("SPEAR SKILL INCREASED"))
 				
 				// if it larger, set it max skill level (should only ever happen if level increase isn't whole numbers)
-				if (SpearSkill > MaxSkillLevel)
+				if (SpearSkill.CurrentSkillValue > SpearSkill.MaxSkillValue)
 				{
-					SpearSkill = MaxSkillLevel;
+					SpearSkill.CurrentSkillValue = SpearSkill.MaxSkillValue;
 				}
 			}
 
@@ -301,15 +301,15 @@ void ADOTK_PlayerCharacter::IncreaseWeaponSkill(EWeaponType Type)
 		case EWeaponType::Sword:
 		{
 			// make sure SwordSkill is below max level
-			if (SwordSkill < MaxSkillLevel)
+			if (SwordSkill.CurrentSkillValue < SwordSkill.MaxSkillValue)
 			{
-				SwordSkill += SkillUpAmount;
+				SwordSkill.CurrentSkillValue += SwordSkill.SkillUpAmount;
 				UE_LOG(LogTemp, Warning, TEXT("SWORD SKILL INCREASED"))
 				
 				// if it larger, set it max skill level (should only ever happen if level increase isn't whole numbers)
-				if (SwordSkill > MaxSkillLevel)
+				if (SwordSkill.CurrentSkillValue > SwordSkill.MaxSkillValue)
 				{
-					SwordSkill = MaxSkillLevel;
+					SwordSkill.CurrentSkillValue = SwordSkill.MaxSkillValue;
 				}
 			}
 
