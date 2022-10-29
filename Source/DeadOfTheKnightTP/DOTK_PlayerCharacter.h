@@ -31,6 +31,24 @@ struct FInventory
 	TArray<ADOTK_ItemBase*> ItemList;
 };
 
+USTRUCT(BlueprintType)
+struct FSkill
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FString Skill;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float CurrentSkill = 0.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float MaxSkill = 100.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float SkillIncrement = 1.0f;
+};
+
 UCLASS()
 class DEADOFTHEKNIGHTTP_API ADOTK_PlayerCharacter : public ADeadOfTheKnightTPCharacter
 {
@@ -54,7 +72,6 @@ class DEADOFTHEKNIGHTTP_API ADOTK_PlayerCharacter : public ADeadOfTheKnightTPCha
 
 	/* Instance to set InputMode to UI only. */
 	FInputModeUIOnly UIOnly;
-
 
 public:
 
@@ -203,41 +220,29 @@ protected:
 
 	// ** WEAPON SKILLS ** //
 
-	/* Max level weapon skills can reach. */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Skills")
-	int MaxSkillLevel = 100;
+	// 
 
-	/* Amount that skills will increment up on use. */
+	/* Struct for skills that includes a name, current and max. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Skills")
-	float SkillUpAmount = 1.0f;
-	
-	/* Skill with fists. */
+	FSkill FistSkill;
+	/* Struct for skills that includes a name, current and max. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Skills")
-	float FistSkill = 0.0f;
-
-	/* Skill with daggers. */
+	FSkill ShieldSkill;
+	/* Struct for skills that includes a name, current and max. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Skills")
-	float DaggerSkill = 0.0f;
-
-	/* Skill with shields. */
+	FSkill DaggerSkill;
+	/* Struct for skills that includes a name, current and max. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Skills")
-	float ShieldSkill = 0.0f;
-
-	/* Skill with swords. */
+	FSkill SwordSkill;
+	/* Struct for skills that includes a name, current and max. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Skills")
-	float SwordSkill = 0.0f;
-
-	/* Skill with axes. */
+	FSkill MaceSkill;
+	/* Struct for skills that includes a name, current and max. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Skills")
-	float AxeSkill = 0.0f;
-
-	/* Skill with maces and clubs. */
+	FSkill SpearSkill;
+	/* Struct for skills that includes a name, current and max. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Skills")
-	float MaceSkill = 0.0f;
-
-	/* Skill with spears (pole weapons). */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Skills")
-	float SpearSkill = 0.0f;
+	FSkill AxeSkill;
 
 	/* Character Reference. */
 
