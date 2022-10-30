@@ -8,6 +8,7 @@
 #include "DotK_CharacterAttributeComponent.h"
 #include "DotK_HealthComponent.h"
 #include "DotK_DamageHandlerComponent.h"
+#include "DOTK_WeaponBase.h"
 #include "Math/UnrealMathUtility.h"
 #include "DeadOfTheKnightTPCharacter.generated.h"
 
@@ -16,18 +17,6 @@ UCLASS(config=Game)
 class ADeadOfTheKnightTPCharacter : public ACharacter
 {
 	GENERATED_BODY()
-
-	/** Camera boom positioning the camera behind the character */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
-	class USpringArmComponent* CameraBoom;
-
-	/** Follow camera */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
-	class UCameraComponent* FollowCamera;
-
-	/* Health Component */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Health, meta = (AllowPrivateAccess = "true"))
-	class UDotK_HealthComponent* HealthComponent;
 
 	/* Damage Handler Component */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Health, meta = (AllowPrivateAccess = "true"))
@@ -39,6 +28,12 @@ class ADeadOfTheKnightTPCharacter : public ACharacter
 
 public:
 	ADeadOfTheKnightTPCharacter();
+
+	/* Called to attack. */
+	virtual void Attack();
+
+	/* Called to perform alternate attack. Could be swing with off-hand weapon or block with shield/two-hand weapon. */
+	virtual void AlternateAttack();
 
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Input)
@@ -75,9 +70,25 @@ protected:
 	UFUNCTION(BlueprintCallable)
 	void RequestHeal();
 
+	/* The weapon the character is currently using in their main hand. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
+	ADOTK_WeaponBase* CurrentMainWeapon;
+
+	/* The weapon the character is currently using in their off hand. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
+	ADOTK_WeaponBase* CurrentOffWeapon;
+
+	/* Reference to death animation montage. ReadWrite as it may be useful for setting up a struct to randomly select from. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animation")
+	UAnimMontage* DeathMontage;
+
 	/* Keeps track of whether or not the character is sprinting. */
 	UPROPERTY(EditAnywhere, Category = "Character Movement")
 	bool bIsSprinting = false;
+
+	/* Keeps track of whether or not the character has attacked. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
+	bool bHasAttacked = false;
 
 	/* Additive value that can be used to modify sprint speed.*/
 	UPROPERTY(EditAnywhere, Category = "Character Movement")
@@ -104,6 +115,10 @@ protected:
 	/* Base attack speed of a character. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
 	float BaseAttackSpeed = 1.0f;
+
+	/* Health Component */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Health, meta = (AllowPrivateAccess = "true"))
+	class UDotK_HealthComponent* HealthComponent;
 	
 protected:
 	// APawn interface
@@ -118,10 +133,6 @@ public:
 
 	// ** GETTER FUNCTIONS ** //
 
-	/** Returns CameraBoom subobject **/
-	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
-	/** Returns FollowCamera subobject **/
-	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
 	/** Returns HealthComponent subobject **/
 	FORCEINLINE class UDotK_HealthComponent* GetHealthComponent() const { return HealthComponent; }
 	/** Returns DamageHandler subobject **/

@@ -22,7 +22,7 @@ void ADOTK_PlayerController::SetupInputComponent()
 		InputComponent->BindAxis("Look Up / Down Mouse", this, &ADOTK_PlayerController::RequestLookUp);
 		InputComponent->BindAxis("Turn Right / Left Mouse", this, &ADOTK_PlayerController::RequestLookRight);
 
-		/* Input binding for jumping. Functionality found in PlayerController. */
+		/* Input binding for jumping. Called in controller, Functionality found in PlayerCharacter. */
 		InputComponent->BindAction("Jump", EInputEvent::IE_Pressed, this, &ADOTK_PlayerController::RequestJump);
 		InputComponent->BindAction("Jump", EInputEvent::IE_Released, this, &ADOTK_PlayerController::RequestStopJump);
 		/* Input binding for sprinting. Called in controller, but functionality is still found in DeadOfTheKnightTPCharacter. */
@@ -31,6 +31,11 @@ void ADOTK_PlayerController::SetupInputComponent()
 		/* Input binding for crouching. Functionality found in PlayerController. */
 		InputComponent->BindAction("Crouch", IE_Pressed, this, &ADOTK_PlayerController::RequestCrouchStart);
 		InputComponent->BindAction("Crouch", IE_Released, this, &ADOTK_PlayerController::RequestCrouchStop);
+
+		/* Input binding for attacking. Functionality found in DeadOfTheKnightTPCharacter. */
+		InputComponent->BindAction("Attack", IE_Pressed, this, &ADOTK_PlayerController::RequestAttack);
+		/* Input binding for alternate attacking. Functionality found in DeadOfTheKnightTPCharacter. */
+		InputComponent->BindAction("Alternate Attack", IE_Pressed, this, &ADOTK_PlayerController::RequestAlternateAttack);
 
 		//InputComponent->BindAction("Pick Up Item", IE_Pressed, this, &ADOTK_PlayerController::RequestPickupItem);
 
@@ -85,9 +90,9 @@ void ADOTK_PlayerController::RequestLookRight(float AxisValue)
 
 void ADOTK_PlayerController::RequestJump()
 {
-	if (GetCharacter())
+	if (ADOTK_PlayerCharacter* DOTK_PlayerCharacter = Cast<ADOTK_PlayerCharacter>(GetCharacter()))
 	{
-		GetCharacter()->Jump();
+		DOTK_PlayerCharacter->RequestJump();
 	}
 }
 
@@ -140,6 +145,22 @@ void ADOTK_PlayerController::RequestPickupItem()
 	if (ADOTK_PlayerCharacter* DOTK_PlayerCharacter = Cast<ADOTK_PlayerCharacter>(GetCharacter()))
 	{
 		DOTK_PlayerCharacter->PickupItem();
+	}
+}
+
+void ADOTK_PlayerController::RequestAttack()
+{
+	if (ADeadOfTheKnightTPCharacter* DOTK_CharacterBase = Cast<ADeadOfTheKnightTPCharacter>(GetCharacter()))
+	{
+		DOTK_CharacterBase->Attack();
+	}
+}
+
+void ADOTK_PlayerController::RequestAlternateAttack()
+{
+	if (ADeadOfTheKnightTPCharacter* DOTK_CharacterBase = Cast<ADeadOfTheKnightTPCharacter>(GetCharacter()))
+	{
+		DOTK_CharacterBase->AlternateAttack();
 	}
 }
 

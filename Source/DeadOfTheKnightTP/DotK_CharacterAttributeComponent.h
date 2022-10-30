@@ -26,55 +26,6 @@ public:
 	// Sets default values for this component's properties
 	UDotK_CharacterAttributeComponent();
 
-	/* Variable that keeps track of currently available skill points. */
-	UPROPERTY(EditAnywhere, Category = "Leveling")
-	int AvailableSkillPoints = 1;
-
-	// ** PRIMARY STATS ** //
-
-	//EPrimaryStat PrimaryStats;
-
-	TArray<uint8> PrimaryStatArray;
-
-	/* Armor reduces damage taken. */
-	UPROPERTY(EditAnywhere, Category = "Primary Stats")
-	int ArmorValue;
-
-	/* Constitution modifies HP and block value. */
-	UPROPERTY(EditAnywhere, Category = "Primary Stats")
-	int ConstitutionValue;
-
-	/* Strength modifies physical damage. */
-	UPROPERTY(EditAnywhere, Category = "Primary Stats")
-	int StrengthValue;
-
-	/* Agility modifies attack speed and critical strike chance. */
-	UPROPERTY(EditAnywhere, Category = "Primary Stats")
-	int AgilityValue;
-
-	/* Intellect modifies spell damage. */
-	UPROPERTY(EditAnywhere, Category = "Primary Stats")
-	int IntellectValue;
-
-	/* Wisdom modifies maximum mana and mana regen. */
-	UPROPERTY(EditAnywhere, Category = "Primary Stats")
-	int WisdomValue;
-
-	// ** SECONDARY STATS ** //
-
-	/* Haste modifies casting speed. */
-	UPROPERTY(EditAnywhere, Category = "Secondary Stats")
-	float HasteValue;
-
-protected:
-	// Called when the game starts
-	virtual void BeginPlay() override;
-
-public:	
-	// Called every frame
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-
-
 	// ** STATS FUNCTIONS ** //
 
 	/* Called to permanently increase a stat. On level up or other progression points. */
@@ -108,5 +59,53 @@ public:
 	int GetWisdomValue() { return WisdomValue; }
 	UFUNCTION(BlueprintPure)
 	int GetHasteValue() { return HasteValue; }
+
+protected:
+	// Called when the game starts
+	virtual void BeginPlay() override;
+
+	/* Variable that keeps track of currently available skill points. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Leveling")
+	int AvailableSkillPoints = 1;
+
+	// ** PRIMARY STATS ** //
+
+	//EPrimaryStat PrimaryStats;
+
+	TArray<uint8> PrimaryStatArray;
+
+	/* Armor reduces damage taken. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Primary Stats")
+	int ArmorValue;
+
+	/* Constitution modifies HP and block value. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Primary Stats")
+	int ConstitutionValue;
+
+	/* Strength modifies physical damage. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Primary Stats")
+	int StrengthValue;
+
+	/* Agility modifies attack speed and critical strike chance. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Primary Stats")
+	int AgilityValue;
+
+	/* Intellect modifies spell damage. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Primary Stats")
+	int IntellectValue;
+
+	/* Wisdom modifies maximum mana and mana regen. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Primary Stats")
+	int WisdomValue;
+
+	// ** SECONDARY STATS ** //
+
+	/* Haste modifies casting speed. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Secondary Stats")
+	float HasteValue;
+
+public:	
+	// Called every frame
+	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 		
 };

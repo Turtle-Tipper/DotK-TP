@@ -6,6 +6,9 @@
 #include "Components/ActorComponent.h"
 #include "DotK_HealthComponent.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDeathDelegate);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDamageReceivedDelegate);
+
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class DEADOFTHEKNIGHTTP_API UDotK_HealthComponent : public UActorComponent
@@ -15,6 +18,58 @@ class DEADOFTHEKNIGHTTP_API UDotK_HealthComponent : public UActorComponent
 public:	
 	// Sets default values for this component's properties
 	UDotK_HealthComponent();
+
+	// Called every frame
+	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+
+	// Logic for health regeneration. Called in PlayerCharacter tick.
+	void RegenerateHealth(float DeltaTime, float RegenLevel);
+
+	UFUNCTION(BlueprintCallable)
+	void TakeDamage(float DamageAmount);
+
+	UFUNCTION(BlueprintCallable)
+	void Heal(float HealAmount);
+
+	UFUNCTION(BlueprintCallable)
+	void Kill();
+
+	UFUNCTION(BlueprintCallable)
+	void Revive(float HealthToRezWith);
+
+	// ** GETTER FUNCTIONS ** //
+
+	bool GetIsAlive() { return bIsAlive; }
+
+	UFUNCTION(BlueprintPure)
+	float GetCurrentHealth() { return CurrentHealth; }
+
+	UFUNCTION(BlueprintPure)
+	float GetMaxHealth() { return MaxHealth; }
+
+	UFUNCTION(BlueprintPure)
+	float GetStarvingHealthRegen() { return StarvationHealthRegen; }
+
+	UFUNCTION(BlueprintPure)
+	float GetCurrentHealthRegen() { return CurrentHealthRegen; }
+
+	UFUNCTION(BlueprintPure)
+	float GetMaxHealthRegen() { return MaxHealthRegen; }
+
+	UFUNCTION(BlueprintPure)
+	float GetHPPercentage() { return CurrentHealth / MaxHealth; }
+
+	// ** SETTER FUNCTIONS ** //
+
+	UFUNCTION(BlueprintCallable)
+	void SetCurrentHealth(float HPAmount) { CurrentHealth = HPAmount; }
+
+	UFUNCTION(BlueprintCallable)
+	void SetCurrentHealthRegen(float CurrentRegenAmount) { CurrentHealthRegen = CurrentRegenAmount; }
+
+	UFUNCTION(BlueprintCallable)
+	void SetMaxHealthRegen(float MaxRegenAmount) { MaxHealthRegen = MaxRegenAmount; }
+
 
 protected:
 	// Called when the game starts
@@ -27,8 +82,11 @@ protected:
 	void RequestIncreaseMaxHealth();
 
 	/* Keeps track of life status. */
-	UPROPERTY(EditAnywhere, Category = "Health")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Health")
 	bool bIsAlive = true;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Health")
+	bool bHasTakenDamage = false;
 
 	/* Keeps track of whether entity can regen health. */
 	UPROPERTY(EditAnywhere, Category = "Regen")
@@ -72,51 +130,10 @@ protected:
 
 	FTimerHandle HealthRegenTimerHandle;
 
-public:	
-	// Called every frame
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+public:
+	UPROPERTY(BlueprintAssignable)
+	FOnDeathDelegate OnDeathDelegate;
 
-	// Logic for health regeneration. Called in PlayerCharacter tick.
-	void RegenerateHealth(float DeltaTime, float RegenLevel);
-
-	UFUNCTION(BlueprintCallable)
-	void TakeDamage(float DamageAmount);
-
-	UFUNCTION(BlueprintCallable)
-	void Heal(float HealAmount);
-
-	UFUNCTION(BlueprintCallable)
-	void Revive(float HealthToRezWith);
-
-	// ** GETTER FUNCTIONS ** //
-
-	UFUNCTION(BlueprintPure)
-	float GetCurrentHealth() { return CurrentHealth; }
-
-	UFUNCTION(BlueprintPure)
-	float GetMaxHealth() { return MaxHealth; }
-
-	UFUNCTION(BlueprintPure)
-	float GetStarvingHealthRegen() { return StarvationHealthRegen; }
-
-	UFUNCTION(BlueprintPure)
-	float GetCurrentHealthRegen() { return CurrentHealthRegen; }
-
-	UFUNCTION(BlueprintPure)
-	float GetMaxHealthRegen() { return MaxHealthRegen; }
-
-	UFUNCTION(BlueprintPure)
-	float GetHPPercentage() { return CurrentHealth / MaxHealth; }
-
-	// ** SETTER FUNCTIONS ** //
-
-	UFUNCTION(BlueprintCallable)
-	void SetCurrentHealth(float HPAmount) { CurrentHealth = HPAmount; }
-
-	UFUNCTION(BlueprintCallable)
-	void SetCurrentHealthRegen(float CurrentRegenAmount) { CurrentHealthRegen = CurrentRegenAmount; }
-
-	UFUNCTION(BlueprintCallable)
-	void SetMaxHealthRegen(float MaxRegenAmount) { MaxHealthRegen = MaxRegenAmount; }
-
+	UPROPERTY(BlueprintAssignable)
+	FOnDamageReceivedDelegate OnDamageReceivedDelegate;
 };

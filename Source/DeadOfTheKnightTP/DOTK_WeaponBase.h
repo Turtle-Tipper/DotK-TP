@@ -11,6 +11,7 @@ enum class EWeaponType : uint8
 {
 	DEFAULT			UMETA(DisplayName = "DEFAULT"),
 	None			UMETA(DisplayName = "None"),
+	Fists			UMETA(DisplayName= "Fists"),
 	Dagger			UMETA(DisplayName = "Dagger"),
 	Shield			UMETA(DisplayName = "Shield"),
 	Sword			UMETA(DisplayName = "Sword"),
@@ -40,13 +41,31 @@ public:
 	// Sets default values for this actor's properties
 	ADOTK_WeaponBase();
 
+	// ** GETTERS ** //
+
+	/* Returns the weapon type. Useful for determining attack animation to play. */
+	EWeaponType GetWeaponType() { return WeaponType; }
+
+	/* Returns Base stamina drain. */
+	float GetBaseStaminaDrain() { return BaseStaminaDrain; }
+
+	bool GetHasDealtDamage() { return bHasDealtDamage; }
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	/* Keeps track of whether damage has been dealt this swing. Set true in BP and false when bHasAttacked is set to false in AnimBP. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool bHasDealtDamage = false;
+
 	/* Initial attack speed before being modified by stats (agility) or weapon skill/talents. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float BaseAttackSpeed = 2.0f;
+
+	/* Initial stamina drain per attack before modifiers. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float BaseStaminaDrain = 5.0f;
 
 	/* Initial weapon damage before being modified by stats, weapon skill, crits. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

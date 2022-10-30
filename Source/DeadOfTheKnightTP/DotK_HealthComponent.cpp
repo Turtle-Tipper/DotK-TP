@@ -42,13 +42,18 @@ void UDotK_HealthComponent::TakeDamage(float DamageAmount)
 		CurrentHealth -= DamageAmount;
 		bCanRegenHealth = false;
 
+		OnDamageReceivedDelegate.Broadcast();
+
 		// Start timer before character can regen health
 		GetWorld()->GetTimerManager().SetTimer(HealthRegenTimerHandle, this, &UDotK_HealthComponent::EnableHealthRegen, HealthRegenDelay, false);
 		
 		if (CurrentHealth <= 0.0f)
 		{
-			CurrentHealth = 0.0f;
-			bIsAlive = false;
+			Kill();
+		}
+		else
+		{
+			bHasTakenDamage = true;
 		}
 	}
 }
@@ -64,6 +69,15 @@ void UDotK_HealthComponent::Heal(float HealAmount)
 			CurrentHealth = MaxHealth;
 		}
 	}
+}
+
+void UDotK_HealthComponent::Kill()
+{
+	CurrentHealth = 0.0f;
+	bIsAlive = false;
+	// broadcast OnDeath delegate here and then have each object that uses HealthComponent have their own functions for receiving the broadcast
+	// and override for subclasses of character (ie player class might create an on death screen, but that doesnt need to be performed for base characters)
+	OnDeathDelegate.Broadcast();
 }
 
 void UDotK_HealthComponent::Revive(float HealthToRezWith)

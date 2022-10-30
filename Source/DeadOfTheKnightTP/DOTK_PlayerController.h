@@ -14,6 +14,7 @@ class DEADOFTHEKNIGHTTP_API ADOTK_PlayerController : public APlayerController
 {
 	GENERATED_BODY()
 public:
+
 protected:
 
 	void SetupInputComponent() override;
@@ -39,6 +40,9 @@ protected:
 
 	void RequestPickupItem();
 
+	void RequestAttack();
+	void RequestAlternateAttack();
+
 	// Base lookup rate, in deg/sec. Other scaling may affect final look up rate
 	UPROPERTY(EditAnywhere, Category = "Look")
 	float BaseLookUpRate = 90.0f;
@@ -52,4 +56,7 @@ protected:
 	void RequestEat();
 	void RequestDrink();
 	void RequestEmptyHungerThirst();
+
+public:
+
 };

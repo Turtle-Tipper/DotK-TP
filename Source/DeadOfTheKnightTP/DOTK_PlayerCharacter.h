@@ -7,7 +7,7 @@
 #include "DOTK_HungerThirstComponent.h"
 #include "DOTK_LevelHandlerComponent.h"
 #include "DOTK_ItemBase.h"
-#include "DOTK_WeaponBase.h"
+#include "DOTK_PlayerController.h"
 #include "DOTK_PlayerCharacter.generated.h"
 
 USTRUCT(BlueprintType)
@@ -31,10 +31,37 @@ struct FInventory
 	TArray<ADOTK_ItemBase*> ItemList;
 };
 
+USTRUCT(BlueprintType)
+struct FSkill
+{
+	GENERATED_BODY()
+
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FString SkillName;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float CurrentSkillValue = 0.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float MaxSkillValue = 100.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float SkillUpAmount = 1.0f;
+};
+
 UCLASS()
 class DEADOFTHEKNIGHTTP_API ADOTK_PlayerCharacter : public ADeadOfTheKnightTPCharacter
 {
 	GENERATED_BODY()
+
+	/** Camera boom positioning the camera behind the character */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+	class USpringArmComponent* CameraBoom;
+
+	/** Follow camera */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+	class UCameraComponent* FollowCamera;
 
 	/* Hunger and Thirst Component */
 	UPROPERTY(VisibleAnywhere, BluePrintReadOnly, Category = HungerAndThirst, meta = (AllowPrivateAccess = "true"))
@@ -44,19 +71,80 @@ class DEADOFTHEKNIGHTTP_API ADOTK_PlayerCharacter : public ADeadOfTheKnightTPCha
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Level, meta = (AllowPrivateAccess = "true"))
 	class UDOTK_LevelHandlerComponent* LevelHandlerComponent;
 
+	/* Instance to set InputMode to UI only. */
+	FInputModeUIOnly UIOnly;
+
 public:
 
 	ADOTK_PlayerCharacter();
 
+
+	// ** ITEMS ** //
+
+	void PickupItem();
+
+	// Add an item to the character's inventory
+	UFUNCTION(BlueprintCallable, Category = "Item")
+	void AddToInventory(ADOTK_ItemBase* Item);
+
+	// ** HUNGER AND THIRST FUNCTIONS ** //
+
+	UFUNCTION(BlueprintCallable)
+	void RequestEat();
+
+	UFUNCTION(BlueprintCallable)
+	void RequestDrink();
+
+	UFUNCTION(BlueprintCallable)
+	void RequestEmptyHungerThirst();
+
+	// ** MOVEMENT ** //
+
+	virtual void RequestSprintStart() override;
+	virtual void RequestSprintStop() override;
+
+	void RequestJump();
+	//void RequestJumpStop();
+
+	// ** COMBAT ** //
+
+	virtual void Attack() override;
+	virtual void AlternateAttack() override;
+
+	UFUNCTION(BlueprintCallable, Category = "Weapon Skills")
+	void IncreaseWeaponSkill(EWeaponType Type);
+
+	/* GETTER FUNCTIONS */
+
+	UFUNCTION(BlueprintPure)
+	float GetCurrentStaminaPercent() { return CurrentStamina / MaxStamina; }
+
+	float GetMaxStamina() { return MaxStamina; }
+
+	/** Returns HungerThirstComponent subobject **/
+	FORCEINLINE class UDOTK_HungerThirstComponent* GetHungerThirstComponent() const { return HungerThirstComponent; }
+	/** Returns LevelHandler subobject **/
+	FORCEINLINE class UDOTK_LevelHandlerComponent* GetLevelHandler() const { return LevelHandlerComponent; }
+	/** Returns CameraBoom subobject **/
+	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
+	/** Returns FollowCamera subobject **/
+	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+
 protected:
 
 	virtual void Tick(float DeltaTime) override;
+
+	virtual void BeginPlay() override;
 
 	// ** STAMINA FUNCTIONS ** //
 
 	/* Called to drain stamina. */
 	UFUNCTION(BlueprintCallable)
 	void DrainStamina(float DeltaTime);
+
+	/* Called to use stamina for single instance. For example, jumping or attacking. */
+	UFUNCTION(BlueprintCallable)
+	void UseStamina(float StaminaToUse);
 
 	/* Called to rest stamina regen logic. */
 	UFUNCTION(BlueprintCallable)
@@ -65,6 +153,12 @@ protected:
 	/* Called to perform actions to character once stamina is fully depleted (stun them, have regen delay, etc). */
 	UFUNCTION(BlueprintCallable)
 	void DepletedAllStamina();
+
+	UFUNCTION(BlueprintCallable)
+	void OnDeath();
+
+	UFUNCTION(BlueprintCallable)
+	void OnDamageReceived();
 
 protected:
 
@@ -75,31 +169,35 @@ protected:
 	// ** STAMINA ** //
 
 	/* Keeps track of whether character Stamina can currently regen. */
-	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
+	UPROPERTY(EditAnywhere, Category = "Stamina")
 	bool bCanRegenStamina;
 
 	/* The current amount of Stamina the character has. */
-	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
+	UPROPERTY(EditAnywhere, Category = "Stamina")
 	float CurrentStamina = 100.0f;
 
 	/* The highest value a character's Stamina regens to. */
-	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
+	UPROPERTY(EditAnywhere, Category = "Stamina")
 	float MaxStamina = 100.0f;
 
-	/* The value of stamina to be drained. */
-	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
+	/* The value of stamina to be drained by sprinting. */
+	UPROPERTY(EditAnywhere, Category = "Stamina")
 	float SprintStaminaDrain = 5.0f;
 
+	/* The value of stamina used by jumping. */
+	UPROPERTY(EditAnywhere, Category = "Stamina")
+	float JumpStaminaDrain = 7.0f;
+
 	/* Interval in seconds at which Stamina is drained. */
-	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
+	UPROPERTY(EditAnywhere, Category = "Stamina")
 	float DrainInterval = 1.0f;
 
 	/* The increment at which Stamina is regenerated. */
-	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
+	UPROPERTY(EditAnywhere, Category = "Stamina")
 	float StaminaRegen = 8.0f;
 
 	/* Interval in seconds at which Stamina is regenerated. */
-	UPROPERTY(EditAnywhere, Category = "Character: Stamina")
+	UPROPERTY(EditAnywhere, Category = "Stamina")
 	float RegenInterval = 1.0f;
 
 	/* Stamina regen timer handle. */
@@ -121,13 +219,31 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inventory")
 	FInventory Inventory;
 
-	/* The weapon the character is currently using in their main hand. */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
-	ADOTK_WeaponBase* CurrentMainWeapon;
+	// ** WEAPON SKILLS ** //
 
-	/* The weapon the character is currently using in their off hand. */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
-	ADOTK_WeaponBase* CurrentOffWeapon;
+	// 
+
+	/* Struct for skills that includes a name, current and max. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Skills")
+	FSkill FistSkill;
+	/* Struct for skills that includes a name, current and max. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Skills")
+	FSkill ShieldSkill;
+	/* Struct for skills that includes a name, current and max. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Skills")
+	FSkill DaggerSkill;
+	/* Struct for skills that includes a name, current and max. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Skills")
+	FSkill SwordSkill;
+	/* Struct for skills that includes a name, current and max. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Skills")
+	FSkill MaceSkill;
+	/* Struct for skills that includes a name, current and max. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Skills")
+	FSkill SpearSkill;
+	/* Struct for skills that includes a name, current and max. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Skills")
+	FSkill AxeSkill;
 
 	/* Character Reference. */
 
@@ -146,39 +262,5 @@ protected:
 	float TestingDrinkAmount = 25.0f;
 
 public:
-
-	// ** ITEMS ** //
-
-	void PickupItem();
-
-	// Add an item to the character's inventory
-	UFUNCTION(BlueprintCallable, Category = "Item")
-	void AddToInventory(ADOTK_ItemBase* Item);
-
-	// ** HUNGER AND THIRST FUNCTIONS ** //
-
-	UFUNCTION(BlueprintCallable)
-	void RequestEat();
-
-	UFUNCTION(BlueprintCallable)
-	void RequestDrink();
-
-	UFUNCTION(BlueprintCallable)
-	void RequestEmptyHungerThirst();
-
-	virtual void RequestSprintStart() override;
-	virtual void RequestSprintStop() override;
-
-	/* GETTER FUNCTIONS */
-
-	UFUNCTION(BlueprintPure)
-	float GetCurrentStaminaPercent() { return CurrentStamina / MaxStamina; }
-
-	float GetMaxStamina() { return MaxStamina; }
-
-	/** Returns HungerThirstComponent subobject **/
-	FORCEINLINE class UDOTK_HungerThirstComponent* GetHungerThirstComponent() const { return HungerThirstComponent; }
-	/** Returns LevelHandler subobject **/
-	FORCEINLINE class UDOTK_LevelHandlerComponent* GetLevelHandler() const { return LevelHandlerComponent; }
 	
 };
