@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "DOTK_PlayerCharacter.h"
 #include "DotK_CharacterAttributeComponent.h"
 #include "DOTK_ItemBase.generated.h"
 

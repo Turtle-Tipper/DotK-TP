@@ -132,4 +132,15 @@ public:
 	
 	UFUNCTION(BlueprintCallable, Category = "Thirst")
 	void SetCurrentThirst(float ThirstAmount) { CurrentThirst = ThirstAmount; }
+
+	// ** ADDTO ** //
+
+	UFUNCTION(BlueprintCallable, Category = "Hunger")
+	void AddToCurrentHunger(float HungerAmount) { CurrentHunger += HungerAmount; }
+
+	UFUNCTION(BlueprintCallable, Category = "Hunger")
+	void AddToCurrentSaturation(float SatAmount) { CurrentSaturation += SatAmount; }
+
+	UFUNCTION(BlueprintCallable, Category = "Thirst")
+	void AddToCurrentThirst(float ThirstAmount) { CurrentThirst += ThirstAmount; }
 };

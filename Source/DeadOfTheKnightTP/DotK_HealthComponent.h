@@ -70,6 +70,11 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void SetMaxHealthRegen(float MaxRegenAmount) { MaxHealthRegen = MaxRegenAmount; }
 
+	// ** ADDTO ** //
+
+	UFUNCTION(BlueprintCallable)
+	void AddToCurrentHealth(float HealthAmount) { CurrentHealth += HealthAmount; }
+
 
 protected:
 	// Called when the game starts
