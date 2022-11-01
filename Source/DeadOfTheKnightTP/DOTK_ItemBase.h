@@ -50,6 +50,11 @@ public:
 	// Sets default values for this actor's properties
 	ADOTK_ItemBase();
 
+	virtual void Use(class ADOTK_PlayerCharacter* Character) PURE_VIRTUAL(UItem, );
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnUse(class ADOTK_PlayerCharacter* Character);
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -62,23 +67,41 @@ protected:
 	UFUNCTION()
 	void OnEndOverlap(AActor* OverlappedActor, AActor* OtherActor);
 
+	/* Level required to use item. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int LevelReq;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	/* Weight of item. To be used in encumberance system. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (ClampMin = 0.0f))
 	float ItemWeight;
 
+	/* Number of items that can fit into one inventory slot. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int StackSize = 1;
 
+	/* Rarity of item. To be used in determining attribute range. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	EItemRarity ItemRarity;
 
+	/* General type of item. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	EItemType ItemType;
 
+	/* Name of item. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FString ItemName;
+
+	/* Item use text. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FString UseItemText;
+
+	/* Description of item. */
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta = (Multiline = true))
+	FText ItemDescription;
+
+	/* The inventory that owns this item. */
+	UPROPERTY()
+	class UDOTK_InventoryComponent* OwningInventory;
 
 public:	
 	// Called every frame
@@ -93,5 +116,13 @@ public:
 	FORCEINLINE class UTexture2D* GetItemImage() const { return ItemImage; }
 
 	FORCEINLINE FString GetItemName() { return ItemName; }
+
+	FORCEINLINE class UDOTK_InventoryComponent* GetOwningInventory() const { return OwningInventory; }
+
+	// ** SETTERS ** //
+	void SetOwningInventory(UDOTK_InventoryComponent* Inv) { OwningInventory = Inv; }
+
+	UPROPERTY(Transient)
+	class UWorld* World;
 
 };

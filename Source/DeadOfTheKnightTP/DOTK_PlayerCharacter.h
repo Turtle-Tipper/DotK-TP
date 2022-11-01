@@ -6,6 +6,7 @@
 #include "DeadOfTheKnightTPCharacter.h"
 #include "DOTK_HungerThirstComponent.h"
 #include "DOTK_LevelHandlerComponent.h"
+#include "DOTK_InventoryComponent.h"
 #include "DOTK_ItemBase.h"
 #include "DOTK_PlayerController.h"
 #include "DOTK_PlayerCharacter.generated.h"
@@ -71,6 +72,10 @@ class DEADOFTHEKNIGHTTP_API ADOTK_PlayerCharacter : public ADeadOfTheKnightTPCha
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Level, meta = (AllowPrivateAccess = "true"))
 	class UDOTK_LevelHandlerComponent* LevelHandlerComponent;
 
+	/* Inventory Component */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Inventory, meta = (AllowPrivateAccess = "true"))
+	class UDOTK_InventoryComponent* InventoryComponent;
+
 	/* Instance to set InputMode to UI only. */
 	FInputModeUIOnly UIOnly;
 
@@ -86,6 +91,9 @@ public:
 	// Add an item to the character's inventory
 	UFUNCTION(BlueprintCallable, Category = "Item")
 	void AddToInventory(ADOTK_ItemBase* Item);
+
+	UFUNCTION(BlueprintCallable, Category = "Item")
+	void UseItem(class ADOTK_ItemBase* Item);
 
 	// ** HUNGER AND THIRST FUNCTIONS ** //
 

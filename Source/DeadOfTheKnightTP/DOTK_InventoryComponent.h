@@ -7,6 +7,8 @@
 #include "DOTK_ItemBase.h"
 #include "DOTK_InventoryComponent.generated.h"
 
+/* Blueprints will bind to this to update the ui. */
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnInventoryUpdated);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class DEADOFTHEKNIGHTTP_API UDOTK_InventoryComponent : public UActorComponent
@@ -18,7 +20,10 @@ public:
 	UDOTK_InventoryComponent();
 
 	UFUNCTION(BlueprintCallable)
-	void AddToInventory(ADOTK_ItemBase* Item);
+	bool AddToInventory(ADOTK_ItemBase* Item);
+
+	UFUNCTION(BlueprintCallable)
+	bool RemoveFromInventory(ADOTK_ItemBase* Item);
 
 	// ** GETTERS ** //
 	int GetSlotLimit() { return SlotLimit; }
@@ -56,12 +61,12 @@ protected:
 
 	TArray<ADOTK_ItemBase*> ItemList;
 
+	UPROPERTY(BlueprintAssignable)
+	FOnInventoryUpdated OnInventoryUpdated;
+
 	//not sure how to make object specific array size
 	//ADOTK_ItemBase* ItemList[SlotLimit];
 
-public:	
-	// Called every frame
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-
+public:
 		
 };

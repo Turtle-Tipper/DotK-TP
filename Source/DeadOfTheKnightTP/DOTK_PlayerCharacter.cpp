@@ -27,6 +27,9 @@ ADOTK_PlayerCharacter::ADOTK_PlayerCharacter()
 	// Create a level handler component
 	LevelHandlerComponent = CreateDefaultSubobject<UDOTK_LevelHandlerComponent>(TEXT("LevelHandlerComponent"));
 
+	// Create an inventory component
+	InventoryComponent = CreateDefaultSubobject<UDOTK_InventoryComponent>(TEXT("InventoryComponent"));
+
 }
 
 void ADOTK_PlayerCharacter::Tick(float DeltaTime)
@@ -360,6 +363,15 @@ void ADOTK_PlayerCharacter::AddToInventory(ADOTK_ItemBase* Item)
 
 	// get inventory struct, get ItemList array and add item to array.
 	Inventory.ItemList.Add(Item);
+}
+
+void ADOTK_PlayerCharacter::UseItem(ADOTK_ItemBase* Item)
+{
+	if (Item)
+	{
+		Item->Use(this);
+		Item->OnUse(this); // BP event
+	}
 }
 
 // ** HEALTH ** //

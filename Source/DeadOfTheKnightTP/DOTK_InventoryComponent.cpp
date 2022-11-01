@@ -23,24 +23,42 @@ void UDOTK_InventoryComponent::BeginPlay()
 	
 }
 
-
-// Called every frame
-void UDOTK_InventoryComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
-{
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-	// ...
-}
-
-void UDOTK_InventoryComponent::AddToInventory(ADOTK_ItemBase* Item)
+bool UDOTK_InventoryComponent::AddToInventory(ADOTK_ItemBase* Item)
 {
 	// check to make sure an item is passed in, if not UE_LOG and return
-	if (!Item) { UE_LOG(LogTemp, Warning, TEXT("Item to add returning null.")) return; }
+	if (!Item) { UE_LOG(LogTemp, Warning, TEXT("Item to add returning null.")) return false; }
 
-	// get inventory struct, get ItemList array and add item to array.
-	// in player character version, inventory was all in struct, so you needed to go into the instance of the struct that was named Inventory
+	if (ItemList.Num() >= SlotLimit)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Not enough space."));
+		return false;
+	}
+
+	Item->SetOwningInventory(this);
+	// having world allows spawning particles
+	Item->World = GetWorld();
 	// FInventory Inventory
 	ItemList.Add(Item);
+
+	// Update UI
+	OnInventoryUpdated.Broadcast();
+
+	return true;
+}
+
+bool UDOTK_InventoryComponent::RemoveFromInventory(ADOTK_ItemBase* Item)
+{
+	if (Item)
+	{
+		Item->SetOwningInventory(nullptr);
+		Item->World = nullptr;
+		ItemList.RemoveSingle(Item);
+		// Update UI
+		OnInventoryUpdated.Broadcast();
+		return true;
+	}
+
+	return false;
 }
 
 bool UDOTK_InventoryComponent::HasWeightLimit()
