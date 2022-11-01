@@ -93,7 +93,7 @@ protected:
 
 	/* Item use text. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FString UseItemText;
+	FString ItemToolTip;
 
 	/* Description of item. */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta = (Multiline = true))
