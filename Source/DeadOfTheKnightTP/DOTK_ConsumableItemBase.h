@@ -6,9 +6,15 @@
 #include "DOTK_ItemBase.h"
 #include "DOTK_ConsumableItemBase.generated.h"
 
-/**
- * 
- */
+UENUM(BlueprintType)
+enum class EConsumableType : uint8
+{
+	DEFAULT			UMETA(DisplayName = "DEFAULT"),
+	Food			UMETA(DisplayName = "Food"),
+	Drink			UMETA(DisplayName = "Drink"),
+	Potion			UMETA(DisplayName = "Potion"),
+};
+
 UCLASS()
 class DEADOFTHEKNIGHTTP_API ADOTK_ConsumableItemBase : public ADOTK_ItemBase
 {
@@ -22,16 +28,24 @@ public:
 
 protected:
 
+	/* Amount of health to be added to character's current health. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float HealthToHeal;
-
+	
+	/* Amount of hunger to be added to character's current hunger. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float HungerValue;
 
+	/* Amount of saturation to be added to character's current saturation. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float SaturationValue;
 
+	/* Amount of thirst to be added to character's current thirst. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float ThirstValue;
+
+	/* The consumable's type. Used to determine sound for using. */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	EConsumableType ConsumableType;
 	
 };
