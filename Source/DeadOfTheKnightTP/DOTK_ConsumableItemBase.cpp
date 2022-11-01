@@ -2,6 +2,7 @@
 
 
 #include "DOTK_ConsumableItemBase.h"
+#include "DOTK_PlayerCharacter.h"
 
 // Sets default values
 ADOTK_ConsumableItemBase::ADOTK_ConsumableItemBase()
