@@ -50,10 +50,30 @@ public:
 	// Sets default values for this actor's properties
 	ADOTK_ItemBase();
 
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
+
 	virtual void Use(class ADOTK_PlayerCharacter* Character) PURE_VIRTUAL(UItem, );
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnUse(class ADOTK_PlayerCharacter* Character);
+
+	// ** GETTERS ** //
+	/** Returns RootSceneComponent **/
+	FORCEINLINE class USceneComponent* GetRootSceneComponent() const { return RootSceneComponent; }
+	/** Returns StaticMeshComponent subobject **/
+	FORCEINLINE class UStaticMeshComponent* GetStaticMeshComponent() const { return ItemMesh; }
+	/* Returns ItemImage. */
+	FORCEINLINE class UTexture2D* GetItemImage() const { return ItemImage; }
+	/*Returns ItemName. */
+	FORCEINLINE FString GetItemName() { return ItemName; }
+	/* Returns ItemWeight. */
+	float GetItemWeight() { return ItemWeight; }
+	/* Returns the OwningInventory. */
+	FORCEINLINE class UDOTK_InventoryComponent* GetOwningInventory() const { return OwningInventory; }
+
+	// ** SETTERS ** //
+	void SetOwningInventory(UDOTK_InventoryComponent* Inv) { OwningInventory = Inv; }
 
 protected:
 	// Called when the game starts or when spawned
@@ -104,23 +124,6 @@ protected:
 	class UDOTK_InventoryComponent* OwningInventory;
 
 public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
-	// ** GETTERS ** //
-	/** Returns RootSceneComponent **/
-	FORCEINLINE class USceneComponent* GetRootSceneComponent() const { return RootSceneComponent; }
-	/** Returns StaticMeshComponent subobject **/
-	FORCEINLINE class UStaticMeshComponent* GetStaticMeshComponent() const { return ItemMesh; }
-	/* Returns ItemImage. */
-	FORCEINLINE class UTexture2D* GetItemImage() const { return ItemImage; }
-
-	FORCEINLINE FString GetItemName() { return ItemName; }
-
-	FORCEINLINE class UDOTK_InventoryComponent* GetOwningInventory() const { return OwningInventory; }
-
-	// ** SETTERS ** //
-	void SetOwningInventory(UDOTK_InventoryComponent* Inv) { OwningInventory = Inv; }
 
 	UPROPERTY(Transient)
 	class UWorld* World;

@@ -42,6 +42,10 @@ protected:
 	/* Number of inventory slots that the inventory array should be instantiated with. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int SlotLimit = 36;
+	
+	/* Keeps track of the current weight of the inventory. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float CurrentWeight;
 
 	/* Weight that can be carried in inventory before being encumbered. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

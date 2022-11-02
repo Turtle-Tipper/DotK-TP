@@ -39,6 +39,10 @@ bool UDOTK_InventoryComponent::AddToInventory(ADOTK_ItemBase* Item)
 	Item->World = GetWorld();
 	// FInventory Inventory
 	ItemList.Add(Item);
+	// Add item's weight to current weight
+	CurrentWeight += Item->GetItemWeight();
+
+	// TO DO: Encumberance logic
 
 	// Update UI
 	OnInventoryUpdated.Broadcast();
@@ -50,9 +54,16 @@ bool UDOTK_InventoryComponent::RemoveFromInventory(ADOTK_ItemBase* Item)
 {
 	if (Item)
 	{
+		// set item data to null
 		Item->SetOwningInventory(nullptr);
 		Item->World = nullptr;
+		// remove item from ItemList
 		ItemList.RemoveSingle(Item);
+		// subtract item's weight from current weight
+		CurrentWeight -= Item->GetItemWeight();
+
+		// TO DO: Encumberance logic
+
 		// Update UI
 		OnInventoryUpdated.Broadcast();
 		return true;
@@ -63,7 +74,7 @@ bool UDOTK_InventoryComponent::RemoveFromInventory(ADOTK_ItemBase* Item)
 
 bool UDOTK_InventoryComponent::HasWeightLimit()
 {
-	if (WeightLimit)
+	if (WeightLimit != 0.0f)
 	{
 		return true;
 	}
