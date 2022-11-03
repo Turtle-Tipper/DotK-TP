@@ -25,6 +25,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	bool RemoveFromInventory(ADOTK_ItemBase* Item);
 
+	UFUNCTION(BlueprintCallable)
+	void UpdateEncumbrance();
+
 	// ** GETTERS ** //
 	int GetSlotLimit() { return SlotLimit; }
 
@@ -39,6 +42,14 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
+	/* Keeps track of whether this inventory has a weight limit. Generally only players and other moveable entities should have a weight limit. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool bHasWeightLimit;
+
+	/* Keeps track of whether the inventory is at / above its weight limit. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool bIsEncumbered = false;
+
 	/* Number of inventory slots that the inventory array should be instantiated with. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int SlotLimit = 36;
@@ -50,6 +61,9 @@ protected:
 	/* Weight that can be carried in inventory before being encumbered. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float WeightLimit;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float EncumbranceValue;
 
 	/* Number of inventory slots that will be unusable until being unlocked. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

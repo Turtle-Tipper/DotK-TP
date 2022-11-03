@@ -42,7 +42,11 @@ bool UDOTK_InventoryComponent::AddToInventory(ADOTK_ItemBase* Item)
 	// Add item's weight to current weight
 	CurrentWeight += Item->GetItemWeight();
 
-	// TO DO: Encumberance logic
+	// Encumbrance logic
+	if (HasWeightLimit())
+	{
+		UpdateEncumbrance();
+	}
 
 	// Update UI
 	OnInventoryUpdated.Broadcast();
@@ -62,7 +66,12 @@ bool UDOTK_InventoryComponent::RemoveFromInventory(ADOTK_ItemBase* Item)
 		// subtract item's weight from current weight
 		CurrentWeight -= Item->GetItemWeight();
 
-		// TO DO: Encumberance logic
+		// Encumbrance logic
+		if (HasWeightLimit())
+		{
+			UpdateEncumbrance();
+		}
+		
 
 		// Update UI
 		OnInventoryUpdated.Broadcast();
@@ -72,14 +81,31 @@ bool UDOTK_InventoryComponent::RemoveFromInventory(ADOTK_ItemBase* Item)
 	return false;
 }
 
+void UDOTK_InventoryComponent::UpdateEncumbrance()
+{
+	if (CurrentWeight > WeightLimit)
+	{
+		bIsEncumbered = true;
+		EncumbranceValue = CurrentWeight - WeightLimit;
+		UE_LOG(LogTemp, Warning, TEXT("Inventory is now encumbered."));
+	}
+	else
+	{
+		bIsEncumbered = false;
+		UE_LOG(LogTemp, Warning, TEXT("Inventory is not currently encumbered."));
+	}
+}
+
 bool UDOTK_InventoryComponent::HasWeightLimit()
 {
 	if (WeightLimit != 0.0f)
 	{
-		return true;
+		bHasWeightLimit = true;
 	}
 	else
 	{
-		return false;
+		bHasWeightLimit = false;
 	}
+
+	return bHasWeightLimit;
 }
