@@ -12,27 +12,6 @@
 #include "DOTK_PlayerCharacter.generated.h"
 
 USTRUCT(BlueprintType)
-struct FInventory
-{
-	GENERATED_BODY()
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int SlotLimit = 36;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int LockedSlots;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int AvailableSlots = SlotLimit - LockedSlots;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float WeightLimit;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<ADOTK_ItemBase*> ItemList;
-};
-
-USTRUCT(BlueprintType)
 struct FSkill
 {
 	GENERATED_BODY()
@@ -87,10 +66,6 @@ public:
 	// ** ITEMS ** //
 
 	void PickupItem();
-
-	// Add an item to the character's inventory
-	UFUNCTION(BlueprintCallable, Category = "Item")
-	void AddToInventory(ADOTK_ItemBase* Item);
 
 	UFUNCTION(BlueprintCallable, Category = "Item")
 	void UseItem(class ADOTK_ItemBase* Item);
@@ -222,10 +197,6 @@ protected:
 	float StaminaRegenDelay = 1.5f;
 
 	// ** INVENTORY ** //
-
-	/* The inventory structure for the character. */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inventory")
-	FInventory Inventory;
 
 	// ** WEAPON SKILLS ** //
 

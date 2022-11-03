@@ -63,6 +63,7 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int AvailableSlots = SlotLimit - (LockedSlots + OccupiedSlots);
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	TArray<ADOTK_ItemBase*> ItemList;
 
 	UPROPERTY(BlueprintAssignable)

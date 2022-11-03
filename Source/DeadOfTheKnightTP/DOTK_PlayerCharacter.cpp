@@ -356,15 +356,6 @@ void ADOTK_PlayerCharacter::PickupItem()
 	}
 }
 
-void ADOTK_PlayerCharacter::AddToInventory(ADOTK_ItemBase* Item)
-{
-	// check to make sure an item is passed in, if not UE_LOG and return
-	if (!Item) { UE_LOG(LogTemp, Warning, TEXT("Item to add returning null.")) return; }
-
-	// get inventory struct, get ItemList array and add item to array.
-	Inventory.ItemList.Add(Item);
-}
-
 void ADOTK_PlayerCharacter::UseItem(ADOTK_ItemBase* Item)
 {
 	if (Item)
