@@ -94,6 +94,7 @@ void UDOTK_InventoryComponent::UpdateEncumbrance()
 		bIsEncumbered = false;
 		UE_LOG(LogTemp, Warning, TEXT("Inventory is not currently encumbered."));
 	}
+	OnEncumbranceUpdated.Broadcast();
 }
 
 bool UDOTK_InventoryComponent::HasWeightLimit()

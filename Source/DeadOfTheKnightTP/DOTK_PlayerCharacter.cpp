@@ -64,6 +64,10 @@ void ADOTK_PlayerCharacter::BeginPlay()
 		/* Bind on damage received delegate. */
 		HealthComponent->OnDamageReceivedDelegate.AddDynamic(this, &ADOTK_PlayerCharacter::OnDamageReceived);
 	}
+	if (InventoryComponent)
+	{
+		InventoryComponent->OnEncumbranceUpdated.AddDynamic(this, &ADOTK_PlayerCharacter::OnEncumberanceUpdated);
+	}
 }
 
 // ** CHARACTER MOVEMENT ** //
@@ -362,6 +366,19 @@ void ADOTK_PlayerCharacter::UseItem(ADOTK_ItemBase* Item)
 	{
 		Item->Use(this);
 		Item->OnUse(this); // BP event
+	}
+}
+
+void ADOTK_PlayerCharacter::OnEncumberanceUpdated()
+{
+	if (InventoryComponent->GetIsEncumbered())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Player is encumbered!"));
+		// set lower speed based on encumbrance value
+	}
+	else
+	{
+		// currently do nothing
 	}
 }
 

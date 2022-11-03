@@ -143,6 +143,10 @@ protected:
 	UFUNCTION(BlueprintCallable)
 	void OnDamageReceived();
 
+	/* Called to perform player specific encumbrance logic. For example, lowering movement speed. */
+	UFUNCTION(BlueprintCallable)
+	void OnEncumberanceUpdated();
+
 protected:
 
 	/* Tracks whether or not the character is overlapping an item. */

@@ -10,6 +10,9 @@
 /* Blueprints will bind to this to update the ui. */
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnInventoryUpdated);
 
+/* Bind to this for specific logic when encumbrance is updated. */
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnEncumbranceUpdated);
+
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class DEADOFTHEKNIGHTTP_API UDOTK_InventoryComponent : public UActorComponent
 {
@@ -29,6 +32,8 @@ public:
 	void UpdateEncumbrance();
 
 	// ** GETTERS ** //
+	bool GetIsEncumbered() { return bIsEncumbered; }
+	
 	int GetSlotLimit() { return SlotLimit; }
 
 	int GetOccupiedSlots() { return OccupiedSlots; }
@@ -80,6 +85,8 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	TArray<ADOTK_ItemBase*> ItemList;
 
+	// ** DELEGATES ** //
+
 	UPROPERTY(BlueprintAssignable)
 	FOnInventoryUpdated OnInventoryUpdated;
 
@@ -87,5 +94,10 @@ protected:
 	//ADOTK_ItemBase* ItemList[SlotLimit];
 
 public:
+
+// ** DELEGATES ** //
+
+	UPROPERTY(BlueprintAssignable)
+	FOnEncumbranceUpdated OnEncumbranceUpdated;
 		
 };
