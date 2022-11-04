@@ -25,3 +25,17 @@ void AInteractableBase::Tick(float DeltaTime)
 
 }
 
+void AInteractableBase::OnInteract_Implementation(AActor* Caller)
+{
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Blue, TEXT("Interacted!"));
+}
+
+void AInteractableBase::StartFocus_Implementation()
+{
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Green, TEXT("Start Focus"));
+}
+
+void AInteractableBase::EndFocus_Implementation()
+{
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Orange, TEXT("End Focus"));
+}

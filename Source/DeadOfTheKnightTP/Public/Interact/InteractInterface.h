@@ -23,9 +23,15 @@ class DEADOFTHEKNIGHTTP_API IInteractInterface
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
 
+	// Called when interacting with object. 
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Interaction")
 	void OnInteract(AActor* Caller);
-
+	
+	// Called when an object is the focus of the character.
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Interaction")
 	void StartFocus();
-
+	
+	// Called when an object is no longer the focus of the character.
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Interaction")
 	void EndFocus();
 };
