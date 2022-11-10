@@ -9,6 +9,7 @@
 #include "DOTK_InventoryComponent.h"
 #include "DOTK_ItemBase.h"
 #include "DOTK_PlayerController.h"
+#include "Components/LineTraceKismet.h"
 #include "DOTK_PlayerCharacter.generated.h"
 
 USTRUCT(BlueprintType)
@@ -54,6 +55,10 @@ class DEADOFTHEKNIGHTTP_API ADOTK_PlayerCharacter : public ADeadOfTheKnightTPCha
 	/* Inventory Component */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Inventory, meta = (AllowPrivateAccess = "true"))
 	class UDOTK_InventoryComponent* InventoryComponent;
+
+	/* Line Trace Component */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Trace, meta = (AllowPrivateAccess = "true"))
+	class ULineTraceKismet* LineTraceComponent;
 
 	/* Instance to set InputMode to UI only. */
 	FInputModeUIOnly UIOnly;
@@ -112,6 +117,8 @@ public:
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+	/** Returns LineTrace subobject **/
+	FORCEINLINE class ULineTraceKismet* GetLineTrace() const { return LineTraceComponent; }
 
 protected:
 
