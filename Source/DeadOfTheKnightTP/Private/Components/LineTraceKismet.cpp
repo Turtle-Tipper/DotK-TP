@@ -2,6 +2,7 @@
 
 
 #include "Components/LineTraceKismet.h"
+#include "Kismet/KismetSystemLibrary.h"
 
 // Sets default values for this component's properties
 ULineTraceKismet::ULineTraceKismet()
@@ -29,6 +30,23 @@ void ULineTraceKismet::TickComponent(float DeltaTime, ELevelTick TickType, FActo
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	// ...
+	LineTrace();
 }
+
+void ULineTraceKismet::LineTrace()
+{
+	FVector Start = GetOwner()->GetActorLocation();
+	FVector End = ((GetForwardVector() * TraceDistance) + Start);
+	
+	FHitResult HitResult;
+	TArray<AActor*> ActorsToIgnore;
+	bool bHit = UKismetSystemLibrary::LineTraceSingle(this, Start, End, UEngineTypes::ConvertToTraceType(ECC_Visibility), false, ActorsToIgnore, EDrawDebugTrace::ForDuration, HitResult, true, FLinearColor::Green, FLinearColor::Yellow, 0.1f);
+
+	if (bHit)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Yellow, FString::Printf(TEXT("Trace Hit: %s"), *HitResult.GetActor()->GetName()));
+	}
+
+}
+
 
