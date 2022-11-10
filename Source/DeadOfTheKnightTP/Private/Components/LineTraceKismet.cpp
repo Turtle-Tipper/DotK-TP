@@ -35,12 +35,12 @@ void ULineTraceKismet::TickComponent(float DeltaTime, ELevelTick TickType, FActo
 
 void ULineTraceKismet::LineTrace()
 {
-	FVector Start = GetOwner()->GetActorLocation();
-	FVector End = ((GetForwardVector() * TraceDistance) + Start);
+	FVector StartPos = GetOwner()->GetActorLocation();
+	FVector EndPos = ((GetForwardVector() * TraceDistance) + StartPos);
 	
 	FHitResult HitResult;
 	TArray<AActor*> ActorsToIgnore;
-	bool bHit = UKismetSystemLibrary::LineTraceSingle(this, Start, End, UEngineTypes::ConvertToTraceType(ECC_Visibility), false, ActorsToIgnore, EDrawDebugTrace::ForDuration, HitResult, true, FLinearColor::Green, FLinearColor::Yellow, 0.1f);
+	bool bHit = UKismetSystemLibrary::LineTraceSingle(this, StartPos, EndPos, UEngineTypes::ConvertToTraceType(ECC_Visibility), false, ActorsToIgnore, EDrawDebugTrace::ForDuration, HitResult, true, FLinearColor::Green, FLinearColor::Yellow, 0.1f);
 
 	if (bHit)
 	{

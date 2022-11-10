@@ -20,6 +20,7 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
+	// Performs linetrace and prints HitObject
 	void LineTrace();
 
 	UPROPERTY(EditAnywhere, Category = "Trace")
