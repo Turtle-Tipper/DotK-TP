@@ -39,6 +39,9 @@ class DEADOFTHEKNIGHTTP_API ADOTK_EquipmentBase : public ADOTK_ItemBase
 public:
 	// Sets default values for this actor's properties
 	ADOTK_EquipmentBase();
+
+	// Override of pure virtual in Item base. Should equip, remove item from inv and update inventory
+	virtual void Use(class ADOTK_PlayerCharacter* Character);
 	
 	/* Called to apply durability damage to equipment. */
 	void RequestTakeDamage(float Damage);

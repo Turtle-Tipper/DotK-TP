@@ -2,6 +2,7 @@
 
 
 #include "DOTK_EquipmentBase.h"
+#include "DOTK_PlayerCharacter.h"
 
 // Sets default values
 ADOTK_EquipmentBase::ADOTK_EquipmentBase()
@@ -27,6 +28,19 @@ void ADOTK_EquipmentBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+}
+
+void ADOTK_EquipmentBase::Use(class ADOTK_PlayerCharacter* Character)
+{
+	if (Character)
+	{
+		// Equip
+
+		if (OwningInventory)
+		{
+			OwningInventory->RemoveFromInventory(this);;
+		}
+	}
 }
 
 void ADOTK_EquipmentBase::RequestTakeDamage(float DamageAmount)
