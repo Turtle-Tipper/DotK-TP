@@ -22,7 +22,6 @@ enum class EEquipSlot : uint8
 	TwoHand			UMETA(DisplayName = "Two Hand"),
 };
 
-
 UCLASS()
 class DEADOFTHEKNIGHTTP_API ADOTK_EquipmentBase : public ADOTK_ItemBase
 {
@@ -40,6 +39,9 @@ public:
 	// Sets default values for this actor's properties
 	ADOTK_EquipmentBase();
 
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
+
 	// Override of pure virtual in Item base. Should equip, remove item from inv and update inventory
 	virtual void Use(class ADOTK_PlayerCharacter* Character);
 	
@@ -51,6 +53,14 @@ public:
 
 	/* Called to fully repair equipment (at workbench etc). */
 	void RequestRepair();
+
+	// ** GETTERS ** //
+
+	/** Returns Attribute subobject **/
+	FORCEINLINE class UDotK_CharacterAttributeComponent* GetAttributeComponent() const { return AttributeComponent; }
+
+	/** Returns Health subobject **/
+	FORCEINLINE class UDotK_HealthComponent* GetDurabilityComponent() const { return DurabilityComponent; }
 
 protected:
 	// Called when the game starts or when spawned
@@ -67,15 +77,4 @@ protected:
 	/* Decreases Movement Speed by this value when equipped. Generally higher movement speed reduction on heavier armor types. Can be changed with attachments and talents.  */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float MoveSpeedModifier = 0.0f;
-
-public:
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
-	/** Returns Attribute subobject **/
-	FORCEINLINE class UDotK_CharacterAttributeComponent* GetAttributeComponent() const { return AttributeComponent; }
-
-	/** Returns Health subobject **/
-	FORCEINLINE class UDotK_HealthComponent* GetDurabilityComponent() const { return DurabilityComponent; }
-
 };

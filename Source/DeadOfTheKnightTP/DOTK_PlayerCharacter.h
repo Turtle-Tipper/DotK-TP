@@ -75,6 +75,8 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Item")
 	void UseItem(class ADOTK_ItemBase* Item);
 
+	void EquipItem(ADOTK_EquipmentBase* Item);
+
 	// ** HUNGER AND THIRST FUNCTIONS ** //
 
 	UFUNCTION(BlueprintCallable)

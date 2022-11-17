@@ -372,6 +372,14 @@ void ADOTK_PlayerCharacter::UseItem(ADOTK_ItemBase* Item)
 	}
 }
 
+void ADOTK_PlayerCharacter::EquipItem(ADOTK_EquipmentBase* Item)
+{
+	if (Item)
+	{
+		//GetMesh()->GetSocketByName();
+	}
+}
+
 void ADOTK_PlayerCharacter::OnEncumberanceUpdated()
 {
 	if (InventoryComponent->GetIsEncumbered())
