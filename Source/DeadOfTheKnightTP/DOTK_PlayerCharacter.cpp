@@ -21,8 +21,8 @@ ADOTK_PlayerCharacter::ADOTK_PlayerCharacter()
 	FollowCamera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
 
 	// Create LineTrace component
-	LineTraceComponent = CreateDefaultSubobject<ULineTraceKismet>(TEXT("LineTraceComponent"));
-	LineTraceComponent->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
+	//LineTraceComponent = CreateDefaultSubobject<ULineTraceKismet>(TEXT("LineTraceComponent"));
+	//LineTraceComponent->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
 
 	// Create a hunger and thirst component
 	HungerThirstComponent = CreateDefaultSubobject<UDOTK_HungerThirstComponent>(TEXT("HungerHealthComponent"));
@@ -54,6 +54,9 @@ void ADOTK_PlayerCharacter::Tick(float DeltaTime)
 
 	GetHungerThirstComponent()->DrainHunger(DeltaTime);
 	GetHungerThirstComponent()->DrainThirst(DeltaTime);
+
+	// LineTrace
+	LineTrace();
 }
 
 void ADOTK_PlayerCharacter::BeginPlay()
@@ -113,6 +116,23 @@ void ADOTK_PlayerCharacter::RequestJump()
 				UseStamina(JumpStaminaDrain);
 			}
 		}
+}
+
+// ** TRACE ** //
+
+void ADOTK_PlayerCharacter::LineTrace()
+{
+	FVector StartPos = GetMesh()->GetSocketLocation("LineTraceStart");
+	FVector EndPos = ((GetFollowCamera()->GetForwardVector() * TraceDistance) + StartPos);
+
+	FHitResult HitResult;
+	TArray<AActor*> ActorsToIgnore;
+	bool bHit = UKismetSystemLibrary::LineTraceSingle(this, StartPos, EndPos, UEngineTypes::ConvertToTraceType(ECC_Visibility), false, ActorsToIgnore, EDrawDebugTrace::ForDuration, HitResult, true, FLinearColor::Green, FLinearColor::Yellow, 0.1f);
+
+	if (bHit)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Yellow, FString::Printf(TEXT("Trace Hit: %s"), *HitResult.GetActor()->GetName()));
+	}
 }
 
 // ** STAMINA ** //

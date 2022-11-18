@@ -9,7 +9,8 @@
 #include "DOTK_InventoryComponent.h"
 #include "DOTK_ItemBase.h"
 #include "DOTK_PlayerController.h"
-#include "Components/LineTraceKismet.h"
+//#include "Components/LineTraceKismet.h"
+#include "Kismet/KismetSystemLibrary.h"
 #include "DOTK_PlayerCharacter.generated.h"
 
 USTRUCT(BlueprintType)
@@ -156,11 +157,23 @@ protected:
 	UFUNCTION(BlueprintCallable)
 	void OnEncumberanceUpdated();
 
+	// ** TRACE ** //
+
+	// Creates a line trace from the character's "LineTraceStart" socket (attached to head), and lasting for the length of "TraceDistance". The forward vector
+	// is dependent on where the camera is faceing (as opposed to the character itself).
+	void LineTrace();
+
 protected:
 
 	/* Tracks whether or not the character is overlapping an item. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Items")
 	bool bIsOverlappingItem;
+
+	// ** TRACE ** //
+
+	/* Determines how far from the trace's start point the trace will end. */
+	UPROPERTY(EditAnywhere, Category = "Trace")
+	float TraceDistance = 500.0f;
 
 	// ** STAMINA ** //
 
@@ -212,8 +225,6 @@ protected:
 	// ** INVENTORY ** //
 
 	// ** WEAPON SKILLS ** //
-
-	// 
 
 	/* Struct for skills that includes a name, current and max. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Skills")
