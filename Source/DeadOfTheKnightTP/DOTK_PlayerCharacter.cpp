@@ -20,12 +20,18 @@ ADOTK_PlayerCharacter::ADOTK_PlayerCharacter()
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName); // Attach the camera to the end of the boom and let the boom adjust to match the controller orientation
 	FollowCamera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
 
+	// Create LineTrace component
+	//LineTraceComponent = CreateDefaultSubobject<ULineTraceKismet>(TEXT("LineTraceComponent"));
+	//LineTraceComponent->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
 
 	// Create a hunger and thirst component
 	HungerThirstComponent = CreateDefaultSubobject<UDOTK_HungerThirstComponent>(TEXT("HungerHealthComponent"));
 
 	// Create a level handler component
 	LevelHandlerComponent = CreateDefaultSubobject<UDOTK_LevelHandlerComponent>(TEXT("LevelHandlerComponent"));
+
+	// Create an inventory component
+	InventoryComponent = CreateDefaultSubobject<UDOTK_InventoryComponent>(TEXT("InventoryComponent"));
 
 }
 
@@ -48,6 +54,9 @@ void ADOTK_PlayerCharacter::Tick(float DeltaTime)
 
 	GetHungerThirstComponent()->DrainHunger(DeltaTime);
 	GetHungerThirstComponent()->DrainThirst(DeltaTime);
+
+	// LineTrace
+	LineTrace();
 }
 
 void ADOTK_PlayerCharacter::BeginPlay()
@@ -60,6 +69,10 @@ void ADOTK_PlayerCharacter::BeginPlay()
 		HealthComponent->OnDeathDelegate.AddDynamic(this, &ADOTK_PlayerCharacter::OnDeath);
 		/* Bind on damage received delegate. */
 		HealthComponent->OnDamageReceivedDelegate.AddDynamic(this, &ADOTK_PlayerCharacter::OnDamageReceived);
+	}
+	if (InventoryComponent)
+	{
+		InventoryComponent->OnEncumbranceUpdated.AddDynamic(this, &ADOTK_PlayerCharacter::OnEncumberanceUpdated);
 	}
 }
 
@@ -103,6 +116,23 @@ void ADOTK_PlayerCharacter::RequestJump()
 				UseStamina(JumpStaminaDrain);
 			}
 		}
+}
+
+// ** TRACE ** //
+
+void ADOTK_PlayerCharacter::LineTrace()
+{
+	FVector StartPos = GetMesh()->GetSocketLocation("LineTraceStart");
+	FVector EndPos = ((GetFollowCamera()->GetForwardVector() * TraceDistance) + StartPos);
+
+	FHitResult HitResult;
+	TArray<AActor*> ActorsToIgnore;
+	bool bHit = UKismetSystemLibrary::LineTraceSingle(this, StartPos, EndPos, UEngineTypes::ConvertToTraceType(ECC_Visibility), false, ActorsToIgnore, EDrawDebugTrace::ForDuration, HitResult, true, FLinearColor::Green, FLinearColor::Yellow, 0.1f);
+
+	if (bHit)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Yellow, FString::Printf(TEXT("Trace Hit: %s"), *HitResult.GetActor()->GetName()));
+	}
 }
 
 // ** STAMINA ** //
@@ -353,13 +383,34 @@ void ADOTK_PlayerCharacter::PickupItem()
 	}
 }
 
-void ADOTK_PlayerCharacter::AddToInventory(ADOTK_ItemBase* Item)
+void ADOTK_PlayerCharacter::UseItem(ADOTK_ItemBase* Item)
 {
-	// check to make sure an item is passed in, if not UE_LOG and return
-	if (!Item) { UE_LOG(LogTemp, Warning, TEXT("Item to add returning null.")) return; }
+	if (Item)
+	{
+		Item->Use(this);
+		Item->OnUse(this); // BP event
+	}
+}
 
-	// get inventory struct, get ItemList array and add item to array.
-	Inventory.ItemList.Add(Item);
+void ADOTK_PlayerCharacter::EquipItem(ADOTK_EquipmentBase* Item)
+{
+	if (Item)
+	{
+		//GetMesh()->GetSocketByName();
+	}
+}
+
+void ADOTK_PlayerCharacter::OnEncumberanceUpdated()
+{
+	if (InventoryComponent->GetIsEncumbered())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Player is encumbered!"));
+		// set lower speed based on encumbrance value
+	}
+	else
+	{
+		// currently do nothing
+	}
 }
 
 // ** HEALTH ** //

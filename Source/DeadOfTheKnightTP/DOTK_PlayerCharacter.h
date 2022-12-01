@@ -6,30 +6,12 @@
 #include "DeadOfTheKnightTPCharacter.h"
 #include "DOTK_HungerThirstComponent.h"
 #include "DOTK_LevelHandlerComponent.h"
+#include "DOTK_InventoryComponent.h"
 #include "DOTK_ItemBase.h"
 #include "DOTK_PlayerController.h"
+//#include "Components/LineTraceKismet.h"
+#include "Kismet/KismetSystemLibrary.h"
 #include "DOTK_PlayerCharacter.generated.h"
-
-USTRUCT(BlueprintType)
-struct FInventory
-{
-	GENERATED_BODY()
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int SlotLimit = 36;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int LockedSlots;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int AvailableSlots = SlotLimit - LockedSlots;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float WeightLimit;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<ADOTK_ItemBase*> ItemList;
-};
 
 USTRUCT(BlueprintType)
 struct FSkill
@@ -71,6 +53,14 @@ class DEADOFTHEKNIGHTTP_API ADOTK_PlayerCharacter : public ADeadOfTheKnightTPCha
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Level, meta = (AllowPrivateAccess = "true"))
 	class UDOTK_LevelHandlerComponent* LevelHandlerComponent;
 
+	/* Inventory Component */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Inventory, meta = (AllowPrivateAccess = "true"))
+	class UDOTK_InventoryComponent* InventoryComponent;
+
+	/* Line Trace Component */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Trace, meta = (AllowPrivateAccess = "true"))
+	class ULineTraceKismet* LineTraceComponent;
+
 	/* Instance to set InputMode to UI only. */
 	FInputModeUIOnly UIOnly;
 
@@ -83,9 +73,10 @@ public:
 
 	void PickupItem();
 
-	// Add an item to the character's inventory
 	UFUNCTION(BlueprintCallable, Category = "Item")
-	void AddToInventory(ADOTK_ItemBase* Item);
+	void UseItem(class ADOTK_ItemBase* Item);
+
+	void EquipItem(ADOTK_EquipmentBase* Item);
 
 	// ** HUNGER AND THIRST FUNCTIONS ** //
 
@@ -129,6 +120,8 @@ public:
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+	/** Returns LineTrace subobject **/
+	FORCEINLINE class ULineTraceKismet* GetLineTrace() const { return LineTraceComponent; }
 
 protected:
 
@@ -160,11 +153,27 @@ protected:
 	UFUNCTION(BlueprintCallable)
 	void OnDamageReceived();
 
+	/* Called to perform player specific encumbrance logic. For example, lowering movement speed. */
+	UFUNCTION(BlueprintCallable)
+	void OnEncumberanceUpdated();
+
+	// ** TRACE ** //
+
+	// Creates a line trace from the character's "LineTraceStart" socket (attached to head), and lasting for the length of "TraceDistance". The forward vector
+	// is dependent on where the camera is faceing (as opposed to the character itself).
+	void LineTrace();
+
 protected:
 
 	/* Tracks whether or not the character is overlapping an item. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Items")
 	bool bIsOverlappingItem;
+
+	// ** TRACE ** //
+
+	/* Determines how far from the trace's start point the trace will end. */
+	UPROPERTY(EditAnywhere, Category = "Trace")
+	float TraceDistance = 500.0f;
 
 	// ** STAMINA ** //
 
@@ -215,13 +224,7 @@ protected:
 
 	// ** INVENTORY ** //
 
-	/* The inventory structure for the character. */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inventory")
-	FInventory Inventory;
-
 	// ** WEAPON SKILLS ** //
-
-	// 
 
 	/* Struct for skills that includes a name, current and max. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Skills")

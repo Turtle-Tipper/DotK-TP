@@ -23,34 +23,90 @@ void UDOTK_InventoryComponent::BeginPlay()
 	
 }
 
-
-// Called every frame
-void UDOTK_InventoryComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
-{
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-	// ...
-}
-
-void UDOTK_InventoryComponent::AddToInventory(ADOTK_ItemBase* Item)
+bool UDOTK_InventoryComponent::AddToInventory(ADOTK_ItemBase* Item)
 {
 	// check to make sure an item is passed in, if not UE_LOG and return
-	if (!Item) { UE_LOG(LogTemp, Warning, TEXT("Item to add returning null.")) return; }
+	if (!Item) { UE_LOG(LogTemp, Warning, TEXT("Item to add returning null.")) return false; }
 
-	// get inventory struct, get ItemList array and add item to array.
-	// in player character version, inventory was all in struct, so you needed to go into the instance of the struct that was named Inventory
+	if (ItemList.Num() >= SlotLimit)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Not enough space."));
+		return false;
+	}
+
+	Item->SetOwningInventory(this);
+	// having world allows spawning particles
+	Item->World = GetWorld();
 	// FInventory Inventory
 	ItemList.Add(Item);
+	// Add item's weight to current weight
+	CurrentWeight += Item->GetItemWeight();
+
+	// Encumbrance logic
+	if (HasWeightLimit())
+	{
+		UpdateEncumbrance();
+	}
+
+	// Update UI
+	OnInventoryUpdated.Broadcast();
+
+	return true;
+}
+
+bool UDOTK_InventoryComponent::RemoveFromInventory(ADOTK_ItemBase* Item)
+{
+	if (Item)
+	{
+		// set item data to null
+		Item->SetOwningInventory(nullptr);
+		Item->World = nullptr;
+		// remove item from ItemList
+		ItemList.RemoveSingle(Item);
+		// subtract item's weight from current weight
+		CurrentWeight -= Item->GetItemWeight();
+
+		// Encumbrance logic
+		if (HasWeightLimit())
+		{
+			UpdateEncumbrance();
+		}
+		
+
+		// Update UI
+		OnInventoryUpdated.Broadcast();
+		return true;
+	}
+
+	return false;
+}
+
+void UDOTK_InventoryComponent::UpdateEncumbrance()
+{
+	if (CurrentWeight > WeightLimit)
+	{
+		bIsEncumbered = true;
+		EncumbranceValue = CurrentWeight - WeightLimit;
+		UE_LOG(LogTemp, Warning, TEXT("Inventory is now encumbered."));
+	}
+	else
+	{
+		bIsEncumbered = false;
+		UE_LOG(LogTemp, Warning, TEXT("Inventory is not currently encumbered."));
+	}
+	OnEncumbranceUpdated.Broadcast();
 }
 
 bool UDOTK_InventoryComponent::HasWeightLimit()
 {
-	if (WeightLimit)
+	if (WeightLimit != 0.0f)
 	{
-		return true;
+		bHasWeightLimit = true;
 	}
 	else
 	{
-		return false;
+		bHasWeightLimit = false;
 	}
+
+	return bHasWeightLimit;
 }

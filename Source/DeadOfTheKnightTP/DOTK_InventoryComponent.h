@@ -7,6 +7,11 @@
 #include "DOTK_ItemBase.h"
 #include "DOTK_InventoryComponent.generated.h"
 
+/* Blueprints will bind to this to update the ui. */
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnInventoryUpdated);
+
+/* Bind to this for specific logic when encumbrance is updated. */
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnEncumbranceUpdated);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class DEADOFTHEKNIGHTTP_API UDOTK_InventoryComponent : public UActorComponent
@@ -18,9 +23,17 @@ public:
 	UDOTK_InventoryComponent();
 
 	UFUNCTION(BlueprintCallable)
-	void AddToInventory(ADOTK_ItemBase* Item);
+	bool AddToInventory(ADOTK_ItemBase* Item);
+
+	UFUNCTION(BlueprintCallable)
+	bool RemoveFromInventory(ADOTK_ItemBase* Item);
+
+	UFUNCTION(BlueprintCallable)
+	void UpdateEncumbrance();
 
 	// ** GETTERS ** //
+	bool GetIsEncumbered() { return bIsEncumbered; }
+	
 	int GetSlotLimit() { return SlotLimit; }
 
 	int GetOccupiedSlots() { return OccupiedSlots; }
@@ -34,13 +47,28 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
+	/* Keeps track of whether this inventory has a weight limit. Generally only players and other moveable entities should have a weight limit. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool bHasWeightLimit;
+
+	/* Keeps track of whether the inventory is at / above its weight limit. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool bIsEncumbered = false;
+
 	/* Number of inventory slots that the inventory array should be instantiated with. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int SlotLimit = 36;
+	
+	/* Keeps track of the current weight of the inventory. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float CurrentWeight;
 
 	/* Weight that can be carried in inventory before being encumbered. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float WeightLimit;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float EncumbranceValue;
 
 	/* Number of inventory slots that will be unusable until being unlocked. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -54,14 +82,22 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int AvailableSlots = SlotLimit - (LockedSlots + OccupiedSlots);
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	TArray<ADOTK_ItemBase*> ItemList;
+
+	// ** DELEGATES ** //
+
+	UPROPERTY(BlueprintAssignable)
+	FOnInventoryUpdated OnInventoryUpdated;
 
 	//not sure how to make object specific array size
 	//ADOTK_ItemBase* ItemList[SlotLimit];
 
-public:	
-	// Called every frame
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+public:
 
+// ** DELEGATES ** //
+
+	UPROPERTY(BlueprintAssignable)
+	FOnEncumbranceUpdated OnEncumbranceUpdated;
 		
 };
