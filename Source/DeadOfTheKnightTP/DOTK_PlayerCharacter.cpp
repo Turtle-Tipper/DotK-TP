@@ -131,7 +131,7 @@ void ADOTK_PlayerCharacter::LineTrace()
 
 	if (bHit)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Yellow, FString::Printf(TEXT("Trace Hit: %s"), *HitResult.GetActor()->GetName()));
+		//GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Yellow, FString::Printf(TEXT("Trace Hit: %s"), *HitResult.GetActor()->GetName()));
 	}
 }
 
