@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "Engine/DataTable.h"
 #include "DeadOfTheKnightTP/DOTK_Itembase.h"
 #include "DOTK_LootTableComponent.generated.h"
 
@@ -39,7 +40,7 @@ public:
 	UDOTK_LootTableComponent();
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	TArray<FTableItem> TableItems;
+	TArray<FDataTableRowHandle> TableItems;
 
 protected:
 	// Called when the game starts
