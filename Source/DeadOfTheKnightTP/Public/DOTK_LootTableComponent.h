@@ -40,7 +40,7 @@ public:
 	UDOTK_LootTableComponent();
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	TArray<FDataTableRowHandle> TableItems;
+	TArray<UDataTable*> TableItems;
 
 protected:
 	// Called when the game starts
