@@ -8,6 +8,8 @@
 #include "DeadOfTheKnightTP/DOTK_Itembase.h"
 #include "DOTK_LootTableComponent.generated.h"
 
+
+// Everything accomplished by this struct should be doable with data tables, but this mirrors the TableItem FStruct BP
 USTRUCT(BlueprintType)
 struct FTableItem
 {
@@ -30,6 +32,7 @@ struct FTableItem
 };
 
 
+/* Can be created as DefaultSubobject in cpp, but should be set in editor for ease of iterations. */
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class DEADOFTHEKNIGHTTP_API UDOTK_LootTableComponent : public UActorComponent
 {
@@ -39,8 +42,8 @@ public:
 	// Sets default values for this component's properties
 	UDOTK_LootTableComponent();
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	TArray<UDataTable*> TableItems;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = LootTable)
+	UDataTable* LootTable;
 
 protected:
 	// Called when the game starts

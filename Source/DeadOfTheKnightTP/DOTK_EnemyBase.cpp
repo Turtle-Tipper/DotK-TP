@@ -5,6 +5,10 @@
 
 ADOTK_EnemyBase::ADOTK_EnemyBase()
 {
+	// ** COMPONENT CREATION ** //
+	
+	// Creates LootTableComponent
+	LootTableComponent = CreateDefaultSubobject<UDOTK_LootTableComponent>(TEXT("LootTableComponent"));
 
 }
 
