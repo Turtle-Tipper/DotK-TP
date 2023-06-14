@@ -32,7 +32,7 @@ struct FTableItem
 };
 
 
-/* Can be created as DefaultSubobject in cpp, but should be set in editor for ease of iterations. */
+/* Can be created as DefaultSubobject in cpp (in enemy, lootables, etc.), but value should be set in editor for ease of iterations. */
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class DEADOFTHEKNIGHTTP_API UDOTK_LootTableComponent : public UActorComponent
 {
@@ -42,16 +42,23 @@ public:
 	// Sets default values for this component's properties
 	UDOTK_LootTableComponent();
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = LootTable)
-	UDataTable* LootTable;
-
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
+
+	ADOTK_ItemBase* CalculateDropItem(UDataTable* LootTable);
+
+	int CalculateDropAmount(UDataTable* LootTable);
 
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-		
+	/* Loot Datatable set in editor. */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = LootTable)
+	UDataTable* LootTable;
+
+	/* Maximum number of items to be "rolled" on. When loot is generated, this is how many times the loot spawning mechanism can be iterated through. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = LootTable)
+	int MaxNumberOfRolls;
 };
