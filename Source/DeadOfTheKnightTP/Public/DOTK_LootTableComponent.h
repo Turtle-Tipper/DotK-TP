@@ -25,7 +25,7 @@ struct FTableItem
 
 	/* Once an item is determined to have dropped, quantity is determined by range of vars below. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int MinDropAmount;
+	int MinDropAmount = 1;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int MaxDropAmount;
