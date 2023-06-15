@@ -46,8 +46,10 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
+	// TODO : IMPLEMENTATION NEEDED
 	ADOTK_ItemBase* CalculateDropItem(UDataTable* LootTable);
 
+	// TODO : IMPLEMENTATION NEEDED
 	int CalculateDropAmount(UDataTable* LootTable);
 
 public:	
