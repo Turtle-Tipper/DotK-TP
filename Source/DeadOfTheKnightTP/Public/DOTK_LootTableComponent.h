@@ -11,7 +11,7 @@
 
 // Everything accomplished by this struct should be doable with data tables, but this mirrors the TableItem FStruct BP
 USTRUCT(BlueprintType)
-struct FTableItem
+struct FLootTableItem : public FTableRowBase
 {
 	GENERATED_BODY()
 
