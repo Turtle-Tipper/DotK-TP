@@ -9,9 +9,9 @@
 #include "DOTK_LootTableComponent.generated.h"
 
 
-// Everything accomplished by this struct should be doable with data tables, but this mirrors the TableItem FStruct BP
+// This struct is what LootTable data tables are based off of
 USTRUCT(BlueprintType)
-struct FLootTableItem : public FTableRowBase
+struct FLootTableRow : public FTableRowBase
 {
 	GENERATED_BODY()
 
@@ -23,12 +23,13 @@ struct FLootTableItem : public FTableRowBase
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float DropChance;
 
-	/* Once an item is determined to have dropped, quantity is determined by range of vars below. */
+	/* Once an item is determined to have dropped, quantity is determined by range within min and max. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int MinDropAmount = 1;
 
+	/* Once an item is determined to have dropped, quantity is determined by range within min and max. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int MaxDropAmount;
+	int MaxDropAmount = MinDropAmount;
 };
 
 
@@ -47,10 +48,13 @@ protected:
 	virtual void BeginPlay() override;
 
 	// TODO : IMPLEMENTATION NEEDED
-	ADOTK_ItemBase* CalculateDropItem(UDataTable* LootTable);
+	TArray<ADOTK_ItemBase*> CalculateDrops();
 
 	// TODO : IMPLEMENTATION NEEDED
-	int CalculateDropAmount(UDataTable* LootTable);
+	int CalculateDropAmount();
+
+	// import target for loot table data
+	//TArray<FLootTableRow> LootTableData;
 
 public:	
 	// Called every frame
