@@ -51,7 +51,7 @@ protected:
 	TArray<ADOTK_ItemBase*> CalculateDrops();
 
 	// TODO : IMPLEMENTATION NEEDED
-	int CalculateDropAmount();
+	int CalculateDropAmount(FLootTableRow* Row);
 
 	// import target for loot table data
 	//TArray<FLootTableRow> LootTableData;

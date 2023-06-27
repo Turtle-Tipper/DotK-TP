@@ -56,9 +56,15 @@ TArray<ADOTK_ItemBase*> UDOTK_LootTableComponent::CalculateDrops()
 			// if roll is successful, add item of that row to DropArray
 			if (Roll <= Row->DropChance)
 			{
-				// add item from current row in iteration to drop array
-				ADOTK_ItemBase* Drop = Row->Item;
-				DropArray.Add(Drop);
+
+				// use the calculated drop amount to determine how many of an item should be added to drop array
+				for (int i = 1; i <= CalculateDropAmount(Row); i++)
+				{
+					// add item from current row in iteration to drop array
+					ADOTK_ItemBase* Drop = Row->Item;
+					DropArray.Add(Drop);
+				}
+
 			}
 		}
 	}
@@ -66,11 +72,8 @@ TArray<ADOTK_ItemBase*> UDOTK_LootTableComponent::CalculateDrops()
 	return DropArray;
 }
 
-int UDOTK_LootTableComponent::CalculateDropAmount()
+int UDOTK_LootTableComponent::CalculateDropAmount(FLootTableRow* Row)
 {
-	// Get the row of the item to be rolled on
-	FLootTableRow* Row = LootTable->FindRow<FLootTableRow>(FName("Row1"), FString(""));
-	
 	// set min and max from data table
 	int MinDrop = Row->MinDropAmount;
 	int MaxDrop = Row->MaxDropAmount;
