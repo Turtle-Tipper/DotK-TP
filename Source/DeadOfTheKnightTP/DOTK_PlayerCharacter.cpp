@@ -63,13 +63,6 @@ void ADOTK_PlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
-	if (GetHealthComponent())
-	{
-		/* Bind on death delegate. */
-		HealthComponent->OnDeathDelegate.AddDynamic(this, &ADOTK_PlayerCharacter::OnDeath);
-		/* Bind on damage received delegate. */
-		HealthComponent->OnDamageReceivedDelegate.AddDynamic(this, &ADOTK_PlayerCharacter::OnDamageReceived);
-	}
 	if (InventoryComponent)
 	{
 		InventoryComponent->OnEncumbranceUpdated.AddDynamic(this, &ADOTK_PlayerCharacter::OnEncumberanceUpdated);
