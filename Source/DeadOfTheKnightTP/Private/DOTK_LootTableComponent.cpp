@@ -33,10 +33,10 @@ void UDOTK_LootTableComponent::TickComponent(float DeltaTime, ELevelTick TickTyp
 	// ...
 }
 
-TArray<ADOTK_ItemBase*> UDOTK_LootTableComponent::CalculateDrops()
+TArray<FDropItem*> UDOTK_LootTableComponent::CalculateDrops()
 {
 	// Create array of items to be dropped
-	TArray<ADOTK_ItemBase*> DropArray;
+	TArray<FDropItem*> DropArray;
 
 	// Create array of names to iterate through
 	TArray<FName> RowNames;
@@ -56,15 +56,11 @@ TArray<ADOTK_ItemBase*> UDOTK_LootTableComponent::CalculateDrops()
 			// if roll is successful, add item of that row to DropArray
 			if (Roll <= Row->DropChance)
 			{
+				// populate FDropItem and add to DropArray
+				FDrops->ItemToDrop = Row->Item;
+				FDrops->DropAmount = CalculateDropAmount(Row);
 
-				// use the calculated drop amount to determine how many of an item should be added to drop array
-				for (int i = 1; i <= CalculateDropAmount(Row); i++)
-				{
-					// add item from current row in iteration to drop array
-					ADOTK_ItemBase* Drop = Row->Item;
-					DropArray.Add(Drop);
-				}
-
+				DropArray.Add(FDrops);
 			}
 		}
 	}

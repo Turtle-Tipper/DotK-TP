@@ -32,6 +32,18 @@ struct FLootTableRow : public FTableRowBase
 	int MaxDropAmount = MinDropAmount;
 };
 
+USTRUCT(BlueprintType)
+struct FDropItem
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	ADOTK_ItemBase* ItemToDrop;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int DropAmount;
+};
+
 
 /* Can be created as DefaultSubobject in cpp (in enemy, lootables, etc.), but value should be set in editor for ease of iterations. */
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -48,10 +60,12 @@ protected:
 	virtual void BeginPlay() override;
 
 	// TODO : IMPLEMENTATION NEEDED
-	TArray<ADOTK_ItemBase*> CalculateDrops();
+	TArray<FDropItem*> CalculateDrops();
 
 	// TODO : IMPLEMENTATION NEEDED
 	int CalculateDropAmount(FLootTableRow* Row);
+
+	FDropItem* FDrops;
 
 	// import target for loot table data
 	//TArray<FLootTableRow> LootTableData;
