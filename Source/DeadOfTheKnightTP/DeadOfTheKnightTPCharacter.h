@@ -35,6 +35,30 @@ public:
 	/* Called to perform alternate attack. Could be swing with off-hand weapon or block with shield/two-hand weapon. */
 	virtual void AlternateAttack();
 
+
+	// ** CHARACTER MOVEMENT FUNCTIONS ** //
+	virtual void RequestSprintStart();
+	virtual void RequestSprintStop();
+
+	// ** GETTER FUNCTIONS ** //
+
+	/** Returns HealthComponent subobject **/
+	FORCEINLINE class UDotK_HealthComponent* GetHealthComponent() const { return HealthComponent; }
+	/** Returns DamageHandler subobject **/
+	FORCEINLINE class UDotK_DamageHandlerComponent* GetDamageHandler() const { return DamageHandlerComponent; }
+	/** Returns Attribute subobject **/
+	FORCEINLINE class UDotK_CharacterAttributeComponent* GetCharacterAttributeComponent() const { return CharacterAttributeComponent; }
+
+	float GetSprintSpeed() { return SprintSpeed; }
+
+	float GetWalkSpeed() { return WalkSpeed; }
+
+	bool GetIsCrouched() { return bIsCrouched; }
+
+	// ** SETTERS ** //
+
+	void SetWalkSpeed(float Speed) { WalkSpeed = Speed; }
+
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Input)
 	float TurnRateGamepad;
@@ -45,6 +69,10 @@ protected:
 	virtual void Tick(float DeltaTime) override;
 
 	virtual void BeginPlay() override;
+
+	// APawn interface
+	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	// End of APawn interface
 
 	/** 
 	 * Called via input to turn at a given rate. 
@@ -127,34 +155,9 @@ protected:
 	class UDotK_HealthComponent* HealthComponent;
 	
 protected:
-	// APawn interface
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-	// End of APawn interface
 
 public:
 
-	// ** CHARACTER MOVEMENT FUNCTIONS ** //
-	virtual void RequestSprintStart();
-	virtual void RequestSprintStop();
-
-	// ** GETTER FUNCTIONS ** //
-
-	/** Returns HealthComponent subobject **/
-	FORCEINLINE class UDotK_HealthComponent* GetHealthComponent() const { return HealthComponent; }
-	/** Returns DamageHandler subobject **/
-	FORCEINLINE class UDotK_DamageHandlerComponent* GetDamageHandler() const { return DamageHandlerComponent; }
-	/** Returns Attribute subobject **/
-	FORCEINLINE class UDotK_CharacterAttributeComponent* GetCharacterAttributeComponent() const { return CharacterAttributeComponent; }
-
-	float GetSprintSpeed() { return SprintSpeed; }
-
-	float GetWalkSpeed() { return WalkSpeed; }
-
-	bool GetIsCrouched() { return bIsCrouched; }
-
-	// ** SETTERS ** //
-
-	void SetWalkSpeed(float Speed) { WalkSpeed = Speed; }
 
 };
 
