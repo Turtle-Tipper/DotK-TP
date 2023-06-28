@@ -44,6 +44,8 @@ protected:
 	// Called every frame.
 	virtual void Tick(float DeltaTime) override;
 
+	virtual void BeginPlay() override;
+
 	/** 
 	 * Called via input to turn at a given rate. 
 	 * @param Rate	This is a normalized rate, i.e. 1.0 means 100% of desired turn rate
@@ -69,6 +71,10 @@ protected:
 
 	UFUNCTION(BlueprintCallable)
 	void RequestHeal();
+
+	virtual void OnDeath();
+
+	virtual void OnDamageReceived();
 
 	/* The weapon the character is currently using in their main hand. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
