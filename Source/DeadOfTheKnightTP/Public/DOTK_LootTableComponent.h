@@ -65,7 +65,7 @@ protected:
 	// TODO : IMPLEMENTATION NEEDED
 	int CalculateDropAmount(FLootTableRow* Row);
 
-	FDropItem* FDrops;
+	FDropItem* DropItem;
 
 	// import target for loot table data
 	//TArray<FLootTableRow> LootTableData;

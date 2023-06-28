@@ -57,10 +57,10 @@ TArray<FDropItem*> UDOTK_LootTableComponent::CalculateDrops()
 			if (Roll <= Row->DropChance)
 			{
 				// populate FDropItem and add to DropArray
-				FDrops->ItemToDrop = Row->Item;
-				FDrops->DropAmount = CalculateDropAmount(Row);
+				DropItem->ItemToDrop = Row->Item;
+				DropItem->DropAmount = CalculateDropAmount(Row);
 
-				DropArray.Add(FDrops);
+				DropArray.Add(DropItem);
 			}
 		}
 	}
