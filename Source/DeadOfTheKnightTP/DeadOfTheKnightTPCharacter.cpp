@@ -143,6 +143,16 @@ void ADeadOfTheKnightTPCharacter::RequestHeal()
 	GetHealthComponent()->Heal(TestingHealAmount);
 }
 
+void ADeadOfTheKnightTPCharacter::OnDeath()
+{
+
+}
+
+void ADeadOfTheKnightTPCharacter::OnDamageReceived()
+{
+
+}
+
 // ** COMBAT ** //
 void ADeadOfTheKnightTPCharacter::Attack()
 {

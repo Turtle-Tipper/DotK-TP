@@ -100,8 +100,10 @@ protected:
 	UFUNCTION(BlueprintCallable)
 	void RequestHeal();
 
+	// TODO: implementation
 	virtual void OnDeath();
 
+	// TODO:: implementation
 	virtual void OnDamageReceived();
 
 	/* The weapon the character is currently using in their main hand. */
