@@ -46,7 +46,7 @@ TArray<FDropItem*> UDOTK_LootTableComponent::CalculateDrops()
 	{
 		// Get the row of the item to be rolled on
 		FLootTableRow* Row = LootTable->FindRow<FLootTableRow>(FName(name), FString(""));
-		
+
 		if (Row)
 		{
 			// get a random number within range
@@ -56,11 +56,11 @@ TArray<FDropItem*> UDOTK_LootTableComponent::CalculateDrops()
 			// if roll is successful, add item of that row to DropArray
 			if (Roll <= Row->DropChance)
 			{
-				// populate FDropItem and add to DropArray
-				DropItem->ItemToDrop = Row->Item;
-				DropItem->DropAmount = CalculateDropAmount(Row);
+				// populate DropItem and add to DropArray
+				DropItem.ItemToDrop = Row->Item;
+				DropItem.DropAmount = CalculateDropAmount(Row);
 
-				DropArray.Add(DropItem);
+				DropArray.Add(&DropItem);
 			}
 		}
 	}

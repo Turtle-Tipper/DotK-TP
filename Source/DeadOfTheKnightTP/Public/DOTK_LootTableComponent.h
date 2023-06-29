@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "Engine/DataTable.h"
-#include "DeadOfTheKnightTP/DOTK_Itembase.h"
+#include "DeadOfTheKnightTP/DOTK_ItemBase.h"
 #include "DOTK_LootTableComponent.generated.h"
 
 
@@ -17,7 +17,7 @@ struct FLootTableRow : public FTableRowBase
 
 	/* Item that will drop. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	ADOTK_ItemBase* Item;
+	TSubclassOf<ADOTK_ItemBase> Item;
 
 	/* Percentage chance that above item will drop. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -38,7 +38,7 @@ struct FDropItem
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	ADOTK_ItemBase* ItemToDrop;
+	TSubclassOf<ADOTK_ItemBase> ItemToDrop;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int DropAmount;
@@ -55,17 +55,17 @@ public:
 	// Sets default values for this component's properties
 	UDOTK_LootTableComponent();
 
-protected:
-	// Called when the game starts
-	virtual void BeginPlay() override;
-
 	// TODO : IMPLEMENTATION NEEDED
 	TArray<FDropItem*> CalculateDrops();
 
 	// TODO : IMPLEMENTATION NEEDED
 	int CalculateDropAmount(FLootTableRow* Row);
 
-	FDropItem* DropItem;
+	FDropItem DropItem;
+
+protected:
+	// Called when the game starts
+	virtual void BeginPlay() override;
 
 	// import target for loot table data
 	//TArray<FLootTableRow> LootTableData;
