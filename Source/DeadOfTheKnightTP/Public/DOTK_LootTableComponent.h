@@ -56,7 +56,7 @@ public:
 	UDOTK_LootTableComponent();
 
 	// TODO : IMPLEMENTATION NEEDED
-	TArray<FDropItem*> CalculateDrops();
+	TArray<FDropItem> CalculateDrops();
 
 	// TODO : IMPLEMENTATION NEEDED
 	int CalculateDropAmount(FLootTableRow* Row);

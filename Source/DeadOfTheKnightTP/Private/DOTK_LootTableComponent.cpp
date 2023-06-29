@@ -33,16 +33,16 @@ void UDOTK_LootTableComponent::TickComponent(float DeltaTime, ELevelTick TickTyp
 	// ...
 }
 
-TArray<FDropItem*> UDOTK_LootTableComponent::CalculateDrops()
+TArray<FDropItem> UDOTK_LootTableComponent::CalculateDrops()
 {
 	// Create array of items to be dropped
-	TArray<FDropItem*> DropArray;
+	TArray<FDropItem> DropArray;
 
 	// Create array of names to iterate through
 	TArray<FName> RowNames;
 	RowNames = LootTable->GetRowNames();
 	
-	for (auto& name : RowNames)
+	for (auto& name : RowNames) //why not: for int i = 0; i < RowNames.Num(); i++
 	{
 		// Get the row of the item to be rolled on
 		FLootTableRow* Row = LootTable->FindRow<FLootTableRow>(FName(name), FString(""));
@@ -60,7 +60,7 @@ TArray<FDropItem*> UDOTK_LootTableComponent::CalculateDrops()
 				DropItem.ItemToDrop = Row->Item;
 				DropItem.DropAmount = CalculateDropAmount(Row);
 
-				DropArray.Add(&DropItem);
+				DropArray.Add(DropItem);
 			}
 		}
 	}
