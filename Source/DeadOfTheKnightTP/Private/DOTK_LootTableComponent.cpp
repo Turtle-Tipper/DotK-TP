@@ -53,6 +53,8 @@ TArray<FDropItem> UDOTK_LootTableComponent::CalculateDrops()
 			//TODO: be data driven to allow for influence from luck stat
 			int Roll = FMath::RandRange(1, 100);
 
+			GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, FString::Printf(TEXT("Roll: %i"), Roll));
+
 			// if roll is successful, add item of that row to DropArray
 			if (Roll <= Row->DropChance)
 			{
@@ -61,6 +63,11 @@ TArray<FDropItem> UDOTK_LootTableComponent::CalculateDrops()
 				DropItem.DropAmount = CalculateDropAmount(Row);
 
 				DropArray.Add(DropItem);
+				GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, FString::Printf(TEXT("Roll Successful!")));
+			}
+			else
+			{
+				GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("Rolled too low!")));
 			}
 		}
 	}

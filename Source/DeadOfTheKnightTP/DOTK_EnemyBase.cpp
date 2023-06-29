@@ -36,7 +36,7 @@ void ADOTK_EnemyBase::OnDeath()
 
 		for (int i = 0; i < DropArray.Num(); i++)
 		{
-			GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Yellow, FString::Printf(TEXT("In drop array loop;")));
+			GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Yellow, FString::Printf(TEXT("In drop array loop.")));
 			GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, FString::Printf(TEXT("Loot Dropped: %s"),
 				*DropArray[i].ItemToDrop.GetDefaultObject()->GetItemName()));
 		}
