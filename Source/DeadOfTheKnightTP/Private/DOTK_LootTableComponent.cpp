@@ -51,9 +51,9 @@ TArray<FDropItem> UDOTK_LootTableComponent::CalculateDrops()
 		{
 			// get a random number within range
 			//TODO: be data driven to allow for influence from luck stat
-			int Roll = FMath::RandRange(1, 100);
+			float Roll = FMath::RandRange(0.0f, 100.0f);
 
-			GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, FString::Printf(TEXT("Roll: %i"), Roll));
+			GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, FString::Printf(TEXT("Roll: %f"), Roll));
 
 			// if roll is successful, add item of that row to DropArray
 			if (Roll <= Row->DropChance)
