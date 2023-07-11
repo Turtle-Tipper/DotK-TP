@@ -147,11 +147,9 @@ protected:
 	UFUNCTION(BlueprintCallable)
 	void DepletedAllStamina();
 
-	UFUNCTION(BlueprintCallable)
-	void OnDeath();
+	virtual void OnDeath() override;
 
-	UFUNCTION(BlueprintCallable)
-	void OnDamageReceived();
+	virtual void OnDamageReceived() override;
 
 	/* Called to perform player specific encumbrance logic. For example, lowering movement speed. */
 	UFUNCTION(BlueprintCallable)

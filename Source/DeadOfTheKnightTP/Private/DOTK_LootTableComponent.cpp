@@ -1,0 +1,91 @@
+// Fill out your copyright notice in the Description page of Project Settings.
+
+
+#include "DOTK_LootTableComponent.h"
+#include "Math/UnrealMathUtility.h"
+
+// Sets default values for this component's properties
+UDOTK_LootTableComponent::UDOTK_LootTableComponent()
+{
+	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
+	// off to improve performance if you don't need them.
+	PrimaryComponentTick.bCanEverTick = false;
+
+	// ...
+}
+
+
+// Called when the game starts
+void UDOTK_LootTableComponent::BeginPlay()
+{
+	Super::BeginPlay();
+
+	// ...
+	
+}
+
+
+// Called every frame
+void UDOTK_LootTableComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+{
+	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
+	// ...
+}
+
+TArray<FDropItem> UDOTK_LootTableComponent::CalculateDrops()
+{
+	// Create array of items to be dropped
+	TArray<FDropItem> DropArray;
+
+	// Create array of names to iterate through
+	TArray<FName> RowNames;
+	RowNames = LootTable->GetRowNames();
+	
+	for (auto& name : RowNames) //why not: for int i = 0; i < RowNames.Num(); i++
+	{
+		// Get the row of the item to be rolled on
+		FLootTableRow* Row = LootTable->FindRow<FLootTableRow>(FName(name), FString(""));
+
+		if (Row)
+		{
+			// get a random number within range
+			float Roll = FMath::RandRange(0.0f, 100.0f);
+
+			GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, FString::Printf(TEXT("Roll: %f"), Roll));
+
+			// if roll is successful, add item of that row to DropArray
+			// TODO: comparison could be made to a DropChance modified by a LuckModifier
+			// ex: ModDropChance = DropChance + (DropChance * LuckModifier)
+			// if drop chance is over 100% for an item should it modify the DropAmount?
+			if (Roll <= Row->DropChance)
+			{
+				// populate DropItem and add to DropArray
+				DropItem.ItemToDrop = Row->Item;
+				DropItem.DropAmount = CalculateDropAmount(Row);
+
+				DropArray.Add(DropItem);
+				GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, FString::Printf(TEXT("Roll Successful!")));
+			}
+			else
+			{
+				GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("Rolled too low!")));
+			}
+		}
+	}
+	
+	return DropArray;
+}
+
+int UDOTK_LootTableComponent::CalculateDropAmount(FLootTableRow* Row)
+{
+	// set min and max from data table
+	int MinDrop = Row->MinDropAmount;
+	int MaxDrop = Row->MaxDropAmount;
+	
+	// get random number within range of min and max
+	//TODO: Have impact from fortune stat
+	int DropAmount = FMath::RandRange(MinDrop, MaxDrop);
+
+	return DropAmount;
+}

@@ -48,6 +48,25 @@ ADeadOfTheKnightTPCharacter::ADeadOfTheKnightTPCharacter()
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
 }
 
+//Called every frame.
+void ADeadOfTheKnightTPCharacter::Tick(float DeltaTime)
+{
+
+}
+
+void ADeadOfTheKnightTPCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+
+	if (GetHealthComponent())
+	{
+		/* Bind on death delegate. */
+		HealthComponent->OnDeathDelegate.AddDynamic(this, &ADeadOfTheKnightTPCharacter::OnDeath);
+		/* Bind on damage received delegate. */
+		HealthComponent->OnDamageReceivedDelegate.AddDynamic(this, &ADeadOfTheKnightTPCharacter::OnDamageReceived);
+	}
+}
+
 //////////////////////////////////////////////////////////////////////////
 // Input
 
@@ -124,6 +143,16 @@ void ADeadOfTheKnightTPCharacter::RequestHeal()
 	GetHealthComponent()->Heal(TestingHealAmount);
 }
 
+void ADeadOfTheKnightTPCharacter::OnDeath()
+{
+
+}
+
+void ADeadOfTheKnightTPCharacter::OnDamageReceived()
+{
+
+}
+
 // ** COMBAT ** //
 void ADeadOfTheKnightTPCharacter::Attack()
 {
@@ -150,8 +179,3 @@ void ADeadOfTheKnightTPCharacter::AlternateAttack()
 	}
 }
 
-//Called every frame.
-void ADeadOfTheKnightTPCharacter::Tick(float DeltaTime)
-{
-
-}
