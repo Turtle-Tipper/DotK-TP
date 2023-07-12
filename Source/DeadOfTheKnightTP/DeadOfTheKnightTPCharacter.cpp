@@ -4,6 +4,7 @@
 #include "Components/CapsuleComponent.h"
 #include "Components/InputComponent.h"
 #include "GameFramework/Controller.h"
+#include "Net/UnrealNetwork.h"
 
 //////////////////////////////////////////////////////////////////////////
 // ADeadOfTheKnightTPCharacter
@@ -12,6 +13,8 @@ ADeadOfTheKnightTPCharacter::ADeadOfTheKnightTPCharacter()
 {
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
+
+	SetReplicates(true);
 
 	// set our turn rate for input
 	TurnRateGamepad = 50.f;
@@ -65,6 +68,13 @@ void ADeadOfTheKnightTPCharacter::BeginPlay()
 		/* Bind on damage received delegate. */
 		HealthComponent->OnDamageReceivedDelegate.AddDynamic(this, &ADeadOfTheKnightTPCharacter::OnDamageReceived);
 	}
+}
+
+void ADeadOfTheKnightTPCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME(ADeadOfTheKnightTPCharacter, CurrentMainWeapon);
 }
 
 //////////////////////////////////////////////////////////////////////////

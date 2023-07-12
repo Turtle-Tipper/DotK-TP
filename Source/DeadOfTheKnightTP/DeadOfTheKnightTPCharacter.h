@@ -69,6 +69,7 @@ protected:
 	virtual void Tick(float DeltaTime) override;
 
 	virtual void BeginPlay() override;
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
 	// APawn interface
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
@@ -109,7 +110,7 @@ protected:
 	virtual void OnDamageReceived();
 
 	/* The weapon the character is currently using in their main hand. */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
+	UPROPERTY(Replicated, EditAnywhere, BlueprintReadWrite, Category = "Weapon")
 	ADOTK_WeaponBase* CurrentMainWeapon;
 
 	/* The weapon the character is currently using in their off hand. */
