@@ -91,6 +91,12 @@ public:
 
 	// ** MOVEMENT ** //
 
+	UFUNCTION(Server, Reliable)
+	virtual void ServerRequestSprintStart();
+
+	UFUNCTION(Server, Reliable)
+	virtual void ServerRequestSprintStop();
+
 	virtual void RequestSprintStart() override;
 	virtual void RequestSprintStop() override;
 

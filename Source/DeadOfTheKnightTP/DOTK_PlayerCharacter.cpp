@@ -4,6 +4,7 @@
 #include "DOTK_PlayerCharacter.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Net/UnrealNetwork.h"
 
 ADOTK_PlayerCharacter::ADOTK_PlayerCharacter()
 {
@@ -71,18 +72,34 @@ void ADOTK_PlayerCharacter::BeginPlay()
 
 // ** CHARACTER MOVEMENT ** //
 
+void ADOTK_PlayerCharacter::ServerRequestSprintStart_Implementation()
+{
+	GetCharacterMovement()->MaxWalkSpeed = GetSprintSpeed();
+	bIsSprinting = true;
+}
+
+void ADOTK_PlayerCharacter::ServerRequestSprintStop_Implementation()
+{
+	GetCharacterMovement()->MaxWalkSpeed = GetWalkSpeed();
+	bIsSprinting = false;
+}
+
 void ADOTK_PlayerCharacter::RequestSprintStart()
 {
 	if (GetHungerThirstComponent()->GetIsDehydrated() == false)
 	{
 		if (CurrentStamina > 0)
 		{
-			GetCharacterMovement()->MaxWalkSpeed = GetSprintSpeed();
-			bIsSprinting = true;
+			if (GetCharacterMovement()->Velocity.Length() != 0)
+			{
+				ServerRequestSprintStart();
+				GetCharacterMovement()->MaxWalkSpeed = GetSprintSpeed();
+				bIsSprinting = true;
 
-			// Stop Stamina regen for a short period
-			bCanRegenStamina = false;
-			GetWorld()->GetTimerManager().ClearTimer(StaminaRegenTimerHandle);
+				// Stop Stamina regen for a short period
+				bCanRegenStamina = false;
+				GetWorld()->GetTimerManager().ClearTimer(StaminaRegenTimerHandle);
+			}
 		}
 	}
 }
@@ -91,6 +108,7 @@ void ADOTK_PlayerCharacter::RequestSprintStop()
 {
 	if (bIsSprinting)
 	{
+		ServerRequestSprintStop();
 		GetCharacterMovement()->MaxWalkSpeed = GetWalkSpeed();
 		bIsSprinting = false;
 
