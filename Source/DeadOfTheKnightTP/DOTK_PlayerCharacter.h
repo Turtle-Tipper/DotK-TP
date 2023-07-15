@@ -105,6 +105,7 @@ public:
 	// ** COMBAT ** //
 
 	virtual void ServerAttack_Implementation() override;
+	virtual void MulticastAttack_Implementation() override;
 	virtual void Attack() override;
 
 	virtual void ServerAlternateAttack_Implementation() override;

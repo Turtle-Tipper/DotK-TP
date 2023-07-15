@@ -31,6 +31,8 @@ public:
 
 	UFUNCTION(Server, Reliable)
 	virtual void ServerAttack();
+	UFUNCTION(NetMulticast, Reliable)
+	virtual void MulticastAttack();
 	/* Called to attack. */
 	virtual void Attack();
 

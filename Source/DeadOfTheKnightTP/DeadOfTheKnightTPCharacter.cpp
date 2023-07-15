@@ -168,6 +168,12 @@ void ADeadOfTheKnightTPCharacter::OnDamageReceived()
 void ADeadOfTheKnightTPCharacter::ServerAttack_Implementation()
 {
 	GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Red, FString::Printf(TEXT("Attack called from TPCharacter.")));
+	MulticastAttack();
+}
+
+void ADeadOfTheKnightTPCharacter::MulticastAttack_Implementation()
+{
+	GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Red, FString::Printf(TEXT("Multicast attack called from TPCharacter.")));
 }
 
 void ADeadOfTheKnightTPCharacter::Attack()

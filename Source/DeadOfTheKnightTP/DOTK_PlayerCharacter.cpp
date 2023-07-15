@@ -210,6 +210,11 @@ void ADOTK_PlayerCharacter::DepletedAllStamina()
 void ADOTK_PlayerCharacter::ServerAttack_Implementation()
 {
 	GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Red, FString::Printf(TEXT("Attack called from PlayerCharacter.")));
+	MulticastAttack();
+}
+
+void ADOTK_PlayerCharacter::MulticastAttack_Implementation()
+{
 	bHasAttacked = true;
 }
 
@@ -230,7 +235,6 @@ void ADOTK_PlayerCharacter::Attack()
 				if (GetCharacterMovement()->IsMovingOnGround() == true)
 				{
 					ServerAttack();
-					bHasAttacked = true;
 					UseStamina(CurrentMainWeapon->GetBaseStaminaDrain());
 				}
 			}
