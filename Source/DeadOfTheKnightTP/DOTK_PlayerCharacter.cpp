@@ -78,12 +78,6 @@ void ADOTK_PlayerCharacter::ServerRequestSprintStart_Implementation()
 	bIsSprinting = true;
 }
 
-void ADOTK_PlayerCharacter::ServerRequestSprintStop_Implementation()
-{
-	GetCharacterMovement()->MaxWalkSpeed = GetWalkSpeed();
-	bIsSprinting = false;
-}
-
 void ADOTK_PlayerCharacter::RequestSprintStart()
 {
 	if (GetHungerThirstComponent()->GetIsDehydrated() == false)
@@ -102,6 +96,12 @@ void ADOTK_PlayerCharacter::RequestSprintStart()
 			}
 		}
 	}
+}
+
+void ADOTK_PlayerCharacter::ServerRequestSprintStop_Implementation()
+{
+	GetCharacterMovement()->MaxWalkSpeed = GetWalkSpeed();
+	bIsSprinting = false;
 }
 
 void ADOTK_PlayerCharacter::RequestSprintStop()

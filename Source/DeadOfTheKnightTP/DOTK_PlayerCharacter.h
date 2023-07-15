@@ -93,11 +93,10 @@ public:
 
 	UFUNCTION(Server, Reliable)
 	virtual void ServerRequestSprintStart();
+	virtual void RequestSprintStart() override;
 
 	UFUNCTION(Server, Reliable)
 	virtual void ServerRequestSprintStop();
-
-	virtual void RequestSprintStart() override;
 	virtual void RequestSprintStop() override;
 
 	void RequestJump();
