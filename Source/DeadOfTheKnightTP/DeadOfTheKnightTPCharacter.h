@@ -29,9 +29,13 @@ class ADeadOfTheKnightTPCharacter : public ACharacter
 public:
 	ADeadOfTheKnightTPCharacter();
 
+	UFUNCTION(Server, Reliable)
+	virtual void ServerAttack();
 	/* Called to attack. */
 	virtual void Attack();
 
+	UFUNCTION(Server, Reliable)
+	virtual void ServerAlternateAttack();
 	/* Called to perform alternate attack. Could be swing with off-hand weapon or block with shield/two-hand weapon. */
 	virtual void AlternateAttack();
 

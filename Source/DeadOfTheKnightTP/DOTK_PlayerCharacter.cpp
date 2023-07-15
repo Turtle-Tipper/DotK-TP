@@ -207,6 +207,11 @@ void ADOTK_PlayerCharacter::DepletedAllStamina()
 
 // ** COMBAT ** //
 
+void ADOTK_PlayerCharacter::ServerAttack_Implementation()
+{
+	GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Red, FString::Printf(TEXT("Attack called from PlayerCharacter.")));
+}
+
 void ADOTK_PlayerCharacter::Attack()
 {
 	if (!CurrentMainWeapon)
@@ -220,11 +225,17 @@ void ADOTK_PlayerCharacter::Attack()
 		{
 			if (!bHasAttacked)
 			{
+				ServerAttack();
 				bHasAttacked = true;
 				UseStamina(CurrentMainWeapon->GetBaseStaminaDrain());
 			}
 		}
 	}
+}
+
+void ADOTK_PlayerCharacter::ServerAlternateAttack_Implementation()
+{
+
 }
 
 void ADOTK_PlayerCharacter::AlternateAttack()

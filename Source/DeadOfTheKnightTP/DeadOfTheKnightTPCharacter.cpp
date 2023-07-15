@@ -164,6 +164,12 @@ void ADeadOfTheKnightTPCharacter::OnDamageReceived()
 }
 
 // ** COMBAT ** //
+
+void ADeadOfTheKnightTPCharacter::ServerAttack_Implementation()
+{
+	GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Red, FString::Printf(TEXT("Attack called from TPCharacter.")));
+}
+
 void ADeadOfTheKnightTPCharacter::Attack()
 {
 	if (!CurrentMainWeapon)
@@ -173,8 +179,14 @@ void ADeadOfTheKnightTPCharacter::Attack()
 	else if (!bHasAttacked)
 	{
 		EWeaponType CurrentWeaponType = CurrentMainWeapon->GetWeaponType();
+		ServerAttack();
 		bHasAttacked = true;
 	}
+}
+
+void ADeadOfTheKnightTPCharacter::ServerAlternateAttack_Implementation()
+{
+
 }
 
 void ADeadOfTheKnightTPCharacter::AlternateAttack()
@@ -186,6 +198,7 @@ void ADeadOfTheKnightTPCharacter::AlternateAttack()
 	else
 	{
 		EWeaponType CurrentWeaponType = CurrentOffWeapon->GetWeaponType();
+		ServerAlternateAttack();
 	}
 }
 

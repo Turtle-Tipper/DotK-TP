@@ -105,7 +105,10 @@ public:
 
 	// ** COMBAT ** //
 
+	virtual void ServerAttack_Implementation() override;
 	virtual void Attack() override;
+
+	virtual void ServerAlternateAttack_Implementation() override;
 	virtual void AlternateAttack() override;
 
 	UFUNCTION(BlueprintCallable, Category = "Weapon Skills")
