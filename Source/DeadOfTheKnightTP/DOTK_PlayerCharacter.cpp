@@ -210,6 +210,7 @@ void ADOTK_PlayerCharacter::DepletedAllStamina()
 void ADOTK_PlayerCharacter::ServerAttack_Implementation()
 {
 	GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Red, FString::Printf(TEXT("Attack called from PlayerCharacter.")));
+	bHasAttacked = true;
 }
 
 void ADOTK_PlayerCharacter::Attack()
@@ -225,9 +226,13 @@ void ADOTK_PlayerCharacter::Attack()
 		{
 			if (!bHasAttacked)
 			{
-				ServerAttack();
-				bHasAttacked = true;
-				UseStamina(CurrentMainWeapon->GetBaseStaminaDrain());
+				// would eventually like character to attack while jumping
+				if (GetCharacterMovement()->IsMovingOnGround() == true)
+				{
+					ServerAttack();
+					bHasAttacked = true;
+					UseStamina(CurrentMainWeapon->GetBaseStaminaDrain());
+				}
 			}
 		}
 	}
