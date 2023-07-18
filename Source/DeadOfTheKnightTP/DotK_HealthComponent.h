@@ -65,6 +65,9 @@ public:
 	void SetCurrentHealth(float HPAmount) { CurrentHealth = HPAmount; }
 
 	UFUNCTION(BlueprintCallable)
+	void SetIsAlive(bool IsAlive) { bIsAlive = IsAlive; }
+
+	UFUNCTION(BlueprintCallable)
 	void SetCurrentHealthRegen(float CurrentRegenAmount) { CurrentHealthRegen = CurrentRegenAmount; }
 
 	UFUNCTION(BlueprintCallable)
